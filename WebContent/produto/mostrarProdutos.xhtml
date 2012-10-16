@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:composition template="template.xhtml">
+	
+	<ui:define name="titulo">
+		Área Administrativa
+	</ui:define>
+	
+	<ui:define name="conteudo">
+	<div id = "formulario">
+	<h:messages />
+	
+	<h:dataTable border = "1" id = "produtos"
+	var="item" value="#{produtoController.listarProdutos}"
+	style = "width: 396x">
+	
+	<h:column id = "colunaID">
+	<h:outputText value="#{item.id}" />
+	<f:facet name="header">
+	<h:outputText value="ID" />
+	</f:facet>
+	</h:column>
+	
+	<h:column id = "colunaDescricao">
+	<h:outputText value="#{item.nome}" />
+	<f:facet name="header">
+	<h:outputText value="Produto" />
+	</f:facet>
+	</h:column>
+	
+	<h:column id="colunaPreco">
+	<h:outputText value="#{item.preco}" >
+	<f:convertNumber type="currency"/>
+	</h:outputText>
+	<f:facet name="header">
+	<h:outputText value="Preço" />
+	</f:facet>
+	</h:column>	
+	
+	<h:column id = "colunaQuantidade">
+	<h:outputText value="#{item.quantidade}" />
+	<f:facet name="header">
+	<h:outputText value="Quantidade" />
+	</f:facet>
+	</h:column>
+	
+	<h:column id = "colunaQuantidadeMinima">
+	<h:outputText value="#{item.quantidadeMinima}" />
+	<f:facet name="header">
+	<h:outputText value="Quantidade Mínima" />
+	</f:facet>
+	</h:column>
+	
+	<h:column>	
+	<h:commandLink action="#{produtoController.editar}" value="Atualizar" />
+	<f:facet name="header">
+	<h:outputText value="Atualizar" />
+	</f:facet>
+	</h:column>
+	<h:column>
+		<h:commandLink action="#{produtoController.excluir}" value="Excluir" />
+		<f:facet name="header">
+		<h:outputText value="Excluir" />
+	</f:facet>
+	</h:column>
+	</h:dataTable>
+	</div>
+	</ui:define>	
+	</ui:composition>	
+	
+	
+</html>	
