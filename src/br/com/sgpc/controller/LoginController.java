@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import br.com.sgpc.dao.GenericoDAO;
 import br.com.sgpc.model.Usuario;
 
-@Controller("loginController")
+@Controller("login")
 @Scope("session")
 public class LoginController implements Serializable {
 
@@ -30,7 +30,7 @@ public class LoginController implements Serializable {
 	}	
 	
 	private Usuario verificaLogin(String login){
-		String query = "select u from usuario u where u.login = :login ";
+		String query = "select u from Usuario u where u.login = :login ";
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("login", login);		
 		return this.usuarioDAO.pesquisarObjetoPorParametro(query, params);
@@ -43,7 +43,7 @@ public class LoginController implements Serializable {
 			this.setResultado("Usuário/Senha inválido");
 		} else {
 			if(u != null && u.getSenha().equals(usuario.getSenha())){
-				return "/menu/template.xhtml";
+				return "logon_success";
 			} else {
 				this.setResultado("Usuário/Senha inválido");
 			}

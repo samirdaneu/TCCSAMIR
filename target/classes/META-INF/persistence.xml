@@ -2,6 +2,7 @@
 <persistence version="2.0"
 	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	
 	<persistence-unit name="SGPC">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>br.com.sgpc.model.Usuario</class>
@@ -12,7 +13,7 @@
 		<class>br.com.sgpc.model.ProdutoPedidoPK</class>
 		<class>br.com.sgpc.model.Fornecedor</class>
 		<properties>
-			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<!-- <property name="hibernate.hbm2ddl.auto" value="create" /> -->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 			<property name="hibernate.show_sql" value="true" />  
 			<property name="hibernate.format_sql" value="true"/>

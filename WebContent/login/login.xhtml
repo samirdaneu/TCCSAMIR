@@ -15,9 +15,9 @@
     	<p:messages id="messages" />  
         <h:panelGrid columns="2">  
             <h:outputLabel value="Login" />
-            <p:inputText value="#{loginController.usuario.login}" />  
+            <p:inputText value="#{login.usuario.login}" />  
             <h:outputLabel value="Senha" />  
-            <p:inputText value="#{loginController.usuario.senha}" />
+            <p:inputText value="#{login.usuario.senha}" />
             <p:commandButton value="Entrar" actionListener="#{login.logar}" update="resultado">
 				<f:setPropertyActionListener value="#{login.usuario}" target="#{menu.usuario}" />
 			</p:commandButton>

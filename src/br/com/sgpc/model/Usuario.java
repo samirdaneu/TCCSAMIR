@@ -1,5 +1,6 @@
 package br.com.sgpc.model;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -18,7 +19,9 @@ import org.hibernate.validator.constraints.Email;
 
 @Entity
 @Table(name = "usuario")
-public class Usuario {
+public class Usuario implements Serializable {
+
+	private static final long serialVersionUID = 839746810219584165L;
 
 	@Id
     @SequenceGenerator( name = "usuario_id", sequenceName = "usuario_seq", allocationSize = 1 )  

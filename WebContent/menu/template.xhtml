@@ -7,34 +7,13 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <head>
-	<meta http-equiv="Content-Type" content = "text/html; charset=UTF-8"
-/>
-	<title><ui:insert name="titulo"></ui:insert></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Menu</title>
 	<link href="css/default.css" rel="stylesheet" type="text/css" />
-	</head>
-	
-	<body>
-		<form id="form1" jsfc="h:form" enctype="multipart/form-data">
-		 <div id ="menu">
-		 	<h4>Menu Principal</h4>
-		 	<ul>
-		 	<li>
-		 		<a href="#" jsfc="h:commandLink"
-		 			action="#{produtoController.novoProduto}" immediate="true">
-		 			Cadastrar Produto
-		 		</a>
-		 	</li>
-		 	<li>
-		 		<a href="#" jsfc="h:commandLink"
-		 			action="#{produtoControllerlistarProdutos}" immediate="true">
-		 			Exibir Produtos
-		 		</a>
-		 	</li>
-		 	</ul>
-		 </div>
-		 <div id="conteudo">
-		 	<ui:insert name="conteudo"></ui:insert>
-		 </div>
-		 </form>
-		</body>	
-</html>
+</head>
+
+<h:body>
+	<h:form>
+		<h:outputText value="Bem vindo ao XXXX, #{menu.usuario.login}" />
+	</h:form>
+</h:body>
