@@ -41,13 +41,13 @@ public class UsuarioController implements Serializable {
 		try {
 			if (getUsuario().getId() == null){
 				usuarioDAO.salvar(getUsuario());
-				FacesUtilidades.mensagemInformação("Usuário cadastrado com sucesso!");
+				FacesUtilidades.mensagemInformacao("Usuï¿½rio cadastrado com sucesso!");
 			} else {
 				usuarioDAO.atualizar(getUsuario());
-				FacesUtilidades.mensagemInformação("Usuário cadastrado com sucesso!");
+				FacesUtilidades.mensagemInformacao("Usuï¿½rio cadastrado com sucesso!");
 			}
 		} catch (Exception e) {
-			FacesUtilidades.mensagemErro("Erro ao salvar/atualizar usuário");
+			FacesUtilidades.mensagemErro("Erro ao salvar/atualizar usuï¿½rio");
 			e.printStackTrace();
 		}			
 		

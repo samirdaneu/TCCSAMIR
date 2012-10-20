@@ -9,7 +9,7 @@ public class FacesUtilidades {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, mensagem, null));		
 	}
 	
-	public static void mensagemInformação(String mensagem){
+	public static void mensagemInformacao(String mensagem){
 		mensagem(mensagem, FacesMessage.SEVERITY_INFO);
 	}
 	

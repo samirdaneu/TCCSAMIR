@@ -41,10 +41,10 @@ public class PedidoController implements Serializable {
 		try {
 			if (getPedido().getId() == null){
 				pedidoDAO.salvar(getPedido());
-				FacesUtilidades.mensagemInformação("Pedido cadastrado com sucesso!");
+				FacesUtilidades.mensagemInformacao("Pedido cadastrado com sucesso!");
 			} else {
 				pedidoDAO.atualizar(getPedido());
-				FacesUtilidades.mensagemInformação("Pedido cadastrado com sucesso!");
+				FacesUtilidades.mensagemInformacao("Pedido cadastrado com sucesso!");
 			}
 		} catch (Exception e) {
 			FacesUtilidades.mensagemErro("Erro ao salvar/atualizar pedido");

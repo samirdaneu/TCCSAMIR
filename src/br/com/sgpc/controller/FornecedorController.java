@@ -11,7 +11,6 @@ import br.com.sgpc.dao.GenericoDAO;
 import br.com.sgpc.model.Fornecedor;
 import br.com.sgpc.utilidades.FacesUtilidades;
 
-
 @ManagedBean(name = "fornecedorController")
 @RequestScoped
 public class FornecedorController implements Serializable {
@@ -42,10 +41,10 @@ public class FornecedorController implements Serializable {
 		try {
 			if (getFornecedor().getId() == null){
 				fornecedorDAO.salvar(getFornecedor());
-				FacesUtilidades.mensagemInformação("Fornecedor cadastrado com sucesso!");
+				FacesUtilidades.mensagemInformacao("Fornecedor cadastrado com sucesso!");
 			} else {
 				fornecedorDAO.atualizar(getFornecedor());
-				FacesUtilidades.mensagemInformação("Fornecedor cadastrado com sucesso!");
+				FacesUtilidades.mensagemInformacao("Fornecedor cadastrado com sucesso!");
 			}
 		} catch (Exception e) {
 			FacesUtilidades.mensagemErro("Erro ao salvar/atualizar fornecedor");

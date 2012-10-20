@@ -41,10 +41,10 @@ public class ProdutoController implements Serializable {
 		try {
 			if (getProduto().getId() == null){
 				produtoDao.salvar(getProduto());
-				FacesUtilidades.mensagemInformação("Produto cadastrado com sucesso!");
+				FacesUtilidades.mensagemInformacao("Produto cadastrado com sucesso!");
 			} else {
 				produtoDao.atualizar(getProduto());
-				FacesUtilidades.mensagemInformação("Produto cadastrado com sucesso!");
+				FacesUtilidades.mensagemInformacao("Produto cadastrado com sucesso!");
 			}
 		} catch (Exception e) {
 			FacesUtilidades.mensagemErro("Erro ao salvar/atualizar produto");
