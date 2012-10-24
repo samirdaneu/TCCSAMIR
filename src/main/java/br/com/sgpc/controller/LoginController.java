@@ -5,15 +5,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
-
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 
 import br.com.sgpc.dao.GenericoDAO;
 import br.com.sgpc.model.Usuario;
 
-@Controller("login")
-@Scope("session")
+@ManagedBean(name = "login")
+@RequestScoped
 public class LoginController implements Serializable {
 
 	private static final long serialVersionUID = 2864294559845602900L;

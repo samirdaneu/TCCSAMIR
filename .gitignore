@@ -3,3 +3,5 @@
 target
 .classpath
 .project
+.faces-config.xml.jsfdia
+
