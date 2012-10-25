@@ -22,14 +22,15 @@
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
+	
+	<!-- Habilita a configurações de transações através de anotações-->
+	<tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager"/>
 
-	<tx:annotation-driven transaction-manager="transactionManager"/>
-
-	<bean id="usuarioDAO" class="br.com.sgpc.dao.impl.UsuarioDAOImpl" />
+	<!-- <bean id="usuarioDAO" class="br.com.sgpc.dao.impl.UsuarioDAOImpl" />
 	<bean id="pedidoDAO" class="br.com.sgpc.dao.impl.PedidoDAOImpl" />
 	<bean id="produtoDAO" class="br.com.sgpc.dao.impl.ProdutoDAOImpl" />
 	<bean id="produtoPedidoDAO" class="br.com.sgpc.dao.impl.ProdutoPedidoDAOImpl" />
 	<bean id="fornecedorDAO" class="br.com.sgpc.dao.impl.FornecedorDAOImpl" />
-	<bean id="clienteDAO" class="br.com.sgpc.dao.impl.ClienteDAOImpl" />
+	<bean id="clienteDAO" class="br.com.sgpc.dao.impl.ClienteDAOImpl" /> -->
 
 </beans>
