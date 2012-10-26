@@ -7,10 +7,17 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
-import br.com.sgpc.dao.GenericoDAO;
+import br.com.sgpc.dao.GenericDao;
 import br.com.sgpc.model.Pedido;
-import br.com.sgpc.utilidades.FacesUtilidades;
+import br.com.sgpc.util.FacesUtil;
 
+
+/**
+ * Controller com iterações com as telas relacionadas ao {@link PedidoController}
+ * @author Samir Daneu
+ * @since 01/10/2012
+ *
+ */
 @ManagedBean(name = "pedidoController")
 @RequestScoped
 public class PedidoController implements Serializable {
@@ -19,7 +26,7 @@ public class PedidoController implements Serializable {
 	
 	private Pedido pedido;
 	
-	private GenericoDAO<Pedido, Integer> pedidoDAO;
+	private GenericDao<Pedido, Integer> pedidoDAO;
 	
 	private DataModel model;
 	
@@ -41,13 +48,13 @@ public class PedidoController implements Serializable {
 		try {
 			if (getPedido().getId() == null){
 				pedidoDAO.salvar(getPedido());
-				FacesUtilidades.mensagemInformacao("Pedido cadastrado com sucesso!");
+				FacesUtil.mensagemInformacao("Pedido cadastrado com sucesso!");
 			} else {
 				pedidoDAO.atualizar(getPedido());
-				FacesUtilidades.mensagemInformacao("Pedido cadastrado com sucesso!");
+				FacesUtil.mensagemInformacao("Pedido cadastrado com sucesso!");
 			}
 		} catch (Exception e) {
-			FacesUtilidades.mensagemErro("Erro ao salvar/atualizar pedido");
+			FacesUtil.mensagemErro("Erro ao salvar/atualizar pedido");
 			e.printStackTrace();
 		}			
 		

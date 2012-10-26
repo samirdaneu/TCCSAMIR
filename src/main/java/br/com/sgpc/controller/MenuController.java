@@ -7,6 +7,12 @@ import javax.faces.bean.RequestScoped;
 
 import br.com.sgpc.model.Usuario;
 
+/**
+ * Controller com iterações com as telas relacionadas ao {@link MenuController}
+ * @author Samir Daneu
+ * @since 01/10/2012
+ *
+ */
 @ManagedBean(name = "menu")
 @RequestScoped
 public class MenuController implements Serializable {

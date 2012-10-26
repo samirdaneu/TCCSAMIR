@@ -7,10 +7,17 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
-import br.com.sgpc.dao.GenericoDAO;
+import br.com.sgpc.dao.GenericDao;
 import br.com.sgpc.model.Produto;
-import br.com.sgpc.utilidades.FacesUtilidades;
+import br.com.sgpc.util.FacesUtil;
 
+
+/**
+ * Controller com iterações com as telas relacionadas ao {@link ProdutoController}
+ * @author Samir Daneu
+ * @since 01/10/2012
+ *
+ */
 @ManagedBean(name = "produtoController")
 @RequestScoped
 public class ProdutoController implements Serializable {
@@ -19,7 +26,7 @@ public class ProdutoController implements Serializable {
 	
 	private Produto produto;
 	
-	private GenericoDAO<Produto, Integer> produtoDao;
+	private GenericDao<Produto, Integer> produtoDao;
 	
 	private DataModel model;
 	
@@ -41,13 +48,13 @@ public class ProdutoController implements Serializable {
 		try {
 			if (getProduto().getId() == null){
 				produtoDao.salvar(getProduto());
-				FacesUtilidades.mensagemInformacao("Produto cadastrado com sucesso!");
+				FacesUtil.mensagemInformacao("Produto cadastrado com sucesso!");
 			} else {
 				produtoDao.atualizar(getProduto());
-				FacesUtilidades.mensagemInformacao("Produto cadastrado com sucesso!");
+				FacesUtil.mensagemInformacao("Produto cadastrado com sucesso!");
 			}
 		} catch (Exception e) {
-			FacesUtilidades.mensagemErro("Erro ao salvar/atualizar produto");
+			FacesUtil.mensagemErro("Erro ao salvar/atualizar produto");
 			e.printStackTrace();
 		}			
 		

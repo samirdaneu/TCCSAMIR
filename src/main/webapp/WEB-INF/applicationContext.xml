@@ -16,7 +16,8 @@
 	</bean>
 	
 	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/> 
-	<context:component-scan base-package="br.com.sgpc.controller" />
+	<context:component-scan base-package="br.com.sgpc" />
+	
 	<context:annotation-config />
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">

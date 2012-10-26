@@ -1,53 +1,58 @@
 package br.com.sgpc.controller;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.Resource;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
-import br.com.sgpc.dao.GenericoDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import br.com.sgpc.model.Usuario;
+import br.com.sgpc.service.LoginService;
+import br.com.sgpc.service.UsuarioService;
 
+/**
+ * Controller com itera√ß√µes com as telas relacionadas ao {@link LoginController}
+ * @author Samir Daneu
+ * @since 01/10/2012
+ *
+ */
 @ManagedBean(name = "login")
-@RequestScoped
-public class LoginController implements Serializable {
+@ViewScoped
+public class LoginController implements AlphaController {
 
-	private static final long serialVersionUID = 2864294559845602900L;
+	private static final long serialVersionUID = 3204266186679032413L;
+
+	@Autowired
+	private UsuarioService usuarioService;
 	
-	@Resource
-	private GenericoDAO<Usuario, Integer> usuarioDAO;
+	@Autowired
+	private LoginService loginService;
 	
 	private Usuario usuario;
-	
 	private String resultado;
 	
-	public LoginController() {
-		this.setUsuario(new Usuario());
-	}	
+	public LoginController() { }
 	
-	private Usuario verificaLogin(String login){
-		String query = "select u from Usuario u where u.login = :login ";
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("login", login);		
-		return this.usuarioDAO.pesquisarObjetoPorParametro(query, params);
+	@Override
+	@PostConstruct
+	public void inicio() {
+		usuario = new Usuario();
 	}
 	
-	public String logar(){
-		Usuario u = verificaLogin(usuario.getLogin());
+	/**
+	 * Metodo que valida se o usuario tem acesso ao sistema
+	 * @return
+	 */
+	public String logar() {
+		boolean existe = usuarioService.verificarSeLoginExiste( usuario.getLogin() );
 		
-		if(u == null){
-			this.setResultado("Usu·rio/Senha inv·lido");
-		} else {
-			if(u != null && u.getSenha().equals(usuario.getSenha())){
+		if(existe) {			
+			final Usuario usuarioBase = usuarioService.procurarUsuarioPeloLogin( usuario.getLogin() );
+			if( loginService.senhasIguais(usuario.getSenha(), usuarioBase.getSenha()) ) {
 				return "logon_success";
-			} else {
-				this.setResultado("Usu·rio/Senha inv·lido");
 			}
-		}
-		
+		} 
+		resultado = "Login ou senha inv√°lido(a)";
 		return "";	
 	}
 	
@@ -65,5 +70,21 @@ public class LoginController implements Serializable {
 
 	public String getResultado() {
 		return resultado;
+	}
+
+	public UsuarioService getUsuarioService() {
+		return usuarioService;
+	}
+
+	public void setUsuarioService(UsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
+	}
+
+	public LoginService getLoginService() {
+		return loginService;
+	}
+
+	public void setLoginService(LoginService loginService) {
+		this.loginService = loginService;
 	}
 }

@@ -7,10 +7,16 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
-import br.com.sgpc.dao.GenericoDAO;
+import br.com.sgpc.dao.GenericDao;
 import br.com.sgpc.model.Fornecedor;
-import br.com.sgpc.utilidades.FacesUtilidades;
+import br.com.sgpc.util.FacesUtil;
 
+/**
+ * Controller com iterações com as telas relacionadas ao {@link FornecedorController}
+ * @author Samir Daneu
+ * @since 01/10/2012
+ *
+ */
 @ManagedBean(name = "fornecedorController")
 @RequestScoped
 public class FornecedorController implements Serializable {
@@ -19,7 +25,7 @@ public class FornecedorController implements Serializable {
 	
 	private Fornecedor fornecedor;
 	
-	private GenericoDAO<Fornecedor, Integer> fornecedorDAO;
+	private GenericDao<Fornecedor, Integer> fornecedorDAO;
 	
 	private DataModel model;
 
@@ -41,13 +47,13 @@ public class FornecedorController implements Serializable {
 		try {
 			if (getFornecedor().getId() == null){
 				fornecedorDAO.salvar(getFornecedor());
-				FacesUtilidades.mensagemInformacao("Fornecedor cadastrado com sucesso!");
+				FacesUtil.mensagemInformacao("Fornecedor cadastrado com sucesso!");
 			} else {
 				fornecedorDAO.atualizar(getFornecedor());
-				FacesUtilidades.mensagemInformacao("Fornecedor cadastrado com sucesso!");
+				FacesUtil.mensagemInformacao("Fornecedor cadastrado com sucesso!");
 			}
 		} catch (Exception e) {
-			FacesUtilidades.mensagemErro("Erro ao salvar/atualizar fornecedor");
+			FacesUtil.mensagemErro("Erro ao salvar/atualizar fornecedor");
 			e.printStackTrace();
 		}			
 		

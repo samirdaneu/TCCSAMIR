@@ -7,10 +7,16 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
-import br.com.sgpc.dao.GenericoDAO;
+import br.com.sgpc.dao.GenericDao;
 import br.com.sgpc.model.Usuario;
-import br.com.sgpc.utilidades.FacesUtilidades;
+import br.com.sgpc.util.FacesUtil;
 
+/**
+ * Controller com iterações com as telas relacionadas ao {@link UsuarioController}
+ * @author Samir Daneu
+ * @since 01/10/2012
+ *
+ */
 @ManagedBean(name = "usuarioController")
 @RequestScoped
 public class UsuarioController implements Serializable {
@@ -19,7 +25,7 @@ public class UsuarioController implements Serializable {
 	
 	private Usuario usuario;
 	
-	private GenericoDAO<Usuario, Integer> usuarioDAO;
+	private GenericDao<Usuario, Integer> usuarioDAO;
 	
 	private DataModel model;
 	
@@ -41,13 +47,13 @@ public class UsuarioController implements Serializable {
 		try {
 			if (getUsuario().getId() == null){
 				usuarioDAO.salvar(getUsuario());
-				FacesUtilidades.mensagemInformacao("Usu�rio cadastrado com sucesso!");
+				FacesUtil.mensagemInformacao("Usu�rio cadastrado com sucesso!");
 			} else {
 				usuarioDAO.atualizar(getUsuario());
-				FacesUtilidades.mensagemInformacao("Usu�rio cadastrado com sucesso!");
+				FacesUtil.mensagemInformacao("Usu�rio cadastrado com sucesso!");
 			}
 		} catch (Exception e) {
-			FacesUtilidades.mensagemErro("Erro ao salvar/atualizar usu�rio");
+			FacesUtil.mensagemErro("Erro ao salvar/atualizar usu�rio");
 			e.printStackTrace();
 		}			
 		

@@ -1,4 +1,4 @@
-package br.com.sgpc.utilidades;
+package br.com.sgpc.util;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
