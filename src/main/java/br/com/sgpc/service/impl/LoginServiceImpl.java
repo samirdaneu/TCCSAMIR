@@ -1,5 +1,7 @@
 package br.com.sgpc.service.impl;
 
+import org.springframework.stereotype.Service;
+
 import br.com.sgpc.service.LoginService;
 
 /**
@@ -8,6 +10,7 @@ import br.com.sgpc.service.LoginService;
  * @since 25/10/2012
  *
  */
+@Service
 public class LoginServiceImpl implements LoginService {
 
 	private static final long serialVersionUID = 4910026451945303018L;

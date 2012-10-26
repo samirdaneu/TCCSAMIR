@@ -1,7 +1,5 @@
 package br.com.sgpc.dao;
 
-import org.springframework.stereotype.Repository;
-
 import br.com.sgpc.model.Usuario;
 
 /**
@@ -10,7 +8,6 @@ import br.com.sgpc.model.Usuario;
  * @since 01/10/2012
  *
  */
-@Repository
 public interface UsuarioDao extends GenericDao<Usuario, Integer> {
 
 }

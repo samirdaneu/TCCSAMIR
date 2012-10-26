@@ -1,7 +1,5 @@
 package br.com.sgpc.dao;
 
-import org.springframework.stereotype.Repository;
-
 import br.com.sgpc.model.Fornecedor;
 
 /**
@@ -10,7 +8,6 @@ import br.com.sgpc.model.Fornecedor;
  * @since 01/10/2012
  *
  */
-@Repository
 public interface FornecedorDao extends GenericDao<Fornecedor, Integer> {
 
 }

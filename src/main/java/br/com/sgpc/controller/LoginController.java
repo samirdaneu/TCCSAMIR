@@ -5,6 +5,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import br.com.sgpc.model.Usuario;
 import br.com.sgpc.service.LoginService;
@@ -18,6 +19,7 @@ import br.com.sgpc.service.UsuarioService;
  */
 @ManagedBean(name = "login")
 @ViewScoped
+@Controller
 public class LoginController implements AlphaController {
 
 	private static final long serialVersionUID = 3204266186679032413L;

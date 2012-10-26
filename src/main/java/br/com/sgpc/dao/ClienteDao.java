@@ -1,7 +1,5 @@
 package br.com.sgpc.dao;
 
-import org.springframework.stereotype.Repository;
-
 import br.com.sgpc.model.Cliente;
 
 /**
@@ -10,7 +8,6 @@ import br.com.sgpc.model.Cliente;
  * @since 01/10/2012
  *
  */
-@Repository
 public interface ClienteDao extends GenericDao<Cliente, Integer> {
 	
 }

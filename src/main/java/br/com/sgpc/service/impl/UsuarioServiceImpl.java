@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.com.sgpc.dao.UsuarioDao;
 import br.com.sgpc.model.Usuario;
@@ -16,6 +17,7 @@ import br.com.sgpc.service.UsuarioService;
  * @since 25/10/2012
  *
  */
+@Service
 public class UsuarioServiceImpl implements UsuarioService {
 
 	private static final long serialVersionUID = 2453278820347973699L;

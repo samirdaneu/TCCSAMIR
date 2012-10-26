@@ -30,12 +30,12 @@ public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T,
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	private final Class<T> objectClass;
+	//private Class<T> objectClass;
 
-	@SuppressWarnings("unchecked")
-	public GenericDaoImpl() {
-		objectClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];		
-	}
+	//@SuppressWarnings("unchecked")
+	public GenericDaoImpl() { }
+	
+	// objectClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
@@ -60,13 +60,13 @@ public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T,
 
 	@Override
 	public T buscarPorID(ID id) {
-		return (T) entityManager.find(objectClass, id);
+		return (T) entityManager.find(getObjectClass(), id);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> buscarTodos() {
-		String sql = "select obj from " + objectClass.getSimpleName() + "obj";
+		String sql = "select obj from " + getObjectClass().getSimpleName() + "obj";
 		Query query = entityManager.createQuery(sql);
 		return query.getResultList();
 	}
@@ -96,8 +96,9 @@ public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T,
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public Class<T> getObjectClass() {
-		return this.objectClass;
+		return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
 	@SuppressWarnings("unchecked")

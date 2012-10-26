@@ -2,8 +2,6 @@ package br.com.sgpc.service;
 
 import java.io.Serializable;
 
-import org.springframework.stereotype.Service;
-
 import br.com.sgpc.model.Usuario;
 
 /**
@@ -12,7 +10,6 @@ import br.com.sgpc.model.Usuario;
  * @since 25/10/2012
  *
  */
-@Service
 public interface UsuarioService extends Serializable {
 	
 	/**

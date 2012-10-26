@@ -2,15 +2,12 @@ package br.com.sgpc.service;
 
 import java.io.Serializable;
 
-import org.springframework.stereotype.Service;
-
 /**
  * Service com regras de negocio relacionadas a login
  * @author Guilherme Gambeti
  * @since 25/10/2012
  *
  */
-@Service
 public interface LoginService extends Serializable {
 	
 	/**

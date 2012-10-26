@@ -1,5 +1,7 @@
 package br.com.sgpc.dao.impl;
 
+import org.springframework.stereotype.Repository;
+
 import br.com.sgpc.dao.PedidoDao;
 import br.com.sgpc.dao.ProdutoDao;
 import br.com.sgpc.model.Produto;
@@ -10,6 +12,7 @@ import br.com.sgpc.model.Produto;
  * @since 01/10/2012
  *
  */
+@Repository
 public class ProdutoDaoImpl extends GenericDaoImpl<Produto, Integer> implements ProdutoDao {
 
 	private static final long serialVersionUID = -4276880275402474222L;

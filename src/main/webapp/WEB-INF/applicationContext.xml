@@ -27,11 +27,10 @@
 	<!-- Habilita a configurações de transações através de anotações-->
 	<tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager"/>
 
-	<!-- <bean id="usuarioDAO" class="br.com.sgpc.dao.impl.UsuarioDAOImpl" />
-	<bean id="pedidoDAO" class="br.com.sgpc.dao.impl.PedidoDAOImpl" />
-	<bean id="produtoDAO" class="br.com.sgpc.dao.impl.ProdutoDAOImpl" />
-	<bean id="produtoPedidoDAO" class="br.com.sgpc.dao.impl.ProdutoPedidoDAOImpl" />
-	<bean id="fornecedorDAO" class="br.com.sgpc.dao.impl.FornecedorDAOImpl" />
-	<bean id="clienteDAO" class="br.com.sgpc.dao.impl.ClienteDAOImpl" /> -->
-
+	<bean id="usuarioDao" class="br.com.sgpc.dao.impl.UsuarioDaoImpl" />
+	<bean id="pedidoDao" class="br.com.sgpc.dao.impl.PedidoDaoImpl" />
+	<bean id="produtoDao" class="br.com.sgpc.dao.impl.ProdutoDaoImpl" />
+	<bean id="produtoPedidoDao" class="br.com.sgpc.dao.impl.ProdutoPedidoDaoImpl" />
+	<bean id="fornecedorDao" class="br.com.sgpc.dao.impl.FornecedorDaoImpl" />
+	<bean id="clienteDao" class="br.com.sgpc.dao.impl.ClienteDaoImpl" />
 </beans>
