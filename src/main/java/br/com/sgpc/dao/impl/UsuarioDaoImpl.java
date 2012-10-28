@@ -11,7 +11,7 @@ import br.com.sgpc.model.Usuario;
  * @since 01/10/2012
  *
  */
-@Repository
+@Repository( value = "usuarioDao" )
 public class UsuarioDaoImpl extends GenericDaoImpl<Usuario, Integer> implements UsuarioDao {
 
 	private static final long serialVersionUID = 4240090695801913199L;

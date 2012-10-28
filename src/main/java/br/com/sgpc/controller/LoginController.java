@@ -1,10 +1,9 @@
 package br.com.sgpc.controller;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
+import javax.annotation.Resource;
 import javax.faces.bean.ViewScoped;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import br.com.sgpc.model.Usuario;
@@ -17,17 +16,16 @@ import br.com.sgpc.service.UsuarioService;
  * @since 01/10/2012
  *
  */
-@ManagedBean(name = "login")
+@Controller( value = "login" )
 @ViewScoped
-@Controller
 public class LoginController implements AlphaController {
 
 	private static final long serialVersionUID = 3204266186679032413L;
-
-	@Autowired
+	
+	@Resource( name = "usuarioService" )
 	private UsuarioService usuarioService;
 	
-	@Autowired
+	@Resource( name = "loginService" )
 	private LoginService loginService;
 	
 	private Usuario usuario;

@@ -12,7 +12,7 @@ import br.com.sgpc.model.Cliente;
  * @since 01/10/2012
  *
  */
-@Repository
+@Repository( value = "clienteDao" )
 public class ClienteDaoImpl extends GenericDaoImpl<Cliente, Integer> implements ClienteDao {
 
 	private static final long serialVersionUID = 938100030575902274L;

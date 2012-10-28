@@ -10,7 +10,7 @@ import br.com.sgpc.service.LoginService;
  * @since 25/10/2012
  *
  */
-@Service
+@Service( value = "loginService" )
 public class LoginServiceImpl implements LoginService {
 
 	private static final long serialVersionUID = 4910026451945303018L;

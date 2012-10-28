@@ -11,7 +11,7 @@ import br.com.sgpc.model.Fornecedor;
  * @since 01/10/2012
  *
  */
-@Repository
+@Repository( value = "fornecedorDao" )
 public class FornecedorDaoImpl extends GenericDaoImpl<Fornecedor, Integer> implements FornecedorDao {
 
 	private static final long serialVersionUID = 2095513772858509524L;

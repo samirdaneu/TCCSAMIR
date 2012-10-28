@@ -12,7 +12,7 @@ import br.com.sgpc.model.ProdutoPedidoPK;
  * @since 01/10/2012
  *
  */
-@Repository
+@Repository( value = "produtoPedidoDao" )
 public class ProdutoPedidoDaoImpl extends GenericDaoImpl<ProdutoPedido, ProdutoPedidoPK> implements ProdutoPedidoDao {
 
 	private static final long serialVersionUID = 2535707997114055162L;

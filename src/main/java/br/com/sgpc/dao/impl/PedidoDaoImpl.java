@@ -11,7 +11,7 @@ import br.com.sgpc.model.Pedido;
  * @since 01/10/2012
  *
  */
-@Repository
+@Repository( value = "pedidoDao" )
 public class PedidoDaoImpl extends GenericDaoImpl<Pedido, Integer> implements PedidoDao {
 
 	private static final long serialVersionUID = 5297987709197264289L;

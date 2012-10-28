@@ -3,7 +3,8 @@ package br.com.sgpc.service.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
 import br.com.sgpc.dao.UsuarioDao;
@@ -17,16 +18,16 @@ import br.com.sgpc.service.UsuarioService;
  * @since 25/10/2012
  *
  */
-@Service
+@Service( value = "usuarioService" )
 public class UsuarioServiceImpl implements UsuarioService {
 
 	private static final long serialVersionUID = 2453278820347973699L;
 	
-	@Autowired
+	@Resource( name = "usuarioDao" )
 	private UsuarioDao usuarioDao;
 	
 	@Override
-	public boolean verificarSeLoginExiste(final String login){
+	public boolean verificarSeLoginExiste(final String login) {
 		
 		boolean existe = procurarUsuarioPeloLogin( login ) != null;
 		return existe;
@@ -35,7 +36,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public Usuario procurarUsuarioPeloLogin(final String login) {
 		
-		if(login == null) {
+		if( login == null ) {
 			throw new IllegalArgumentException(); // TODO: colocar bundle pelo eclipse na app
 		}
 		
@@ -44,5 +45,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 		params.put("login", login);		
 		
 		return usuarioDao.pesquisarObjetoPorParametro(query, params);
+	}
+
+	public void setUsuarioDao(UsuarioDao usuarioDao) {
+		this.usuarioDao = usuarioDao;
 	}
 }

@@ -10,14 +10,13 @@
                         http://www.springframework.org/schema/tx
                         http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="persistenceUnitName" value="SGPC" />
 	</bean>
 	
 	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/> 
-	<context:component-scan base-package="br.com.sgpc" />
 	
+	<context:component-scan base-package="br.com.sgpc" />
 	<context:annotation-config />
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
@@ -27,10 +26,15 @@
 	<!-- Habilita a configurações de transações através de anotações-->
 	<tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager"/>
 
-	<bean id="usuarioDao" class="br.com.sgpc.dao.impl.UsuarioDaoImpl" />
+	<!-- <bean id="usuarioDao" class="br.com.sgpc.dao.impl.UsuarioDaoImpl" />
 	<bean id="pedidoDao" class="br.com.sgpc.dao.impl.PedidoDaoImpl" />
 	<bean id="produtoDao" class="br.com.sgpc.dao.impl.ProdutoDaoImpl" />
 	<bean id="produtoPedidoDao" class="br.com.sgpc.dao.impl.ProdutoPedidoDaoImpl" />
 	<bean id="fornecedorDao" class="br.com.sgpc.dao.impl.FornecedorDaoImpl" />
 	<bean id="clienteDao" class="br.com.sgpc.dao.impl.ClienteDaoImpl" />
+	
+	<bean id="loginService" class="br.com.sgpc.service.impl.LoginServiceImpl">
+	</bean>
+	<bean id="usuarioService" class="br.com.sgpc.service.impl.UsuarioServiceImpl"> 
+	</bean>-->
 </beans>
