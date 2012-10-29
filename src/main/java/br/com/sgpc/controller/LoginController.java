@@ -52,7 +52,7 @@ public class LoginController implements AlphaController {
 				return "logon_success";
 			}
 		} 
-		resultado = "Login ou senha inv√°lido(a)";
+		resultado = "Login ou senha inv·lido!";
 		return "";	
 	}
 	
