@@ -1,14 +1,18 @@
 package br.com.sgpc.controller;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.annotation.Resource;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
-import br.com.sgpc.dao.GenericDao;
+import br.com.sgpc.model.Fornecedor;
 import br.com.sgpc.model.Produto;
+import br.com.sgpc.service.FornecedorService;
+import br.com.sgpc.service.ProdutoService;
 import br.com.sgpc.util.FacesUtil;
 
 
@@ -26,7 +30,13 @@ public class ProdutoController implements Serializable {
 	
 	private Produto produto;
 	
-	private GenericDao<Produto, Integer> produtoDao;
+	private List<Fornecedor> fornecedores;
+	
+	@Resource( name = "usuarioService" )
+	private ProdutoService produtoService;	
+	
+	@Resource( name = "fornecedorService" )
+	private FornecedorService fornecedorService;
 	
 	private DataModel model;
 	
@@ -40,17 +50,17 @@ public class ProdutoController implements Serializable {
 	}
 	
 	public DataModel listarProdutos(){
-		model = new ListDataModel(this.produtoDao.buscarTodos());
+		model = new ListDataModel(this.produtoService.buscarTodos());
 		return model;
 	}
 	
 	public String salvarProduto(){
 		try {
 			if (getProduto().getId() == null){
-				produtoDao.salvar(getProduto());
+				produtoService.salvar(getProduto());
 				FacesUtil.mensagemInformacao("Produto cadastrado com sucesso!");
 			} else {
-				produtoDao.atualizar(getProduto());
+				produtoService.atualizar(getProduto());
 				FacesUtil.mensagemInformacao("Produto cadastrado com sucesso!");
 			}
 		} catch (Exception e) {
@@ -73,7 +83,7 @@ public class ProdutoController implements Serializable {
 	
 	public String excluir(){
 		Produto produto = getProdutoParaEditarExcluir();
-		this.produtoDao.excluir(produto);
+		this.produtoService.excluir(produto);
 		return "mostrarProdutos";
 	}
 
@@ -83,5 +93,13 @@ public class ProdutoController implements Serializable {
 
 	public Produto getProduto() {
 		return produto;
+	}
+
+	public void setFornecedores(List<Fornecedor> fornecedores) {
+		this.fornecedores = fornecedores;
+	}
+
+	public List<Fornecedor> getFornecedores() {
+		return this.fornecedores = this.fornecedorService.buscarTodos();
 	}	
 }

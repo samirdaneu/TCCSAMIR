@@ -5,73 +5,57 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
 	xmlns:p="http://primefaces.org/ui">
-	
-	<ui:composition template="template.xhtml">
-	
-	<ui:define name="titulo">
-	Área Administrativa
-	</ui:define>
-	
-	<ui:define name = "conteudo">
-	<div id = "formulario">
-	<h:panelGrid columns = "3">
-	<h:outputText value="Código:" />
-	<h:inputText id = "codigo"
-		value="#{produtoController.produto.codigo}"
-		required = "false" maxlength="10" size="40"
-	>
-	</h:inputText>
-	<h:message  for="codigo"/>	 
-	
-	<h:outputText value="Descrição:" />
-	<h:inputText id = "descricao" rows = "2" cols="35"
-		value="#{produtoController.produto.descricao}"
-		required = "true"
-		requiredMessage="Campo obrigatório"
-		validatorMessage="Máximo de 30 caracteres">
-		<f:validateLength maximum="30"/>
-	</h:inputText>
-	<h:message  for="descricao"/>
-	
-	<h:outputText value="Preço:" />
-	<h:inputText id = "preco"
-		value="#{produtoController.produto.preco}"
-		size="10"
-		required="true"
-		requiredMessage="Campo obrigatório"
-		converterMessage="Digite o preço corretamente">		
-		<f:convertNumber groupingUsed="true" maxFractionDigits="2"/>
-	</h:inputText>
-	<h:message  for="preco"/>
-	
-	<h:outputText value="Quantidade:" />
-	<h:inputText id = "quantidade"
-		value="#{produtoController.produto.quantidade}"
-		size="7"
-		required="true"
-		requiredMessage="Campo obrigatório"
-		converterMessage="Digite a quantidade corretamente">		
-		<f:convertNumber maxIntegerDigits="7"/>
-	</h:inputText>
-	<h:message  for="quantidade"/>
-	
-	<h:outputText value="Quantidade Mínima:" />
-	<h:inputText id = "quantidadeMinima"
-		value="#{produtoController.produto.quantidadeMinima}"
-		size="7"
-		required="false"
-		converterMessage="Digite a quantidade corretamente!">		
-		<f:convertNumber maxIntegerDigits="7"/>
-	</h:inputText>
-	<h:message  for="quantidadeMinima"/>
-	</h:panelGrid>
-	
-	<h:panelGrid columns="2">
-	<h:commandButton action="#{produtoController.salvarProduto}" value="Salvar" />
-	<h:commandButton action="cancelar" value="Cancelar" immediate="true" />
-	</h:panelGrid>
-	
-	</div>
-	</ui:define>
-	</ui:composition>
-</html>	
+
+<h:body>
+	<h:form>
+		<p:panelGrid columns="2">
+			<f:facet name="header">  
+       		 Cadastro de Produto  
+    		</f:facet>
+			
+			<h:outputLabel for="fornecedor" value="Fornecedor: " />
+			 			
+			<h:outputLabel for="codigo" value="Código: " />
+			<p:inputText id="codigo" value="#{produtoController.produto.codigo}"
+				required="false" maxlength="10" size="110">
+			</p:inputText>	
+
+			<h:outputLabel for="descricao" value="Descrição: " />
+			<p:inputText id="descricao" rows="2" cols="40"
+				value="#{produtoController.produto.descricao}" required="true"
+				requiredMessage="Campo obrigatório"
+				validatorMessage="Máximo de 40 caracteres">
+				<f:validateLength maximum="40" />
+			</p:inputText>
+
+			<h:outputLabel for="preco" value="Preço: " />
+			<p:inputText id="preco" value="#{produtoController.produto.preco}"
+				size="7" required="true" requiredMessage="Campo obrigatório"
+				converterMessage="Digite o preço corretamente">
+				<f:convertNumber groupingUsed="true" maxFractionDigits="2" />
+			</p:inputText>
+
+			<h:outputLabel for="quantidade" value="Quantidade: " />
+			<p:inputText id="quantidade"
+				value="#{produtoController.produto.quantidade}" size="7"
+				required="true" requiredMessage="Campo obrigatório"
+				converterMessage="Digite a quantidade corretamente">
+				<f:convertNumber maxIntegerDigits="7" />
+			</p:inputText>
+
+			<h:outputLabel for="quantidadeMinima" value="Quantidade Limite: " />
+			<p:inputText id="quantidadeMinima"
+				value="#{produtoController.produto.quantidadeLimite}" size="7"
+				required="false"
+				converterMessage="Digite a quantidade corretamente!">
+				<f:convertNumber maxIntegerDigits="7" />
+			</p:inputText>
+
+			<f:facet name="footer">
+				<p:commandButton type="button" value="Salvar" icon="ui-icon-check"
+					style="margin:0" action="#{produtoController.salvarProduto}" />
+			</f:facet>			
+		</p:panelGrid>
+	</h:form>
+</h:body>		
+</html>
