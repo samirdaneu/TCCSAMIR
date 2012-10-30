@@ -36,8 +36,8 @@ public class Produto implements Serializable {
 	@Column(name = "preco_produto", nullable = false)
 	private BigDecimal preco;
 	
-	@Column(name = "valor_desconto_produto", nullable = false)
-	private BigDecimal valorDesconto;
+	@Column(name = "percentual_desconto", nullable = true)
+	private BigDecimal percentualDesconto;
 	
 	@Column(name = "quantidade_produto", nullable = false)
 	private int quantidade;
@@ -55,7 +55,7 @@ public class Produto implements Serializable {
 
 	public String getDescricao() {
 		return descricao;
-	}
+	}	
 
 	public int getQuantidade() {
 		return quantidade;
@@ -89,14 +89,6 @@ public class Produto implements Serializable {
 		return id;
 	}
 
-	public void setValorDesconto(BigDecimal valorDesconto) {
-		this.valorDesconto = valorDesconto;
-	}
-
-	public BigDecimal getValorDesconto() {
-		return valorDesconto;
-	}
-
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
@@ -111,6 +103,14 @@ public class Produto implements Serializable {
 
 	public Fornecedor getFornecedor() {
 		return fornecedor;
+	}
+
+	public void setPercentualDesconto(BigDecimal percentualDesconto) {
+		this.percentualDesconto = percentualDesconto;
+	}
+
+	public BigDecimal getPercentualDesconto() {
+		return percentualDesconto;
 	}	
 	
 }

@@ -73,15 +73,18 @@ public class ProdutoController implements AlphaController {
 				
 				produto.setFornecedor( fornecedor );
 				produtoService.salvar( produto );
-				FacesUtil.mensagemInformacao("Produto cadastrado com sucesso!");
+				resultado = "Produto cadastrado com sucesso!";
+				//FacesUtil.mensagemInformacao("Produto cadastrado com sucesso!");
 				
 			} else {
 				
 				produtoService.atualizar( produto );
-				FacesUtil.mensagemInformacao("Produto cadastrado com sucesso!");
+				resultado = "Produto cadastrado com sucesso!";
+				//FacesUtil.mensagemInformacao("Produto cadastrado com sucesso!");
 			}
 		} catch (Exception e) {
-			FacesUtil.mensagemErro("Erro ao salvar/atualizar produto");
+			//FacesUtil.mensagemErro("Erro ao salvar/atualizar produto");
+			resultado = "Erro ao salvar/atualizar produto!";
 			e.printStackTrace();
 		}			
 		
