@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 
 import br.com.sgpc.model.Usuario;
 import br.com.sgpc.service.LoginService;
+import br.com.sgpc.service.MessageBundleService;
 import br.com.sgpc.service.UsuarioService;
+import br.com.sgpc.util.FacesUtil;
 
 /**
  * Controller com iterações com as telas relacionadas ao {@link LoginController}
@@ -28,10 +30,10 @@ public class LoginController implements AlphaController {
 	@Resource( name = "loginService" )
 	private LoginService loginService;
 	
-	private Usuario usuario;
-	private String resultado;
+	@Resource( name = "messageBundleService" )
+	private MessageBundleService messageBundleService;
 	
-	public LoginController() { }
+	private Usuario usuario;
 	
 	@Override
 	@PostConstruct
@@ -52,8 +54,8 @@ public class LoginController implements AlphaController {
 				return "logon_success";
 			}
 		} 
-		resultado = "Login ou senha inv�lido!";
-		return "";	
+		FacesUtil.mensagemErro( messageBundleService.recoveryMessage("login_senha_invalido") );
+		return null;	
 	}
 	
 	public void setUsuario(Usuario usuario) {
@@ -64,27 +66,15 @@ public class LoginController implements AlphaController {
 		return usuario;
 	}
 
-	public void setResultado(String resultado) {
-		this.resultado = resultado;
-	}
-
-	public String getResultado() {
-		return resultado;
-	}
-
-	public UsuarioService getUsuarioService() {
-		return usuarioService;
-	}
-
 	public void setUsuarioService(UsuarioService usuarioService) {
 		this.usuarioService = usuarioService;
 	}
 
-	public LoginService getLoginService() {
-		return loginService;
-	}
-
 	public void setLoginService(LoginService loginService) {
 		this.loginService = loginService;
+	}
+
+	public void setMessageBundleService(MessageBundleService messageBundleService) {
+		this.messageBundleService = messageBundleService;
 	}
 }

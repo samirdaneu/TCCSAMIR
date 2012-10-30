@@ -25,5 +25,8 @@
 	
 	<!-- Habilita a configurações de transações através de anotações-->
 	<tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager"/>
-
+	
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:/locale-bundle/messages_pt_BR" />
+	</bean>
 </beans>

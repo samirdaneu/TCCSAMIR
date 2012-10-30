@@ -4,26 +4,30 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:spring="http://www.springframework.org/tags">
 
-<h:head>
-	<title>SISTEMA DE LOJA</title>
-</h:head>
-<h:body>
-	<h:form>  
-    <p:panel id="painel" header="LOGIN" style="margin-bottom:15px;">
-    	<p:messages id="messages" />  
-        <h:panelGrid columns="2">  
-            <h:outputLabel value="Login" />
-            <p:inputText value="#{login.usuario.login}" />  
-            <h:outputLabel value="Senha" />  
-            <p:inputText value="#{login.usuario.senha}" />
-            <p:commandButton value="Entrar" actionListener="#{login.logar}" update="resultado">
-				<f:setPropertyActionListener value="#{login.usuario}" target="#{menu.usuario}" />
-			</p:commandButton>
-			<h:outputText value="#{login.resultado}" id="resultado"/>
-		</h:panelGrid>
-		</p:panel>
+	<h:head>
+		<title>#{mensagem.titulo_login}</title>
+	</h:head>
+	
+	<h:body>
+		<h:form>  
+		    <p:panel id="painel" header="Login" style="margin-bottom:15px;">
+		    	<p:messages id="messages" />  
+		        <h:panelGrid columns="2">  
+		            
+		            <h:outputLabel value="Login" />
+		            <p:inputText value="#{login.usuario.login}" />  
+		           
+		            <h:outputLabel value="Senha" />  
+		            <p:inputText value="#{login.usuario.senha}" />
+		            
+		            <p:commandButton value="Entrar" actionListener="#{login.logar}" update="messages">
+						<f:setPropertyActionListener value="#{login.usuario}" target="#{menu.usuario}" />
+					</p:commandButton>
+				</h:panelGrid>
+			</p:panel>
 		</h:form>
-</h:body>
+	</h:body>
 </html>
