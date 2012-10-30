@@ -66,7 +66,7 @@ public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T,
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> buscarTodos() {
-		String sql = "select obj from " + getObjectClass().getSimpleName() + "obj";
+		String sql = "select obj from " + getObjectClass().getSimpleName() + " obj";
 		Query query = entityManager.createQuery(sql);
 		return query.getResultList();
 	}

@@ -3,11 +3,9 @@ package br.com.sgpc.service.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
 
-import br.com.sgpc.dao.UsuarioDao;
+import br.com.sgpc.dao.impl.GenericDaoImpl;
 import br.com.sgpc.model.Usuario;
 import br.com.sgpc.service.LoginService;
 import br.com.sgpc.service.UsuarioService;
@@ -19,12 +17,10 @@ import br.com.sgpc.service.UsuarioService;
  *
  */
 @Service( value = "usuarioService" )
-public class UsuarioServiceImpl implements UsuarioService {
+public class UsuarioServiceImpl extends GenericDaoImpl<Usuario, Integer>
+		implements UsuarioService {
 
 	private static final long serialVersionUID = 2453278820347973699L;
-	
-	@Resource( name = "usuarioDao" )
-	private UsuarioDao usuarioDao;
 	
 	@Override
 	public boolean verificarSeLoginExiste(final String login) {
@@ -44,10 +40,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		final Map<String, Object> params = new HashMap<String, Object>();
 		params.put("login", login);		
 		
-		return usuarioDao.pesquisarObjetoPorParametro(query, params);
+		return pesquisarObjetoPorParametro(query, params);
 	}
-
-	public void setUsuarioDao(UsuarioDao usuarioDao) {
-		this.usuarioDao = usuarioDao;
-	}
+	
 }

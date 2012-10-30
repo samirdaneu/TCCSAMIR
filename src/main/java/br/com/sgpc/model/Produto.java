@@ -111,6 +111,6 @@ public class Produto implements Serializable {
 
 	public Fornecedor getFornecedor() {
 		return fornecedor;
-	}
-
+	}	
+	
 }

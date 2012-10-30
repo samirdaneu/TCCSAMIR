@@ -1,7 +1,6 @@
 package br.com.sgpc.service;
 
-import java.io.Serializable;
-
+import br.com.sgpc.dao.GenericDao;
 import br.com.sgpc.model.Usuario;
 
 /**
@@ -10,7 +9,7 @@ import br.com.sgpc.model.Usuario;
  * @since 25/10/2012
  *
  */
-public interface UsuarioService extends Serializable {
+public interface UsuarioService extends GenericDao<Usuario, Integer> {
 	
 	/**
 	 * Metodo que verifica se o usuario existe a partir do login
