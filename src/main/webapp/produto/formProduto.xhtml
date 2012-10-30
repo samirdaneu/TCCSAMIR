@@ -8,28 +8,30 @@
 
 <h:body>
 	<h:form>
-		<p:panelGrid columns="2">
+		<p:panelGrid id="painel" columns="2">
 			<f:facet name="header">  
-       		 Cadastro de Produto  
-    		</f:facet>
-    		
-    		<h:outputText value="Fornecedor: " /> 
-    		<p:selectOneMenu id="selectFornecedor" value="#{produtoController.fornecedor}" effect="blind" converter="fornecedorConverter">  
-    			<f:selectItem itemLabel="Selecione o fornecedor!" itemValue="" noSelectionOption="true"/>    
-        		<f:selectItems value="#{produtoController.fornecedores}" var="f" itemLabel="#{f.razaoSocial}" itemValue="#{f}"/>    
+       	Cadastro de Produto  
+    </f:facet>
+
+			<h:outputText value="Fornecedor: " />
+			<p:selectOneMenu id="selectFornecedor"
+				value="#{produtoController.fornecedor}" effect="blind"
+				converter="fornecedorConverter">
+				<f:selectItem itemLabel="Selecione o fornecedor!" itemValue=""
+					noSelectionOption="true" />
+				<f:selectItems value="#{produtoController.fornecedores}" var="f"
+					itemLabel="#{f.razaoSocial}" itemValue="#{f}" />
 			</p:selectOneMenu>
-    		
-    		<h:outputLabel for="codigo" value="Código: " />
+
+			<h:outputLabel for="codigo" value="Código: " />
 			<p:inputText id="codigo" value="#{produtoController.produto.codigo}"
 				required="false" maxlength="10" size="10">
-			</p:inputText>	
+			</p:inputText>
 
 			<h:outputLabel for="descricao" value="Descrição: " />
 			<p:inputText id="descricao" rows="2" cols="40"
 				value="#{produtoController.produto.descricao}" required="true"
-				requiredMessage="Campo obrigatório"
-				maxlength="40"
-				size = "40"				
+				requiredMessage="Campo obrigatório" maxlength="40" size="40"
 				validatorMessage="Máximo de 40 caracteres">
 				<f:validateLength maximum="40" />
 			</p:inputText>
@@ -56,14 +58,11 @@
 				converterMessage="Digite a quantidade corretamente!">
 				<f:convertNumber maxIntegerDigits="7" />
 			</p:inputText>
-
-			<f:facet name="footer">
-				<p:commandButton type="button" value="Salvar" icon="ui-icon-check"
-					action="#{produtoController.salvarProduto}"
-					style="margin:0">
-				</p:commandButton>	
-			</f:facet>			
+			<h:commandButton value="Salvar"
+				actionListener="#{produtoController.salvarProduto}"
+				update="resultado" />
+			<h:outputText value="#{produtoController.resultado}" id="resultado" />
 		</p:panelGrid>
 	</h:form>
-</h:body>		
+</h:body>
 </html>

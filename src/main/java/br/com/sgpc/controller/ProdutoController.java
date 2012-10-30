@@ -43,7 +43,9 @@ public class ProdutoController implements AlphaController {
 	
 	private DataModel model;
 	
-	public ProdutoController(){}
+	private String resultado;
+	
+	public ProdutoController() { }
 	
 	@Override
 	@PostConstruct
@@ -64,12 +66,18 @@ public class ProdutoController implements AlphaController {
 	
 	public String salvarProduto(){
 		try {
-			if (getProduto().getId() == null){
-				getProduto().setFornecedor(getFornecedor());
-				produtoService.salvar(getProduto());
+			
+			fornecedor = fornecedorService.buscarPorID( fornecedor.getId() );
+			
+			if (produto.getId() == null) {
+				
+				produto.setFornecedor( fornecedor );
+				produtoService.salvar( produto );
 				FacesUtil.mensagemInformacao("Produto cadastrado com sucesso!");
+				
 			} else {
-				produtoService.atualizar(getProduto());
+				
+				produtoService.atualizar( produto );
 				FacesUtil.mensagemInformacao("Produto cadastrado com sucesso!");
 			}
 		} catch (Exception e) {
@@ -118,5 +126,13 @@ public class ProdutoController implements AlphaController {
 
 	public List<Fornecedor> getFornecedores() {
 		return this.fornecedores;
-	}	
+	}
+
+	public String getResultado() {
+		return resultado;
+	}
+
+	public void setResultado(String resultado) {
+		this.resultado = resultado;
+	}
 }
