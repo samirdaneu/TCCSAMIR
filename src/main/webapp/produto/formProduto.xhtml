@@ -42,6 +42,13 @@
 				converterMessage="Digite o preço corretamente">
 				<f:convertNumber groupingUsed="true" maxFractionDigits="2" />
 			</p:inputText>
+			
+			<h:outputLabel for="percentualDesconto" value="Percentual de desconto: " />
+			<p:inputText id="percentualDesconto" value="#{produtoController.produto.percentualDesconto}"
+				size="5" required="false"
+				converterMessage="Digite o percentual de desconto corretamente">
+				<f:convertNumber groupingUsed="true" maxFractionDigits="2" />
+			</p:inputText>
 
 			<h:outputLabel for="quantidade" value="Quantidade: " />
 			<p:inputText id="quantidade"
