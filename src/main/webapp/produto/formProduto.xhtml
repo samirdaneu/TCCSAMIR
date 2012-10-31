@@ -9,9 +9,10 @@
 <h:body>
 	<h:form>
 		<p:panelGrid id="painel" columns="2">
+		<p:messages id="messages" />
 			<f:facet name="header">  
-       	Cadastro de Produto  
-    </f:facet>
+       			Cadastro de Produto  
+    		</f:facet>
 
 			<h:outputText value="Fornecedor: " />
 			<p:selectOneMenu id="selectFornecedor"
@@ -67,8 +68,7 @@
 			</p:inputText>
 			<h:commandButton value="Salvar"
 				actionListener="#{produtoController.salvarProduto}"
-				update="resultado" />
-			<h:outputText value="#{produtoController.resultado}" id="resultado" />
+				update="messages" />			
 		</p:panelGrid>
 	</h:form>
 </h:body>

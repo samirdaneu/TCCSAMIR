@@ -13,7 +13,9 @@ import org.springframework.stereotype.Controller;
 import br.com.sgpc.model.Fornecedor;
 import br.com.sgpc.model.Produto;
 import br.com.sgpc.service.FornecedorService;
+import br.com.sgpc.service.MessageBundleService;
 import br.com.sgpc.service.ProdutoService;
+import br.com.sgpc.util.FacesUtil;
 
 
 /**
@@ -40,10 +42,10 @@ public class ProdutoController implements AlphaController {
 	@Resource( name = "fornecedorService" )
 	private FornecedorService fornecedorService;
 	
-	private String resultado;
+	//private String resultado;
 	
-	/*@Resource( name = "messageBundleService" )
-	private MessageBundleService messageBundleService;*/
+	@Resource( name = "messageBundleService" )
+	private MessageBundleService messageBundleService;
 	
 	private DataModel model;
 	
@@ -75,33 +77,33 @@ public class ProdutoController implements AlphaController {
 				
 				produto.setFornecedor( fornecedor );
 				produtoService.salvar( produto );
-				setResultado("produto_cadastrado_sucesso");
-				/*FacesUtil.mensagemInformacao(messageBundleService
-						.recoveryMessage("produto_cadastrado_sucesso"));*/				
+				/*setResultado("produto_cadastrado_sucesso");*/
+				FacesUtil.mensagemInformacao(messageBundleService
+						.recoveryMessage("produto_cadastrado_sucesso"));				
 			} else {
 				
 				produtoService.atualizar( produto );
-				setResultado("produto_atualizado_sucesso");
-				/*FacesUtil.mensagemInformacao(messageBundleService
-						.recoveryMessage("produto_atualizado_sucesso"));*/
+				/*setResultado("produto_atualizado_sucesso");*/
+				FacesUtil.mensagemInformacao(messageBundleService
+						.recoveryMessage("produto_atualizado_sucesso"));
 			}
 		} catch (Exception e) {
-			/*FacesUtil.mensagemErro(messageBundleService
-					.recoveryMessage("produto_salvar_atualizar_erro"));*/
-			setResultado("Erro");
+			FacesUtil.mensagemErro(messageBundleService
+					.recoveryMessage("produto_salvar_atualizar_erro"));
+			/*setResultado("Erro");*/
 			e.printStackTrace();
 		}			
 		
 		return "ok";
 	}
 	
-	public String getResultado() {
+	/*public String getResultado() {
 		return resultado;
 	}
 
 	public void setResultado(String resultado) {
 		this.resultado = resultado;
-	}
+	}*/
 
 	public Produto getProdutoParaEditarExcluir(){
 		Produto produto = (Produto) model.getRowData();
@@ -143,8 +145,8 @@ public class ProdutoController implements AlphaController {
 		return this.fornecedores;
 	}
 
-	/*public void setMessageBundleService(MessageBundleService messageBundleService) {
+	public void setMessageBundleService(MessageBundleService messageBundleService) {
 		this.messageBundleService = messageBundleService;
-	}*/
+	}
 
 }
