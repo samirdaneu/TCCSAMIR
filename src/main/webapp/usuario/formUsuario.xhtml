@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:spring="http://www.springframework.org/tags">
+	
+<h:outputText value="Nome : " />
+<p:inputText value="#{usuarioController.usuario.nome}" />	
+
+<h:outputText value="Login: " />
+<p:inputText value="#{usuarioController.usuario.login}" />
+
+<h:outputText value="Senha: " />
+<p:password value="#{usuarioController.usuario.senha}" />
+
+<h:outputText value="Confirme a senha: " />
+<p:password value="#{usuarioController.senhaConfirmacao}" />
+
+<h:outputText value="Email : " />
+<p:inputText value="#{usuarioController.usuario.email}" />
+
+<p:selectOneMenu id="selectFornecedor"
+	value="#{produtoController.fornecedor}" effect="blind"
+	converter="fornecedorConverter">
+	<f:selectItem itemLabel="Selecione o fornecedor!" itemValue=""
+		noSelectionOption="true" />
+	<f:selectItems value="#{produtoController.fornecedores}" var="f"
+		itemLabel="#{f.razaoSocial}" itemValue="#{f}" />
+</p:selectOneMenu>

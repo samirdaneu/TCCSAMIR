@@ -1,14 +1,16 @@
 package br.com.sgpc.controller;
 
-import java.io.Serializable;
-
-import javax.faces.bean.ManagedBean;
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.faces.bean.RequestScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
-import br.com.sgpc.dao.GenericDao;
+import org.springframework.stereotype.Controller;
+
 import br.com.sgpc.model.Usuario;
+import br.com.sgpc.service.MessageBundleService;
+import br.com.sgpc.service.UsuarioService;
 import br.com.sgpc.util.FacesUtil;
 
 /**
@@ -17,20 +19,28 @@ import br.com.sgpc.util.FacesUtil;
  * @since 01/10/2012
  *
  */
-@ManagedBean(name = "usuarioController")
+@Controller( value = "usuarioController" )
 @RequestScoped
-public class UsuarioController implements Serializable {
+public class UsuarioController implements AlphaController {
 
 	private static final long serialVersionUID = -2558847076842976054L;
 	
 	private Usuario usuario;
 	
-	private GenericDao<Usuario, Integer> usuarioDAO;
+	@Resource( name = "usuarioService" )
+	private UsuarioService usuarioService;
+	
+	@Resource( name = "messageBundleService" )
+	private MessageBundleService messageBundleService;
 	
 	private DataModel model;
 	
-	public UsuarioController(){
-		this.setUsuario(new Usuario());
+	public UsuarioController(){}	
+	
+	@Override
+	@PostConstruct
+	public void inicio() {
+		usuario = new Usuario();		
 	}
 	
 	public String novoUsuario(){
@@ -39,17 +49,18 @@ public class UsuarioController implements Serializable {
 	}
 	
 	public DataModel listarUsuarios(){
-		model = new ListDataModel(this.usuarioDAO.buscarTodos());
+		model = new ListDataModel(this.usuarioService.buscarTodos());
 		return model;
 	}
 	
 	public String salvarUsuario(){
 		try {
 			if (getUsuario().getId() == null){
-				usuarioDAO.salvar(getUsuario());
+				usuario.setAtivo(true);
+				usuarioService.salvar(getUsuario());
 				FacesUtil.mensagemInformacao("Usu�rio cadastrado com sucesso!");
 			} else {
-				usuarioDAO.atualizar(getUsuario());
+				usuarioService.atualizar(getUsuario());
 				FacesUtil.mensagemInformacao("Usu�rio cadastrado com sucesso!");
 			}
 		} catch (Exception e) {
@@ -72,7 +83,7 @@ public class UsuarioController implements Serializable {
 	
 	public String excluir(){
 		Usuario usuario = getUsuarioParaEditarExcluir();
-		this.usuarioDAO.excluir(usuario);
+		this.usuarioService.excluir(usuario);
 		return "mostrarUsuarios";
 	}
 
@@ -82,5 +93,5 @@ public class UsuarioController implements Serializable {
 
 	public Usuario getUsuario() {
 		return usuario;
-	}
+	}	
 }
