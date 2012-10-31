@@ -42,8 +42,6 @@ public class ProdutoController implements AlphaController {
 	@Resource( name = "fornecedorService" )
 	private FornecedorService fornecedorService;
 	
-	//private String resultado;
-	
 	@Resource( name = "messageBundleService" )
 	private MessageBundleService messageBundleService;
 	
@@ -77,34 +75,23 @@ public class ProdutoController implements AlphaController {
 				
 				produto.setFornecedor( fornecedor );
 				produtoService.salvar( produto );
-				/*setResultado("produto_cadastrado_sucesso");*/
 				FacesUtil.mensagemInformacao(messageBundleService
 						.recoveryMessage("produto_cadastrado_sucesso"));				
 			} else {
 				
 				produtoService.atualizar( produto );
-				/*setResultado("produto_atualizado_sucesso");*/
 				FacesUtil.mensagemInformacao(messageBundleService
 						.recoveryMessage("produto_atualizado_sucesso"));
 			}
 		} catch (Exception e) {
 			FacesUtil.mensagemErro(messageBundleService
 					.recoveryMessage("produto_salvar_atualizar_erro"));
-			/*setResultado("Erro");*/
 			e.printStackTrace();
 		}			
 		
 		return "ok";
 	}
 	
-	/*public String getResultado() {
-		return resultado;
-	}
-
-	public void setResultado(String resultado) {
-		this.resultado = resultado;
-	}*/
-
 	public Produto getProdutoParaEditarExcluir(){
 		Produto produto = model.getRowData();
 		return produto;
