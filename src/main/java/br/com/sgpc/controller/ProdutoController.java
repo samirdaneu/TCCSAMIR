@@ -63,7 +63,7 @@ public class ProdutoController implements AlphaController {
 		return "formProduto";
 	}
 	
-	public DataModel listarProdutos(){
+	public DataModel<Produto> listarProdutos(){
 		model = new ListDataModel<Produto>(this.produtoService.buscarTodos());
 		return model;
 	}
