@@ -5,70 +5,23 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
 	xmlns:p="http://primefaces.org/ui">
-
+<h:head>
+	<title>Cadastro de Produto</title>
+</h:head>
 <h:body>
-	<h:form>
-		<p:panelGrid id="painel" columns="2">
-		<p:messages id="messages" />
-			<f:facet name="header">  
-       			Cadastro de Produto  
-    		</f:facet>
-
-			<h:outputText value="Fornecedor: " />
-			<p:selectOneMenu id="selectFornecedor"
-				value="#{produtoController.fornecedor}" effect="blind"
-				converter="fornecedorConverter">
-				<f:selectItem itemLabel="Selecione o fornecedor!" itemValue=""
-					noSelectionOption="true" />
-				<f:selectItems value="#{produtoController.fornecedores}" var="f"
-					itemLabel="#{f.razaoSocial}" itemValue="#{f}" />
-			</p:selectOneMenu>
-
-			<h:outputLabel for="codigo" value="Código: " />
-			<p:inputText id="codigo" value="#{produtoController.produto.codigo}"
-				required="false" maxlength="10" size="10">
-			</p:inputText>
-
-			<h:outputLabel for="descricao" value="Descrição: " />
-			<p:inputText id="descricao" rows="2" cols="40"
-				value="#{produtoController.produto.descricao}" required="true"
-				requiredMessage="Campo obrigatório" maxlength="40" size="40"
-				validatorMessage="Máximo de 40 caracteres">
-				<f:validateLength maximum="40" />
-			</p:inputText>
-
-			<h:outputLabel for="preco" value="Preço: " />
-			<p:inputText id="preco" value="#{produtoController.produto.preco}"
-				size="7" required="true" requiredMessage="Campo obrigatório"
-				converterMessage="Digite o preço corretamente">
-				<f:convertNumber groupingUsed="true" maxFractionDigits="2" />
-			</p:inputText>
-			
-			<h:outputLabel for="percentualDesconto" value="Percentual de desconto: " />
-			<p:inputText id="percentualDesconto" value="#{produtoController.produto.percentualDesconto}"
-				size="5" required="false"
-				converterMessage="Digite o percentual de desconto corretamente">
-				<f:convertNumber groupingUsed="true" maxFractionDigits="2" />
-			</p:inputText>
-
-			<h:outputLabel for="quantidade" value="Quantidade: " />
-			<p:inputText id="quantidade"
-				value="#{produtoController.produto.quantidade}" size="7"
-				required="true" requiredMessage="Campo obrigatório"
-				converterMessage="Digite a quantidade corretamente">
-				<f:convertNumber maxIntegerDigits="7" />
-			</p:inputText>
-
-			<h:outputLabel for="quantidadeMinima" value="Quantidade Limite: " />
-			<p:inputText id="quantidadeMinima"
-				value="#{produtoController.produto.quantidadeLimite}" size="7"
-				required="false"
-				converterMessage="Digite a quantidade corretamente!">
-				<f:convertNumber maxIntegerDigits="7" />
-			</p:inputText>
-			<h:commandButton value="Salvar"
-				actionListener="#{produtoController.salvarProduto}"
-				update="messages" />			
+	<h:form id="formCadastroProduto">	
+		<p:panelGrid columns="2">
+			<f:facet name="header"> Produto </f:facet>
+				<h:outputLabel for="nome" value="Nome: " />
+				<p:inputText id="nome"  value="#{produtoController.produto.codigo}" />
+					
+				<h:outputLabel for="codigo" value="Codigo: " />
+				<p:inputText id="codigo"  value="#{produtoController.produto.codigo}" />
+			<f:facet name="footer">
+				<p:messages /> <br/>
+				<p:commandButton value="Salvar" icon="ui-icon-check" style="margin:0" 
+						action = "#{produtoController.salvarProduto}"/>
+			</f:facet>
 		</p:panelGrid>
 	</h:form>
 </h:body>

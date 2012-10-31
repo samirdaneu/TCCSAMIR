@@ -47,7 +47,7 @@ public class ProdutoController implements AlphaController {
 	@Resource( name = "messageBundleService" )
 	private MessageBundleService messageBundleService;
 	
-	private DataModel model;
+	private DataModel<Produto> model;
 	
 	public ProdutoController() { }
 	
@@ -64,7 +64,7 @@ public class ProdutoController implements AlphaController {
 	}
 	
 	public DataModel listarProdutos(){
-		model = new ListDataModel(this.produtoService.buscarTodos());
+		model = new ListDataModel<Produto>(this.produtoService.buscarTodos());
 		return model;
 	}
 	
@@ -106,7 +106,7 @@ public class ProdutoController implements AlphaController {
 	}*/
 
 	public Produto getProdutoParaEditarExcluir(){
-		Produto produto = (Produto) model.getRowData();
+		Produto produto = model.getRowData();
 		return produto;
 	}
 	
@@ -148,5 +148,4 @@ public class ProdutoController implements AlphaController {
 	public void setMessageBundleService(MessageBundleService messageBundleService) {
 		this.messageBundleService = messageBundleService;
 	}
-
 }
