@@ -43,7 +43,7 @@ public class UsuarioController implements AlphaController {
 	@Resource( name = "messageBundleService" )
 	private MessageBundleService messageBundleService;
 	
-	private DataModel model;
+	private DataModel<Usuario> model;
 	
 	private String senhaConfirmacao;
 	
@@ -63,8 +63,8 @@ public class UsuarioController implements AlphaController {
 		return "formUsuario";
 	}
 	
-	public DataModel listarUsuarios(){
-		model = new ListDataModel(this.usuarioService.buscarTodos());
+	public DataModel<Usuario> listarUsuarios(){
+		model = new ListDataModel<Usuario>(this.usuarioService.buscarTodos());
 		return model;
 	}
 	
@@ -78,11 +78,11 @@ public class UsuarioController implements AlphaController {
 					usuario.setTipoUsuario(Usuario.TipoUsuario.VENDEDOR);
 				}
 				usuarioService.salvar(getUsuario());
-				FacesUtil.mensagemErro(messageBundleService
+				FacesUtil.mensagemInformacao(messageBundleService
 						.recoveryMessage("usuario_cadastro_sucesso"));
 			} else {
 				usuarioService.atualizar(getUsuario());
-				FacesUtil.mensagemErro(messageBundleService
+				FacesUtil.mensagemInformacao(messageBundleService
 						.recoveryMessage("usuario_atualizado_sucesso"));
 			}
 		} catch (Exception e) {
