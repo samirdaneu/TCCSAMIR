@@ -79,15 +79,15 @@ public class UsuarioController implements AlphaController {
 				}
 				usuarioService.salvar(getUsuario());
 				FacesUtil.mensagemErro(messageBundleService
-						.recoveryMessage("login_senha_invalido"));
+						.recoveryMessage("usuario_cadastro_sucesso"));
 			} else {
 				usuarioService.atualizar(getUsuario());
 				FacesUtil.mensagemErro(messageBundleService
-						.recoveryMessage("login_senha_invalido"));
+						.recoveryMessage("usuario_atualizado_sucesso"));
 			}
 		} catch (Exception e) {
 			FacesUtil.mensagemErro(messageBundleService
-					.recoveryMessage("login_senha_invalido"));
+					.recoveryMessage("usuario_salvar_atualizar_erro"));
 			e.printStackTrace();
 		}			
 		
