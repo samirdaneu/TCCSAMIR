@@ -1,5 +1,8 @@
 package br.com.sgpc.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.faces.bean.RequestScoped;
@@ -25,7 +28,14 @@ public class UsuarioController implements AlphaController {
 
 	private static final long serialVersionUID = -2558847076842976054L;
 	
+	private static final String ADMINISTRADOR = "Administrador";
+	private static final String VENDEDOR = "Vendedor";
+	
 	private Usuario usuario;
+	
+	private String tipoUsuarioSelecionado;
+	
+	private List<String> listaTiposUsuario;
 	
 	@Resource( name = "usuarioService" )
 	private UsuarioService usuarioService;
@@ -35,12 +45,17 @@ public class UsuarioController implements AlphaController {
 	
 	private DataModel model;
 	
+	private String senhaConfirmacao;
+	
 	public UsuarioController(){}	
 	
 	@Override
 	@PostConstruct
 	public void inicio() {
-		usuario = new Usuario();		
+		usuario = new Usuario();
+		setListaTiposUsuario(new ArrayList<String>());
+		getListaTiposUsuario().add(ADMINISTRADOR);
+		getListaTiposUsuario().add(VENDEDOR);
 	}
 	
 	public String novoUsuario(){
@@ -57,14 +72,22 @@ public class UsuarioController implements AlphaController {
 		try {
 			if (getUsuario().getId() == null){
 				usuario.setAtivo(true);
+				if(tipoUsuarioSelecionado.equals(ADMINISTRADOR)){
+					usuario.setTipoUsuario(Usuario.TipoUsuario.ADMINISTRADOR);
+				} else {
+					usuario.setTipoUsuario(Usuario.TipoUsuario.VENDEDOR);
+				}
 				usuarioService.salvar(getUsuario());
-				FacesUtil.mensagemInformacao("Usu�rio cadastrado com sucesso!");
+				FacesUtil.mensagemErro(messageBundleService
+						.recoveryMessage("login_senha_invalido"));
 			} else {
 				usuarioService.atualizar(getUsuario());
-				FacesUtil.mensagemInformacao("Usu�rio cadastrado com sucesso!");
+				FacesUtil.mensagemErro(messageBundleService
+						.recoveryMessage("login_senha_invalido"));
 			}
 		} catch (Exception e) {
-			FacesUtil.mensagemErro("Erro ao salvar/atualizar usu�rio");
+			FacesUtil.mensagemErro(messageBundleService
+					.recoveryMessage("login_senha_invalido"));
 			e.printStackTrace();
 		}			
 		
@@ -93,5 +116,30 @@ public class UsuarioController implements AlphaController {
 
 	public Usuario getUsuario() {
 		return usuario;
-	}	
+	}
+
+	public void setSenhaConfirmacao(String senhaConfirmacao) {
+		this.senhaConfirmacao = senhaConfirmacao;
+	}
+
+	public String getSenhaConfirmacao() {
+		return senhaConfirmacao;
+	}
+
+	public void setTipoUsuarioSelecionado(String tipoUsuarioSelecionado) {
+		this.tipoUsuarioSelecionado = tipoUsuarioSelecionado;
+	}
+
+	public String getTipoUsuarioSelecionado() {
+		return tipoUsuarioSelecionado;
+	}
+
+	public void setListaTiposUsuario(List<String> listaTiposUsuario) {
+		this.listaTiposUsuario = listaTiposUsuario;
+	}
+
+	public List<String> getListaTiposUsuario() {
+		return listaTiposUsuario;
+	}
+
 }
