@@ -4,29 +4,34 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html">
 	
-	<head>
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>
 			<ui:insert name="title">SGPC</ui:insert>
 		</title>
-	</head>
+	</h:head>
 	
-	<body>
-		<div id = "header">
-		    <ui:include src = "header.xhtml" />
+	<h:body>
+		<div id = "total-content"> 
+			<div id = "header-content">
+			    <ui:include src = "header.xhtml" />
+			</div>
+			
+			<div id="middle-contente">
+				<div id = "menu" style="float: left">
+					<ui:include src = "/menu/menu.xhtml" />
+				</div>
+				
+				<div id = "content">
+				  <ui:insert name = "content" style="float: left">
+				  		Corpo padrão, você esqueceu de inserir o corpo no template
+				  </ui:insert>
+				</div>
+			</div>
+			
+			<div id = "footer-content">
+			  <ui:include src = "footer.xhtml"/>
+			</div>
 		</div>
-		
-		<div id = "menu">
-			<ui:include src = "/menu/menu.xhtml" />
-		</div>
-		
-		<div id = "content">
-		  <ui:insert name = "content">
-		  		Corpo padrão, você esqueceu de inserir o corpo no template
-		  </ui:insert>
-		</div>
-		
-		<div id = "footer">
-		  <ui:include src = "footer.xhtml"/>
-		</div>
-	</body>
+	</h:body>
 </html>
