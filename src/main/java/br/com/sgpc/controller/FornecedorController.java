@@ -1,14 +1,15 @@
 package br.com.sgpc.controller;
 
-import java.io.Serializable;
-
-import javax.faces.bean.ManagedBean;
+import javax.annotation.Resource;
 import javax.faces.bean.RequestScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
-import br.com.sgpc.dao.GenericDao;
+import org.springframework.stereotype.Controller;
+
 import br.com.sgpc.model.Fornecedor;
+import br.com.sgpc.service.FornecedorService;
+import br.com.sgpc.service.MessageBundleService;
 import br.com.sgpc.util.FacesUtil;
 
 /**
@@ -17,17 +18,26 @@ import br.com.sgpc.util.FacesUtil;
  * @since 01/10/2012
  *
  */
-@ManagedBean(name = "fornecedorController")
+@Controller( value = "fornecedorController" )
 @RequestScoped
-public class FornecedorController implements Serializable {
+public class FornecedorController implements AlphaController {
 
 	private static final long serialVersionUID = 643971891099428877L;
 	
 	private Fornecedor fornecedor;
 	
-	private GenericDao<Fornecedor, Integer> fornecedorDAO;
+	@Resource( name = "fornecedorService" )
+	private FornecedorService fornecedorService;
 	
-	private DataModel model;
+	@Resource( name = "messageBundleService" )
+	private MessageBundleService messageBundleService;
+	
+	private DataModel<Fornecedor> model;
+	
+	@Override
+	public void inicio() {
+		fornecedor = new Fornecedor();	
+	}
 
 	public FornecedorController() {
 		this.setFornecedor(new Fornecedor());
@@ -38,22 +48,25 @@ public class FornecedorController implements Serializable {
 		return "formFornecedor";
 	}
 	
-	public DataModel listarFornecedors(){
-		model = new ListDataModel(this.fornecedorDAO.buscarTodos());
+	public DataModel<Fornecedor> listarFornecedors() {
+		model = new ListDataModel<Fornecedor>(this.fornecedorService.buscarTodos());
 		return model;
 	}
 	
 	public String salvarFornecedor(){
 		try {
 			if (getFornecedor().getId() == null){
-				fornecedorDAO.salvar(getFornecedor());
-				FacesUtil.mensagemInformacao("Fornecedor cadastrado com sucesso!");
+				fornecedorService.salvar(getFornecedor());
+				FacesUtil.mensagemInformacao(messageBundleService
+						.recoveryMessage("fornecedor_cadastro_sucesso"));
 			} else {
-				fornecedorDAO.atualizar(getFornecedor());
-				FacesUtil.mensagemInformacao("Fornecedor cadastrado com sucesso!");
+				fornecedorService.atualizar(getFornecedor());
+				FacesUtil.mensagemInformacao(messageBundleService
+						.recoveryMessage("fornecedor_atualizado_sucesso"));
 			}
 		} catch (Exception e) {
-			FacesUtil.mensagemErro("Erro ao salvar/atualizar fornecedor");
+			FacesUtil.mensagemErro(messageBundleService
+					.recoveryMessage("fornecedor_salvar_atualizar_erro"));
 			e.printStackTrace();
 		}			
 		
@@ -72,7 +85,7 @@ public class FornecedorController implements Serializable {
 	
 	public String excluir(){
 		Fornecedor fornecedor = getFornecedorParaEditarExcluir();
-		this.fornecedorDAO.excluir(fornecedor);
+		this.fornecedorService.excluir(fornecedor);
 		return "mostrarFornecedores";
 	}
 

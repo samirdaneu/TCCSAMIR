@@ -36,11 +36,11 @@ public class Fornecedor implements Serializable {
 	@Column(name = "telefone", nullable = true, length = 14)
 	private String telefone;
 	
-	@Column(name = "endereco", nullable = true, length = 40)
-	private String endereco;
-	
 	@Column(name = "cep", nullable = true, length = 8)
 	private String cep;
+	
+	@Column(name = "endereco", nullable = true, length = 40)
+	private String endereco;
 	
 	@Column(name = "bairro", nullable = true, length = 30)
 	private String bairro;

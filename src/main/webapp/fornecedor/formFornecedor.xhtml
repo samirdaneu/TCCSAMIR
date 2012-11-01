@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Cadastro de Fornecedor</title>
+</h:head>
+<h:body>
+	<h:form id="formCadastroFornecedor">	
+		<p:panelGrid columns="2">
+			<f:facet name="header"> Cadastro de Fornecedor </f:facet>
+			
+				<h:outputLabel for="razaoSocial" value="Razão Social: "/>
+				<p:inputText id="razaoSocial"
+				value="#{fornecedorController.fornecedor.razaoSocial}"
+				required="true" maxlength="40" size="40">
+				</p:inputText>
+					
+				<h:outputLabel for="cnpj" value="CNPJ: " />
+				<p:inputText id="cnpj" 
+				value="#{fornecedorController.fornecedor.cnpj}"
+				required="false">
+				</p:inputText>
+				
+				<h:outputLabel for="telefone" value="Telefone: " />
+				<p:inputText id="telefone"
+				value="#{fornecedorController.fornecedor.telefone}"
+				required="false">
+				</p:inputText>
+				
+				<h:outputLabel for="cep" value="Cep: " />
+				<p:inputText id="cep" required="false"
+				value="#{fornecedorController.fornecedor.cep}">
+				</p:inputText>
+				
+				<h:outputLabel for="endereco" value="Endereço: " />
+				<p:inputText id="endereco" required="false"
+				value="#{fornecedorController.fornecedor.endereco}">
+				</p:inputText>
+				
+				<h:outputLabel for="bairro" value="Bairro: " />
+				<p:inputText id="bairro" required="false"
+				value="#{fornecedorController.fornecedor.bairro}">
+				</p:inputText>
+				
+				<h:outputLabel for="cidade" value="Cidade: " />
+				<p:inputText id="cidade" required="false"
+				value="#{fornecedorController.fornecedor.cidade}">
+				</p:inputText>
+				
+				<h:outputLabel for="uf" value="UF: " />
+				<p:inputText id="uf" required="false"
+				value="#{fornecedorController.fornecedor.uf}">
+				</p:inputText>
+				
+				<h:outputLabel for="email" value="Email: " />
+				<p:inputText id="email" required="false"
+				value="#{fornecedorController.fornecedor.email}">
+				</p:inputText>
+				
+				<h:outputLabel for="site" value="Site: " />
+				<p:inputText id="site" required="false"
+				value="#{fornecedorController.fornecedor.site}">
+				</p:inputText>
+				
+				<h:outputLabel for="contato" value="Nome Contato: " />
+				<p:inputText id="contato" required="false"
+				value="#{fornecedorController.fornecedor.nomeContato}">
+				</p:inputText>
+				
+				<f:facet name="footer">
+				<p:messages /> <br/>
+				<p:commandButton value="Salvar" icon="ui-icon-check" style="margin:0" 
+						action = "#{fornecedorController.salvarFornecedor}" update="formCadastroFornecedor"/>
+			</f:facet>
+		</p:panelGrid>
+	</h:form>
+</h:body>
+</html>
