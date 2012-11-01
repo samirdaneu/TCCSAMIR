@@ -48,9 +48,8 @@ public class Pedido implements Serializable {
 	
 	private BigDecimal valorTroco;
 	
-	@ManyToOne
-	@JoinColumn(name = "cliente_id", nullable = false)
-	private Cliente cliente;
+	@Column(name="cpf", nullable=true, length = 11)
+	private String cpf;
 	
 	@ManyToOne
 	@JoinColumn(name = "usuario_id", nullable = false)
@@ -90,14 +89,6 @@ public class Pedido implements Serializable {
 
 	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
-	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
 	}
 
 	public void setUsuario(Usuario usuario) {
@@ -145,7 +136,6 @@ public class Pedido implements Serializable {
 		this.itens = itens;
 	}
 
-
 	public List<ProdutoPedido> getItens() {
 		return itens;
 	}
@@ -156,5 +146,13 @@ public class Pedido implements Serializable {
 
 	public TipoPagamento getTipoPagamento() {
 		return tipoPagamento;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getCpf() {
+		return cpf;
 	}
 }
