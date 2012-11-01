@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:spring="http://www.springframework.org/tags">
+	
+<h:head>
+	<title>Cadastro de Usuário</title>
+</h:head>
+<h:body>
+	<h:form id="formCadastroUsuario">	
+		<p:panelGrid columns="2">
+			<f:facet name="header"> Cadastro de Usuário </f:facet>
+	
+			<h:outputText value="Nome : " />
+			<p:inputText value="#{usuarioController.usuario.nome}"
+			required="true" maxlength="30" size="30" />	
+
+			<h:outputText value="Login: " />
+			<p:inputText value="#{usuarioController.usuario.login}"
+			required="true" maxlength="8" size="8" />
+
+			<h:outputText value="Senha: " />
+			<p:password value="#{usuarioController.usuario.senha}"
+			required="true" maxlength="8" size="8" />
+
+			<h:outputText value="Confirme a senha: " />
+			<p:password value="#{usuarioController.senhaConfirmacao}"
+			required="true" maxlength="8" size="8" />
+
+			<h:outputText value="Email : " />
+			<p:inputText value="#{usuarioController.usuario.email}" />
+			
+			<h:outputText value="Tipo de Usuário: " />
+			<h:selectOneMenu id="tipoVendedor" value="#{usuarioController.tipoUsuarioSelecionado}">
+			<f:selectItems value="#{usuarioController.listaTiposUsuario}" />
+			</h:selectOneMenu>
+			
+			<f:facet name="footer">
+				<p:messages /> <br/>
+				<p:commandButton value="Salvar" icon="ui-icon-check" style="margin:0" 
+						action = "#{usuarioController.salvarUsuario}" update="formCadastroUsuario"/>
+			</f:facet>
+		</p:panelGrid>
+	</h:form>
+</h:body>
+</html>
+
+			
