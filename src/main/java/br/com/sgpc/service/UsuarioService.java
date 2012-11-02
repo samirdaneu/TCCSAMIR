@@ -24,4 +24,6 @@ public interface UsuarioService extends GenericDao<Usuario, Integer> {
 	 * @return Usuario, caso exista
 	 */
 	Usuario procurarUsuarioPeloLogin(final String login);
+	
+	
 }

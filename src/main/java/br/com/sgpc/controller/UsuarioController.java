@@ -72,11 +72,18 @@ public class UsuarioController implements AlphaController {
 		try {
 			if (getUsuario().getId() == null){
 				usuario.setAtivo(true);
+				
 				if(tipoUsuarioSelecionado.equals(ADMINISTRADOR)){
 					usuario.setTipoUsuario(Usuario.TipoUsuario.ADMINISTRADOR);
 				} else {
 					usuario.setTipoUsuario(Usuario.TipoUsuario.VENDEDOR);
 				}
+				
+				if(!usuario.getSenha().equals(senhaConfirmacao)){
+					FacesUtil.mensagemErro(messageBundleService
+							.recoveryMessage("usuario_senhas_diferentes"));
+				}
+				
 				usuarioService.salvar(getUsuario());
 				FacesUtil.mensagemInformacao(messageBundleService
 						.recoveryMessage("usuario_cadastro_sucesso"));
@@ -94,19 +101,20 @@ public class UsuarioController implements AlphaController {
 		return "ok";
 	}
 	
-	public Usuario getUsuarioParaEditarExcluir(){
+	public Usuario getUsuarioParaEditarDesativar(){
 		Usuario usuario = (Usuario) model.getRowData();
 		return usuario;
 	}
 	
 	public String editar(){
-		setUsuario(getUsuarioParaEditarExcluir());
+		setUsuario(getUsuarioParaEditarDesativar());
 		return "formUsuario";
 	}
 	
 	public String excluir(){
-		Usuario usuario = getUsuarioParaEditarExcluir();
-		this.usuarioService.excluir(usuario);
+		Usuario usuario = getUsuarioParaEditarDesativar();
+		usuario.setAtivo(false);
+		this.usuarioService.atualizar(usuario);
 		return "mostrarUsuarios";
 	}
 

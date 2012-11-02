@@ -42,5 +42,5 @@ public class UsuarioServiceImpl extends GenericDaoImpl<Usuario, Integer>
 		
 		return pesquisarObjetoPorParametro(query, params);
 	}
-	
+
 }

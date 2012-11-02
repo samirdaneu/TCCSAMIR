@@ -47,9 +47,12 @@ public class LoginController implements AlphaController {
 	 */
 	public String logar() {
 		boolean existe = usuarioService.verificarSeLoginExiste( usuario.getLogin() );
-			
+					
 		if(existe) {			
 			final Usuario usuarioBase = usuarioService.procurarUsuarioPeloLogin( usuario.getLogin() );
+			if(!usuarioBase.isAtivo())
+				FacesUtil.mensagemErro( messageBundleService.recoveryMessage("login_usuario_inativo") );
+			
 			if( loginService.senhasIguais(usuario.getSenha(), usuarioBase.getSenha()) ) {
 				return "logon_success";
 			}
