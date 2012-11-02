@@ -7,7 +7,6 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>br.com.sgpc.model.Usuario</class>
 		<class>br.com.sgpc.model.Produto</class>
-		<class>br.com.sgpc.model.Cliente</class>
 		<class>br.com.sgpc.model.Pedido</class>
 		<class>br.com.sgpc.model.ProdutoPedido</class>
 		<class>br.com.sgpc.model.ProdutoPedidoPK</class>
