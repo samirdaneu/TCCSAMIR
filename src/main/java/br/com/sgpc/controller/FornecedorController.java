@@ -1,5 +1,6 @@
 package br.com.sgpc.controller;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.faces.bean.RequestScoped;
 import javax.faces.model.DataModel;
@@ -13,7 +14,7 @@ import br.com.sgpc.service.MessageBundleService;
 import br.com.sgpc.util.FacesUtil;
 
 /**
- * Controller com iteraÃ§Ãµes com as telas relacionadas ao {@link FornecedorController}
+ * Controller com iterações com as telas relacionadas ao {@link FornecedorController}
  * @author Samir Daneu
  * @since 01/10/2012
  *
@@ -35,8 +36,10 @@ public class FornecedorController implements AlphaController {
 	private DataModel<Fornecedor> model;
 	
 	@Override
+	@PostConstruct
 	public void inicio() {
-		fornecedor = new Fornecedor();	
+		fornecedor = new Fornecedor();
+		setModel(listarFornecedores());
 	}
 
 	public FornecedorController() {
@@ -48,9 +51,9 @@ public class FornecedorController implements AlphaController {
 		return "formFornecedor";
 	}
 	
-	public DataModel<Fornecedor> listarFornecedors() {
-		model = new ListDataModel<Fornecedor>(this.fornecedorService.buscarTodos());
-		return model;
+	public DataModel<Fornecedor> listarFornecedores() {
+		setModel(new ListDataModel<Fornecedor>(this.fornecedorService.buscarTodos()));
+		return getModel();
 	}
 	
 	public String salvarFornecedor(){
@@ -74,7 +77,7 @@ public class FornecedorController implements AlphaController {
 	}
 	
 	public Fornecedor getFornecedorParaEditarExcluir(){
-		Fornecedor fornecedor = (Fornecedor) model.getRowData();
+		Fornecedor fornecedor = (Fornecedor) getModel().getRowData();
 		return fornecedor;
 	}
 	
@@ -95,6 +98,14 @@ public class FornecedorController implements AlphaController {
 
 	public Fornecedor getFornecedor() {
 		return fornecedor;
+	}
+
+	public void setModel(DataModel<Fornecedor> model) {
+		this.model = model;
+	}
+
+	public DataModel<Fornecedor> getModel() {
+		return model;
 	}
 
 }

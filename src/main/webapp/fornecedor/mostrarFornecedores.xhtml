@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:composition template="/template/template.xhtml">
+		<ui:define name="title">Fornecedores</ui:define>
+		<ui:define name="content">
+			<h:form id="mostrarFornecedores">
+				<p:dataTable var="fornecedor" value="#{fornecedorController.model}"
+					widgetVar="tabelaFornecedores" paginator="true" rows="10"
+					emptyMessage="Nenhum fornecedor encontrado!">
+
+					<f:facet name="header">
+					Lista de Fornecedores
+					</f:facet>
+
+					<p:column filterBy="#{fornecedor.razaoSocial}" filterMatchMode="contains">
+						<f:facet name="header">
+							<h:outputText value="Razão Social" />
+						</f:facet>
+						<h:outputText value="#{fornecedor.razaoSocial}" />
+					</p:column>
+
+					<p:column filterBy="#{fornecedor.cnpj}"
+						filterMatchMode="contains">
+						<f:facet name="header">
+							<h:outputText value="CNPJ" />
+						</f:facet>
+						<h:outputText value="#{fornecedor.cnpj}" />
+					</p:column>
+
+					<p:column filterBy="#{fornecedor.nomeContato}" filterMatchMode="contains">
+						<f:facet name="header">
+							<h:outputText value="Nome Contato" />
+						</f:facet>
+						<h:outputText value="#{fornecedor.nomeContato}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Editar" />
+						</f:facet>
+						<p:commandLink value="Editar"
+							actionListener="#{fornecedorController.editar}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Desativar" />
+						</f:facet>
+						<p:commandLink value="Desativar" actionListener="#{fornecedorController.desativar}"/>							
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
