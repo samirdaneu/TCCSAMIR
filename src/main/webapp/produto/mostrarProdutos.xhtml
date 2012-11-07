@@ -5,70 +5,68 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
 	xmlns:p="http://primefaces.org/ui">
-	
-	<ui:define name="titulo">
-		Produtos
-	</ui:define>
-	
-	<ui:define name="conteudo">
-	<div id = "formulario">
-	<h:messages />
-	
-	<h:dataTable border = "1" id = "produtos"
-	var="item" value="#{produtoController.listarProdutos}"
-	style = "width: 396x">
-	
-	<h:column id = "colunaID">
-	<h:outputText value="#{item.id}" />
-	<f:facet name="header">
-	<h:outputText value="ID" />
-	</f:facet>
-	</h:column>
-	
-	<h:column id = "colunaDescricao">
-	<h:outputText value="#{item.nome}" />
-	<f:facet name="header">
-	<h:outputText value="Produto" />
-	</f:facet>
-	</h:column>
-	
-	<h:column id="colunaPreco">
-	<h:outputText value="#{item.preco}" >
-	<f:convertNumber type="currency"/>
-	</h:outputText>
-	<f:facet name="header">
-	<h:outputText value="Preço" />
-	</f:facet>
-	</h:column>	
-	
-	<h:column id = "colunaQuantidade">
-	<h:outputText value="#{item.quantidade}" />
-	<f:facet name="header">
-	<h:outputText value="Quantidade" />
-	</f:facet>
-	</h:column>
-	
-	<h:column id = "colunaQuantidadeMinima">
-	<h:outputText value="#{item.quantidadeMinima}" />
-	<f:facet name="header">
-	<h:outputText value="Quantidade Mínima" />
-	</f:facet>
-	</h:column>
-	
-	<h:column>	
-	<h:commandLink action="#{produtoController.editar}" value="Atualizar" />
-	<f:facet name="header">
-	<h:outputText value="Atualizar" />
-	</f:facet>
-	</h:column>
-	<h:column>
-		<h:commandLink action="#{produtoController.excluir}" value="Excluir" />
-		<f:facet name="header">
-		<h:outputText value="Excluir" />
-	</f:facet>
-	</h:column>
-	</h:dataTable>
-	</div>
-	</ui:define>	
-	
-</html>	
+
+<h:body>
+	<ui:composition template="/template/template.xhtml">
+		<ui:define name="title">Produtos</ui:define>
+		<ui:define name="content">
+			<h:form id="mostrarProdutos">
+				<p:dataTable var="produto" value="#{produtoController.model}"
+					widgetVar="tabelaProdutos" paginator="true" rows="10"
+					emptyMessage="Nenhum produto encontrado!">
+
+					<f:facet name="header">
+					Lista de Produtos
+					</f:facet>
+
+					<p:column filterBy="#{produto.codigo}" filterMatchMode="contains">
+						<f:facet name="header">
+							<h:outputText value="Código" />
+						</f:facet>
+						<h:outputText value="#{produto.codigo}" />
+					</p:column>
+
+					<p:column filterBy="#{produto.descricao}"
+						filterMatchMode="contains">
+						<f:facet name="header">
+							<h:outputText value="Descrição" />
+						</f:facet>
+						<h:outputText value="#{produto.descricao}" />
+					</p:column>
+
+					<p:column filterBy="#{produto.preco}" filterMatchMode="contains">
+						<f:facet name="header">
+							<h:outputText value="Preço" />
+						</f:facet>
+						<h:outputText value="#{produto.preco}" />
+					</p:column>
+
+					<p:column filterBy="#{produto.quantidade}"
+						filterMatchMode="contains">
+						<f:facet name="header">
+							<h:outputText value="Quantidade" />
+						</f:facet>
+						<h:outputText value="#{produto.quantidade}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Editar" />
+						</f:facet>
+						<p:commandLink value="Editar"
+							actionListener="#{produtoController.editar}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Desativar" />
+						</f:facet>
+						<p:commandLink value="Desativar" actionListener="#{produtoController.desativar}">							
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

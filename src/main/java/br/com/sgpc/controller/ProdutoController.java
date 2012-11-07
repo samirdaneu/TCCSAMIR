@@ -17,69 +17,72 @@ import br.com.sgpc.service.MessageBundleService;
 import br.com.sgpc.service.ProdutoService;
 import br.com.sgpc.util.FacesUtil;
 
-
 /**
- * Controller com iteraÃ§Ãµes com as telas relacionadas ao {@link ProdutoController}
+ * Controller com iterações com as telas relacionadas ao
+ * {@link ProdutoController}
+ * 
  * @author Samir Daneu
  * @since 01/10/2012
- *
+ * 
  */
-@Controller( value = "produtoController" )
+@Controller(value = "produtoController")
 @RequestScoped
 public class ProdutoController implements AlphaController {
 
 	private static final long serialVersionUID = -6759622970651283020L;
-	
+
 	private Produto produto;
-	
+
 	private List<Fornecedor> fornecedores;
-	
+
 	private Fornecedor fornecedor;
-	
-	@Resource( name = "produtoService" )
-	private ProdutoService produtoService;	
-	
-	@Resource( name = "fornecedorService" )
+
+	@Resource(name = "produtoService")
+	private ProdutoService produtoService;
+
+	@Resource(name = "fornecedorService")
 	private FornecedorService fornecedorService;
-	
-	@Resource( name = "messageBundleService" )
+
+	@Resource(name = "messageBundleService")
 	private MessageBundleService messageBundleService;
-	
+
 	private DataModel<Produto> model;
-	
-	public ProdutoController() { }
-	
+
+	public ProdutoController() {
+	}
+
 	@Override
 	@PostConstruct
 	public void inicio() {
 		produto = new Produto();
-		fornecedores = fornecedorService.buscarTodos();
+		fornecedores = fornecedorService.buscarTodos();		
+		setModel(listarProdutos());
 	}
-	
-	public String novoProduto(){
+
+	public String novoProduto() {
 		this.setProduto(new Produto());
 		return "formProduto";
 	}
-	
-	public DataModel<Produto> listarProdutos(){
-		model = new ListDataModel<Produto>(this.produtoService.buscarTodos());
-		return model;
+
+	public DataModel<Produto> listarProdutos() {
+		setModel(new ListDataModel<Produto>(this.produtoService.buscarTodos()));
+		return getModel();
 	}
-	
-	public String salvarProduto(){
+
+	public String salvarProduto() {
 		try {
-			
-			fornecedor = fornecedorService.buscarPorID( fornecedor.getId() );
-			
+
+			fornecedor = fornecedorService.buscarPorID(fornecedor.getId());
+
 			if (produto.getId() == null) {
-				
-				produto.setFornecedor( fornecedor );
-				produtoService.salvar( produto );
+
+				produto.setFornecedor(fornecedor);
+				produtoService.salvar(produto);
 				FacesUtil.mensagemInformacao(messageBundleService
-						.recoveryMessage("produto_cadastrado_sucesso"));				
+						.recoveryMessage("produto_cadastrado_sucesso"));
 			} else {
-				
-				produtoService.atualizar( produto );
+
+				produtoService.atualizar(produto);
 				FacesUtil.mensagemInformacao(messageBundleService
 						.recoveryMessage("produto_atualizado_sucesso"));
 			}
@@ -87,24 +90,24 @@ public class ProdutoController implements AlphaController {
 			FacesUtil.mensagemErro(messageBundleService
 					.recoveryMessage("produto_salvar_atualizar_erro"));
 			e.printStackTrace();
-		}			
-		
+		}
+
 		return "ok";
 	}
-	
-	public Produto getProdutoParaEditarExcluir(){
-		Produto produto = model.getRowData();
+
+	public Produto getProdutoParaEditarExcluir() {
+		Produto produto = getModel().getRowData();
 		return produto;
 	}
-	
-	public String editar(){
+
+	public String editar() {
 		setProduto(getProdutoParaEditarExcluir());
-		return "formProduto";
+		return "editarProduto";
 	}
-	
-	public String excluir(){
+
+	public String desativar() {
 		Produto produto = getProdutoParaEditarExcluir();
-		this.produtoService.excluir(produto);
+		//this.produtoService.excluir(produto);
 		return "mostrarProdutos";
 	}
 
@@ -132,7 +135,17 @@ public class ProdutoController implements AlphaController {
 		return this.fornecedores;
 	}
 
-	public void setMessageBundleService(MessageBundleService messageBundleService) {
+	public void setMessageBundleService(
+			MessageBundleService messageBundleService) {
 		this.messageBundleService = messageBundleService;
 	}
+
+	public void setModel(DataModel<Produto> model) {
+		this.model = model;
+	}
+
+	public DataModel<Produto> getModel() {
+		return model;
+	}
+
 }
