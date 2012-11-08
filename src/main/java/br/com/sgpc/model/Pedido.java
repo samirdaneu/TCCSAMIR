@@ -21,6 +21,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "pedido")
@@ -44,10 +45,6 @@ public class Pedido implements Serializable {
 	@Column(name = "valor_desconto", nullable = false)
 	private BigDecimal valorDesconto;
 	
-	private BigDecimal valorRecebido;
-	
-	private BigDecimal valorTroco;
-	
 	@Column(name="cpf", nullable=true, length = 11)
 	private String cpf;
 	
@@ -62,6 +59,12 @@ public class Pedido implements Serializable {
 	
 	@OneToMany(mappedBy = "pedido", fetch=FetchType.LAZY)
 	private List<ProdutoPedido> itens = new ArrayList<ProdutoPedido>();
+	
+	@Transient
+	private BigDecimal valorRecebido;
+	
+	@Transient
+	private BigDecimal valorTroco;
 	
 	public Pedido(){
 		super();
