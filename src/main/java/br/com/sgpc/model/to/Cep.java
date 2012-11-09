@@ -8,7 +8,20 @@ public class Cep {
 	private String estado;
 	private String lougradouro;
 	private String regiao;
-
+	
+	public Cep() { }
+	
+	public Cep(final String bairro, final String cep, final String cidade, final String estado, 
+			   final String lougradouro, final String regiao) {
+		
+		this.bairro = bairro;
+		this.cep = cep;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.lougradouro = lougradouro;
+		this.regiao = regiao;
+	}
+	
 	public String getBairro() {
 		return bairro;
 	}
