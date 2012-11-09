@@ -2,7 +2,7 @@ package br.com.sgpc.controller;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 
 import org.springframework.stereotype.Controller;
 
@@ -18,8 +18,8 @@ import br.com.sgpc.util.FacesUtil;
  * @since 01/10/2012
  *
  */
-@Controller( value = "login" )
-@ViewScoped
+@Controller( value = "loginController" )
+@RequestScoped
 public class LoginController implements AlphaController {
 
 	private static final long serialVersionUID = 3204266186679032413L;
@@ -46,19 +46,20 @@ public class LoginController implements AlphaController {
 	 * @return
 	 */
 	public String logar() {
-		boolean existe = usuarioService.verificarSeLoginExiste( usuario.getLogin() );
-					
+		
+		boolean existe = usuarioService.verificarSeLoginExiste( usuario.getLogin() );			
 		if(existe) {			
 			final Usuario usuarioBase = usuarioService.procurarUsuarioPeloLogin( usuario.getLogin() );
 			if(!usuarioBase.isAtivo())
 				FacesUtil.mensagemErro( messageBundleService.recoveryMessage("login_usuario_inativo") );
 			
 			if( loginService.senhasIguais(usuario.getSenha(), usuarioBase.getSenha()) ) {
-				return "logon_success";
+				return "pedido/formPedido";
 			}
-		} 
+		}
+		
 		FacesUtil.mensagemErro( messageBundleService.recoveryMessage("login_senha_invalido") );
-		return null;	
+		return null;
 	}
 	
 	public void setUsuario(Usuario usuario) {

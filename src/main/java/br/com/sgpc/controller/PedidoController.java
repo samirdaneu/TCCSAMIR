@@ -9,14 +9,10 @@ import javax.faces.bean.RequestScoped;
 
 import org.springframework.stereotype.Controller;
 
-import br.com.sgpc.exception.TechnicalException;
 import br.com.sgpc.model.Pedido;
 import br.com.sgpc.model.Produto;
 import br.com.sgpc.model.Usuario;
-import br.com.sgpc.model.to.Cep;
-import br.com.sgpc.service.ConsultaCepService;
 import br.com.sgpc.service.ProdutoService;
-import br.com.sgpc.util.FacesUtil;
 
 
 /**
