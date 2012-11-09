@@ -43,7 +43,7 @@ public class Usuario implements Serializable {
 	private String email;
 
 	@Column(name = "ativo", nullable = false)
-	private Boolean ativo;
+	private boolean ativo;
 
 	@Column(name = "tipo_usuario")
 	@Enumerated(EnumType.STRING)
@@ -78,11 +78,11 @@ public class Usuario implements Serializable {
 		return login;
 	}
 
-	public void setAtivo(Boolean ativo) {
+	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
 
-	public Boolean isAtivo() {
+	public boolean isAtivo() {
 		return ativo;
 	}
 

@@ -5,21 +5,30 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@FacesConverter(value = "booleanConverter", forClass = Boolean.class)
+@FacesConverter(value = "booleanConverter", forClass = boolean.class)
 public class BooleanConverter implements Converter {
 
-	public Object getAsObject(FacesContext context, UIComponent component,
-			String value) {
-		if (value == null)
-			return Boolean.FALSE;
-		return "Sim".equalsIgnoreCase(value) || "True".equalsIgnoreCase(value);
-	}
+    protected static final String DEFAULT_BUNDLE = "mensagem";
 
-	public String getAsString(FacesContext context, UIComponent component,
-			Object object) {
-		if (object instanceof Boolean)
-			return ((Boolean) object).booleanValue() ? "Sim" : "Não";
-		return object.toString();
-	}
+    @Override
+    public Object getAsObject(FacesContext context, UIComponent component,
+            String value) {
+        
+        return getMessage("label_sim",context).equals(value);
+    }
 
+    @Override
+    public String getAsString(FacesContext context, UIComponent component,
+            Object value) {
+        
+        if (value == null){
+            value = (Boolean) false;
+        }
+        
+        return ((Boolean) value) ? getMessage("label_sim",context) : getMessage("label_nao", context);
+    }
+
+    private String getMessage(String messageKey, FacesContext context) {        
+        return context.getApplication().getResourceBundle(context, DEFAULT_BUNDLE).getString(messageKey);
+    }
 }

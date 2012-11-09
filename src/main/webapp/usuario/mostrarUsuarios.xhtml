@@ -34,11 +34,11 @@
 						<h:outputText value="#{usuario.tipoUsuario}" />
 					</p:column>
 
-					<p:column filterBy="#{usuario.ativo}" filterMatchMode="contains" converter="booleanConverter">
+					<p:column filterBy="#{usuario.ativo}" filterMatchMode="contains" >
 						<f:facet name="header">
 							<h:outputText value="Ativo?" />
 						</f:facet>
-						<h:outputText value="#{usuario.ativo}" />
+						<h:outputText value="#{usuario.ativo}" converter="booleanConverter" />
 					</p:column>
 
 					<p:column>
