@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:composition template="/template/template.xhtml">
+		<ui:define name="title">#{mensagem.titulo_usuario}</ui:define>
+		<ui:define name="content">
+			<h:form id="mostrarUsuarios">
+				<p:dataTable var="usuario" value="#{usuarioController.model}"
+					widgetVar="tabelaUsuarios" paginator="true" rows="10"
+					emptyMessage="#{mensagem.usuarios_nao_encontrados}">
+
+					<f:facet name="header">
+					#{mensagem.lista_usuarios}
+					</f:facet>
+
+					<p:column filterBy="#{usuario.nome}" filterMatchMode="contains">
+						<f:facet name="header">
+							<h:outputText value="Nome" />
+						</f:facet>
+						<h:outputText value="#{usuario.nome}" />
+					</p:column>
+
+					<p:column filterBy="#{usuario.tipoUsuario}"
+						filterMatchMode="contains">
+						<f:facet name="header">
+							<h:outputText value="Tipo de Usuário" />
+						</f:facet>
+						<h:outputText value="#{usuario.tipoUsuario}" />
+					</p:column>
+
+					<p:column filterBy="#{usuario.ativo}" filterMatchMode="contains" converter="booleanConverter">
+						<f:facet name="header">
+							<h:outputText value="Ativo?" />
+						</f:facet>
+						<h:outputText value="#{usuario.ativo}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Editar" />
+						</f:facet>
+						<p:commandLink value="Editar"
+							actionListener="#{usuarioController.editar}" />
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

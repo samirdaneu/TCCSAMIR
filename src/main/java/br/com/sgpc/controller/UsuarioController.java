@@ -53,6 +53,7 @@ public class UsuarioController implements AlphaController {
 	@PostConstruct
 	public void inicio() {
 		usuario = new Usuario();
+		setModel(listarUsuarios());
 		setListaTiposUsuario(new ArrayList<String>());
 		getListaTiposUsuario().add(ADMINISTRADOR);
 		getListaTiposUsuario().add(VENDEDOR);
@@ -64,8 +65,8 @@ public class UsuarioController implements AlphaController {
 	}
 	
 	public DataModel<Usuario> listarUsuarios(){
-		model = new ListDataModel<Usuario>(this.usuarioService.buscarTodos());
-		return model;
+		setModel(new ListDataModel<Usuario>(this.usuarioService.buscarTodos()));
+		return getModel();
 	}
 	
 	public String salvarUsuario(){
@@ -102,7 +103,7 @@ public class UsuarioController implements AlphaController {
 	}
 	
 	public Usuario getUsuarioParaEditarDesativar(){
-		Usuario usuario = (Usuario) model.getRowData();
+		Usuario usuario = (Usuario) getModel().getRowData();
 		return usuario;
 	}
 	
@@ -111,7 +112,7 @@ public class UsuarioController implements AlphaController {
 		return "formUsuario";
 	}
 	
-	public String excluir(){
+	public String desativar(){
 		Usuario usuario = getUsuarioParaEditarDesativar();
 		usuario.setAtivo(false);
 		this.usuarioService.atualizar(usuario);
@@ -150,4 +151,11 @@ public class UsuarioController implements AlphaController {
 		return listaTiposUsuario;
 	}
 
+	public void setModel(DataModel<Usuario> model) {
+		this.model = model;
+	}
+
+	public DataModel<Usuario> getModel() {
+		return model;
+	}
 }
