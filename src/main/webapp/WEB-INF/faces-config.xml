@@ -10,24 +10,5 @@
 			<base-name>locale-bundle.messages</base-name>
 			<var>mensagem</var>
 		</resource-bundle>
-	</application>
-
-	<navigation-rule>
-		<from-view-id>/login.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>logon_success</from-outcome>
-			<to-view-id>/menu/menu.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
-	
-	<navigation-rule>
-        <from-view-id>/produto/mostrarProdutos.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>editarProduto</from-outcome>
-            <to-view-id>/produto/formProduto.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
-	
+	</application>	
 </faces-config>
