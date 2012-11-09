@@ -1,5 +1,7 @@
 package br.com.sgpc.dao;
 
+import java.util.List;
+
 import br.com.sgpc.model.Produto;
 
 /**
@@ -9,5 +11,11 @@ import br.com.sgpc.model.Produto;
  *
  */
 public interface ProdutoDao extends GenericDao<Produto, Integer> {
-
+	
+	/**
+	 * Busca produto pela descricao parcial
+	 * @param descricao
+	 * @return lista de produtos
+	 */
+	List<Produto> buscarParcialPorDescricao(final String descricao);
 }

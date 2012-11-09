@@ -9,11 +9,23 @@
 
 <h:body>
 	<ui:composition template="/template/template.xhtml">
-			<ui:define name="title">Vamos vender ?</ui:define>
-			<ui:define name="content">
+		<ui:define name="title"> #{mensagem.titulo_cadastro_pedido} </ui:define>
+		<ui:define name="content">
 			
+			<h:form id="formPedido" >
+				<h:outputLabel value="#{mensagem.nome_vendedor}" for="nome_vendedor" />
+				<h:outputText id="nome_vendedor" value="#{pedidoController.vendedor.nome}"/>
+				<br/>
+				<h:outputLabel for="cpf" value="#{mensagem.pedido_cpf}: "/>
+				<h:inputText id="cpf" value="#{pedidoController.pedidoVigente.cpf}" />
+				<br/>
+				<h:outputLabel value="#{mensagem.escolha_produto}" for="busca_produto" />  
+            	<p:autoComplete id="busca_produto" value="#{pedidoController.descricaoProduto}"   
+                    			completeMethod="#{pedidoController.buscarProdutos}" />
+                <p:messages id="mensagens"/>
+			</h:form>	
 			
-			</ui:define>
+		</ui:define>
 	</ui:composition>
 </h:body>
 </html>

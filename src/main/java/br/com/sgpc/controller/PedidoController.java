@@ -1,14 +1,21 @@
 package br.com.sgpc.controller;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.faces.bean.ManagedBean;
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.faces.bean.RequestScoped;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 
-import br.com.sgpc.dao.GenericDao;
+import org.springframework.stereotype.Controller;
+
+import br.com.sgpc.exception.TechnicalException;
 import br.com.sgpc.model.Pedido;
+import br.com.sgpc.model.Produto;
+import br.com.sgpc.model.Usuario;
+import br.com.sgpc.model.to.Cep;
+import br.com.sgpc.service.ConsultaCepService;
+import br.com.sgpc.service.ProdutoService;
 import br.com.sgpc.util.FacesUtil;
 
 
@@ -18,71 +25,73 @@ import br.com.sgpc.util.FacesUtil;
  * @since 01/10/2012
  *
  */
-@ManagedBean(name = "pedidoController")
+@Controller(value = "pedidoController")
 @RequestScoped
-public class PedidoController implements Serializable {
+public class PedidoController implements AlphaController {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Pedido pedido;
+	private Usuario vendedor;
+	private Pedido pedidoVigente;
 	
-	private GenericDao<Pedido, Integer> pedidoDAO;
+	private String descricaoProduto;
 	
-	private DataModel model;
+	@Resource( name = "produtoService" ) 
+	private ProdutoService produtoService;
 	
-	public PedidoController() {
-		this.setPedido(new Pedido());
+	@Override
+	@PostConstruct
+	public void inicio() { 
+		pedidoVigente = new Pedido();
 	}
 	
-	public String novoPedido(){
-		this.setPedido(new Pedido());
-		return "formPedido";
-	}
-	
-	public DataModel listarPedidos(){
-		model = new ListDataModel(this.pedidoDAO.buscarTodos());
-		return model;
-	}
-	
-	public String salvarPedido(){
-		try {
-			if (getPedido().getId() == null){
-				pedidoDAO.salvar(getPedido());
-				FacesUtil.mensagemInformacao("Pedido cadastrado com sucesso!");
-			} else {
-				pedidoDAO.atualizar(getPedido());
-				FacesUtil.mensagemInformacao("Pedido cadastrado com sucesso!");
-			}
-		} catch (Exception e) {
-			FacesUtil.mensagemErro("Erro ao salvar/atualizar pedido");
-			e.printStackTrace();
-		}			
+	/**
+	 * Metodo do autocomplete para buscar o produto no evento onKeyPress
+	 * @param query
+	 * @return Lista pesquisada no banco
+	 */
+	public List<String> buscarProdutos(final String query) {
+		final List<Produto> produtos = produtoService.buscarParcialPorDescricao( query );
+		final List<String> descricoes = new ArrayList<String>();
 		
-		return "ok";
+		for(Produto produto : produtos) {
+			descricoes.add( produto.getDescricao() );
+		}
+		
+		return descricoes;
 	}
 	
-	public Pedido getPedidoParaEditarExcluir(){
-		Pedido pedido = (Pedido) model.getRowData();
-		return pedido;
-	}
-	
-	public String editar(){
-		setPedido(getPedidoParaEditarExcluir());
-		return "formPedido";
-	}
-	
-	public String excluir(){
-		Pedido pedido = getPedidoParaEditarExcluir();
-		this.pedidoDAO.excluir(pedido);
-		return "mostrarPedidos";
-	}
-	
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
+	public Usuario getVendedor() {
+		return vendedor;
 	}
 
-	public Pedido getPedido() {
-		return pedido;
+	public void setVendedor(Usuario vendedor) {
+		this.vendedor = vendedor;
 	}
+
+	public Pedido getPedidoVigente() {
+		return pedidoVigente;
+	}
+
+	public void setPedidoVigente(Pedido pedidoVigente) {
+		this.pedidoVigente = pedidoVigente;
+	}
+
+	public String getDescricaoProduto() {
+		return descricaoProduto;
+	}
+
+	public void setDescricaoProduto(String descricaoProduto) {
+		this.descricaoProduto = descricaoProduto;
+	}
+
+	public void setProdutoService(ProdutoService produtoService) {
+		this.produtoService = produtoService;
+	}
+
+	/*public DataModel listarPedidos(){
+		model = new ListDataModel(this.pedidoDAO.buscarTodos());
+		return model;
+	}*/
 
 }

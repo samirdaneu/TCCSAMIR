@@ -38,7 +38,7 @@ public class Usuario implements Serializable {
 	@Column(name = "nome", nullable = false, length = 30)
 	private String nome;
 	
-	@Email(message="E-mail inv·lido!")
+	@Email(message="E-mail inv√°lido!")
 	@Column(name = "email_usuario", nullable = true, length = 30)
 	private String email;
 
@@ -49,7 +49,7 @@ public class Usuario implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TipoUsuario tipoUsuario;
 	
-	@OneToMany(mappedBy="usuario", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "vendedor", fetch = FetchType.LAZY)
 	private Set<Pedido> pedidos;
 
 	public enum TipoUsuario {VENDEDOR, ADMINISTRADOR}

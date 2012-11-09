@@ -8,8 +8,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,8 +33,8 @@ public class Pedido implements Serializable {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 	
-	@Column(name="data_emissao", nullable=false)
-	@Temporal(value=TemporalType.DATE)
+	@Column(name="data_emissao", nullable = false)
+	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date emissao;
 	
 	@Column(name = "valor_total", nullable = false)
@@ -45,20 +43,18 @@ public class Pedido implements Serializable {
 	@Column(name = "valor_desconto", nullable = false)
 	private BigDecimal valorDesconto;
 	
-	@Column(name="cpf", nullable=true, length = 11)
+	@Column(name = "cpf", nullable = true, length = 11)
 	private String cpf;
 	
 	@ManyToOne
 	@JoinColumn(name = "usuario_id", nullable = false)
-	private Usuario usuario;
+	private Usuario vendedor;
 	
-	@Enumerated(EnumType.STRING)
-	private TipoPagamento tipoPagamento;
-	
-	public enum TipoPagamento {DINHEIRO, CHEQUE, DEBITO, CREDITO}
-	
-	@OneToMany(mappedBy = "pedido", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "pedido", fetch = FetchType.LAZY)
 	private List<ProdutoPedido> itens = new ArrayList<ProdutoPedido>();
+	
+	@OneToMany(mappedBy = "pedido", fetch = FetchType.LAZY)
+	private List<FormaPagamento> formasPagamento;
 	
 	@Transient
 	private BigDecimal valorRecebido;
@@ -66,18 +62,22 @@ public class Pedido implements Serializable {
 	@Transient
 	private BigDecimal valorTroco;
 	
-	public Pedido(){
-		super();
+	public BigDecimal calcularTroco() {
+		return valorTroco = valorRecebido.subtract( valorTotal );
 	}
 	
-	public BigDecimal calcularTroco(){
-		return this.valorTroco = this.valorRecebido.subtract(this.valorTotal);
+	public void realizarDesconto() {
+		valorTotal = valorTotal.subtract( valorDesconto );
 	}
-	
-	public void realizarDesconto(){
-		this.valorTotal = this.valorTotal.subtract(this.valorDesconto);
+
+	public Integer getId() {
+		return id;
 	}
-	
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public Date getEmissao() {
 		return emissao;
 	}
@@ -94,68 +94,59 @@ public class Pedido implements Serializable {
 		this.valorTotal = valorTotal;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
+	public BigDecimal getValorDesconto() {
+		return valorDesconto;
 	}
 
 	public void setValorDesconto(BigDecimal valorDesconto) {
 		this.valorDesconto = valorDesconto;
 	}
 
-	public BigDecimal getValorDesconto() {
-		return valorDesconto;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setValorRecebido(BigDecimal valorRecebido) {
-		this.valorRecebido = valorRecebido;
-	}
-
-	public BigDecimal getValorRecebido() {
-		return valorRecebido;
-	}
-
-	public void setValorTroco(BigDecimal valorTroco) {
-		this.valorTroco = valorTroco;
-	}
-
-	public BigDecimal getValorTroco() {
-		return valorTroco;
-	}
-
-
-	public void setItens(List<ProdutoPedido> itens) {
-		this.itens = itens;
-	}
-
-	public List<ProdutoPedido> getItens() {
-		return itens;
-	}
-
-	public void setTipoPagamento(TipoPagamento tipoPagamento) {
-		this.tipoPagamento = tipoPagamento;
-	}
-
-	public TipoPagamento getTipoPagamento() {
-		return tipoPagamento;
+	public String getCpf() {
+		return cpf;
 	}
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
-	public String getCpf() {
-		return cpf;
+	public Usuario getVendedor() {
+		return vendedor;
+	}
+
+	public void setVendedor(Usuario vendedor) {
+		this.vendedor = vendedor;
+	}
+
+	public List<ProdutoPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<ProdutoPedido> itens) {
+		this.itens = itens;
+	}
+
+	public List<FormaPagamento> getFormasPagamento() {
+		return formasPagamento;
+	}
+
+	public void setFormasPagamento(List<FormaPagamento> formasPagamento) {
+		this.formasPagamento = formasPagamento;
+	}
+
+	public BigDecimal getValorRecebido() {
+		return valorRecebido;
+	}
+
+	public void setValorRecebido(BigDecimal valorRecebido) {
+		this.valorRecebido = valorRecebido;
+	}
+
+	public BigDecimal getValorTroco() {
+		return valorTroco;
+	}
+
+	public void setValorTroco(BigDecimal valorTroco) {
+		this.valorTroco = valorTroco;
 	}
 }
