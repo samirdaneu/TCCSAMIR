@@ -10,5 +10,9 @@
 			<base-name>locale-bundle.messages</base-name>
 			<var>mensagem</var>
 		</resource-bundle>
-	</application>	
+	</application>
+	<validator>
+		<validator-id>emailValidator</validator-id>
+		<validator-class>br.com.sgpc.validator.EmailValidator</validator-class>
+	</validator>			
 </faces-config>

@@ -38,7 +38,6 @@ public class Usuario implements Serializable {
 	@Column(name = "nome", nullable = false, length = 30)
 	private String nome;
 	
-	@Email(message="E-mail inválido!")
 	@Column(name = "email_usuario", nullable = true, length = 30)
 	private String email;
 
