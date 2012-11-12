@@ -9,5 +9,7 @@ import br.com.sgpc.service.PedidoService;
 @Service( value = "pedidoService" )
 public class PedidoServiceImpl extends GenericDaoImpl<Pedido, Integer>
 		implements PedidoService {
+
+	private static final long serialVersionUID = -2320677255338836868L;
 	
 }

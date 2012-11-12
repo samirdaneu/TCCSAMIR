@@ -16,14 +16,6 @@ import br.com.sgpc.service.MessageBundleService;
 import br.com.sgpc.service.UsuarioService;
 import br.com.sgpc.util.FacesUtil;
 
-/**
- * Controller com iterações com as telas relacionadas ao
- * {@link UsuarioController}
- * 
- * @author Samir Daneu
- * @since 01/10/2012
- * 
- */
 @Controller(value = "usuarioController")
 @RequestScoped
 public class UsuarioController implements AlphaController {

@@ -2,14 +2,17 @@ package br.com.sgpc.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -30,7 +33,7 @@ public class Produto implements Serializable {
 	@Column(name = "codigo_produto", nullable = true, length = 10)
 	private String codigo;
 	
-	@Column(name = "descricao_produto", nullable = false, length = 30)
+	@Column(name = "descricao_produto", nullable = false, unique=true, length = 30)
 	private String descricao;
 	
 	@Column(name = "preco_produto", nullable = false)
@@ -48,6 +51,22 @@ public class Produto implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "fornecedor_id", nullable = false)
 	private Fornecedor fornecedor;
+	
+	@OneToMany(mappedBy = "produto", fetch = FetchType.LAZY)
+	private List<MovimentacaoProduto> movimentacaoProduto;
+	
+	
+	public int atualizarQuantidadePorMovimentacao(int quantidadeMovimentacao, int quantidadeProduto, 
+			MovimentacaoProduto.TipoMovimentacao tipoMovimentacao) {
+		if (tipoMovimentacao.equals(MovimentacaoProduto.TipoMovimentacao.ENTRADA)) {
+			quantidadeProduto += quantidadeMovimentacao;
+
+		} else {
+			quantidadeProduto -= quantidadeMovimentacao;
+		}		
+		
+		return quantidadeProduto;
+	}
 	
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
@@ -111,6 +130,14 @@ public class Produto implements Serializable {
 
 	public BigDecimal getPercentualDesconto() {
 		return percentualDesconto;
+	}
+
+	public void setMovimentacaoProduto(List<MovimentacaoProduto> movimentacaoProduto) {
+		this.movimentacaoProduto = movimentacaoProduto;
+	}
+
+	public List<MovimentacaoProduto> getMovimentacaoProduto() {
+		return movimentacaoProduto;
 	}	
 	
 }

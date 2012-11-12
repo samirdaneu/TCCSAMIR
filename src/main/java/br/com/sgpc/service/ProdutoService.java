@@ -13,4 +13,6 @@ public interface ProdutoService extends GenericDao<Produto, Integer> {
 	 * @return lista de produtos
 	 */
 	List<Produto> buscarParcialPorDescricao(final String descricao);
+	
+	Produto buscarUnicoPorDescricao(final String descricao);
 }

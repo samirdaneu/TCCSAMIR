@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:composition template="/template/template.xhtml">
+		<ui:define name="title">Cadastro de Entrada/Saída Produtos</ui:define>
+		<ui:define name="content">
+			<h:form id="formCadastroMovimentacao">
+				<p:panelGrid columns="2">
+					<f:facet name="header"> Cadastro de Entrada/Saída Produtos </f:facet>
+
+					<p:outputLabel value="#{mensagem.escolha_produto}"
+						for="busca_produto" />
+					<p:autoComplete id="busca_produto"
+						value="#{movimentacaoProdutoController.descricaoProduto}"
+						completeMethod="#{movimentacaoProdutoController.buscarProdutos}" />
+
+					<h:outputText value="Tipo de Movimentação: " />
+					<p:selectOneMenu id="tipoMovimentacao"
+						value="#{movimentacaoProdutoController.tipoMovimentacaoSelecionado}">
+						<f:selectItems
+							value="#{movimentacaoProdutoController.listaTipoMovimentacao}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="quantidade" value="Quantidade: " />
+					<p:inputText id="quantidade"
+						value="#{movimentacaoProdutoController.movimentacaoProduto.quantidade}"
+						size="7" required="true" requiredMessage="Campo obrigatório"
+						converterMessage="Digite a quantidade corretamente">
+						<f:convertNumber maxIntegerDigits="7" />
+					</p:inputText>
+
+					<h:outputText value="Descrição da movimentação: " />
+					<p:inputTextarea rows="4" cols="25" counter="counter"
+						value="#{movimentacaoProdutoController.movimentacaoProduto.descricaoMovimentacao}" 
+						maxlength="100" counterTemplate="{0} dígitos restantes."
+						autoResize="false" />
+					<h:outputText id="counter" />	
+
+					<f:facet name="footer">
+						<p:messages />
+						<br />
+						<p:commandButton value="Salvar" icon="ui-icon-check"
+							style="margin:0" action="#{movimentacaoProdutoController.salvarMovimentacao}"
+							update="formCadastroMovimentacao" />						
+							
+					</f:facet>
+				</p:panelGrid>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -12,6 +12,7 @@
 		<class>br.com.sgpc.model.ProdutoPedidoPK</class>
 		<class>br.com.sgpc.model.Fornecedor</class>
 		<class>br.com.sgpc.model.FormaPagamento</class>
+		<class>br.com.sgpc.model.MovimentacaoProduto</class>
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />

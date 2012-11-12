@@ -15,8 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.Email;
-
 @Entity
 @Table(name = "usuario")
 public class Usuario implements Serializable {

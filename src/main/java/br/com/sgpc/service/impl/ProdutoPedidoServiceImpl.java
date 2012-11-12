@@ -10,4 +10,6 @@ import br.com.sgpc.service.FornecedorService;
 public class ProdutoPedidoServiceImpl extends
 		GenericDaoImpl<Fornecedor, Integer> implements FornecedorService {
 
+	private static final long serialVersionUID = 2079301422180807355L;
+
 }

@@ -40,4 +40,14 @@ public class ProdutoServiceImpl extends GenericDaoImpl<Produto, Integer> impleme
 	public void setProdutoDao(ProdutoDao produtoDao) {
 		this.produtoDao = produtoDao;
 	}
+
+	@Override
+	public Produto buscarUnicoPorDescricao(String descricao) {
+		
+		if(descricao == null) {
+			throw new IllegalArgumentException( messageBundleService.recoveryMessage("descricao_nula", 1) );
+		}
+		
+		return produtoDao.buscarUnicoPorDescricao(descricao);
+	}
 }

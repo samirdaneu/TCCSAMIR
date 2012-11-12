@@ -1,15 +1,5 @@
 package br.com.sgpc.util;
 
-import java.math.BigDecimal;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-import br.com.sgpc.model.Fornecedor;
-import br.com.sgpc.model.Produto;
-import br.com.sgpc.model.Usuario;
-import br.com.sgpc.model.Usuario.TipoUsuario;
 
 public class GeradorTabelas {
 
