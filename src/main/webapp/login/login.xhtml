@@ -24,7 +24,6 @@
 				<p:password value="#{loginController.usuario.senha}" />
 
 				<p:commandButton value="Entrar" action="#{loginController.logar}" update="messages">
-					<f:setPropertyActionListener value="#{loginController.usuario}" target="#{pedidoController.vendedor}" />
 				</p:commandButton>
 			</h:panelGrid>
 		</p:panel>
