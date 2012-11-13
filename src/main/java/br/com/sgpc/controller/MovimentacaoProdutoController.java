@@ -29,7 +29,7 @@ public class MovimentacaoProdutoController implements AlphaController {
 	private static final long serialVersionUID = -4751958106939130845L;
 	
 	private static final String ENTRADA = "Entrada";
-	private static final String SAIDA = "Saída";
+	private static final String SAIDA = "Saï¿½da";
 	
 	private Usuario usuario;
 	

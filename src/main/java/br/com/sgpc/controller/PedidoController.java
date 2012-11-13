@@ -39,6 +39,7 @@ public class PedidoController implements AlphaController {
 	@PostConstruct
 	public void inicio() { 
 		pedidoVigente = new Pedido();
+		System.out.println( vendedor );
 	}
 	
 	/**

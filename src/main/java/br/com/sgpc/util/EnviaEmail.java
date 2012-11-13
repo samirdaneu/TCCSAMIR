@@ -24,9 +24,9 @@ public class EnviaEmail {
 		for(Usuario destinatario : administradores){
 			SimpleEmail email = new SimpleEmail();  
 	        email.setHostName("smtp.gmail.com"); // o servidor SMTP para envio do e-mail  
-	        email.addTo(destinatario.getEmail(), destinatario.getNome()); //destinatário  
+	        email.addTo(destinatario.getEmail(), destinatario.getNome()); //destinatï¿½rio  
 	        email.setFrom("samir.daneu@gmail.com", "Sistema de Vendas"); // remetente  
-	        email.setSubject("Produto - Código: " + produto.getCodigo() + " Descrição: " + produto.getDescricao() + 
+	        email.setSubject("Produto - Cï¿½digo: " + produto.getCodigo() + " Descriï¿½ï¿½o: " + produto.getDescricao() + 
 	        		"Chegou a sua quantidade limite - Quantidade: " + produto.getQuantidade() +
 	        		"Quantidade limite: " + produto.getQuantidadeLimite());  
 	        email.setMsg("Aviso de produtos com quantidade no limite"); //conteudo do e-mail  
