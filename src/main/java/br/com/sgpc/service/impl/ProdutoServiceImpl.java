@@ -50,4 +50,9 @@ public class ProdutoServiceImpl extends GenericDaoImpl<Produto, Integer> impleme
 		
 		return produtoDao.buscarUnicoPorDescricao(descricao);
 	}
+
+	@Override
+	public List<Produto> buscarProdutosQuantidadeLimiteUltrapassada() {
+		return produtoDao.buscarProdutosQuantidadeLimiteUltrapassada();
+	}
 }

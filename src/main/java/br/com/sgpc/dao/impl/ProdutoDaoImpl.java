@@ -20,7 +20,7 @@ public class ProdutoDaoImpl extends GenericDaoImpl<Produto, Integer> implements 
 		
 		final String sql = "SELECT p FROM " + Produto.class.getName() + " p WHERE p.descricao LIKE :descricao";
 		
-		final Query query = getEntityManager().createQuery( sql );
+		final Query query = getEntityManager().createQuery(sql);
 		query.setParameter("descricao", "%" + descricao + "%");
 		
 		return (List<Produto>) query.getResultList();
@@ -29,9 +29,17 @@ public class ProdutoDaoImpl extends GenericDaoImpl<Produto, Integer> implements 
 	@Override
 	public Produto buscarUnicoPorDescricao(String descricao) {
 		final String sql = "SELECT p FROM " + Produto.class.getName() + " p WHERE p.descricao LIKE :descricao";
-		final Query query = getEntityManager().createQuery( sql );
+		final Query query = getEntityManager().createQuery(sql);
 		query.setParameter("descricao", descricao);
 		
 		return (Produto) query.getSingleResult();		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Produto> buscarProdutosQuantidadeLimiteUltrapassada() {
+		final String sql = "SELECT p FROM " + Produto.class.getName() + " p WHERE p.quantidade <= p.quantidadeLimite";
+		final Query query = getEntityManager().createQuery(sql);
+		return (List<Produto>) query.getResultList();
 	}
 }

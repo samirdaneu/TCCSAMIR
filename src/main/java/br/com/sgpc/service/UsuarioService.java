@@ -1,5 +1,7 @@
 package br.com.sgpc.service;
 
+import java.util.List;
+
 import br.com.sgpc.dao.GenericDao;
 import br.com.sgpc.model.Usuario;
 
@@ -24,6 +26,8 @@ public interface UsuarioService extends GenericDao<Usuario, Integer> {
 	 * @return Usuario, caso exista
 	 */
 	Usuario procurarUsuarioPeloLogin(final String login);
+	
+	List<Usuario> buscarAdministradoresAtivos();
 	
 	
 }

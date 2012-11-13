@@ -14,9 +14,12 @@ import org.springframework.stereotype.Controller;
 
 import br.com.sgpc.model.MovimentacaoProduto;
 import br.com.sgpc.model.Produto;
+import br.com.sgpc.model.Usuario;
 import br.com.sgpc.service.MessageBundleService;
 import br.com.sgpc.service.MovimentacaoProdutoService;
 import br.com.sgpc.service.ProdutoService;
+import br.com.sgpc.service.UsuarioService;
+import br.com.sgpc.util.EnviaEmail;
 import br.com.sgpc.util.FacesUtil;
 
 @Controller(value = "movimentacaoProdutoController")
@@ -24,10 +27,14 @@ import br.com.sgpc.util.FacesUtil;
 public class MovimentacaoProdutoController implements AlphaController {
 
 	private static final long serialVersionUID = -4751958106939130845L;
-
+	
 	private static final String ENTRADA = "Entrada";
 	private static final String SAIDA = "Saída";
-
+	
+	private Usuario usuario;
+	
+	private boolean enviarEmail = false;
+	
 	private String descricaoProduto;
 
 	private String tipoMovimentacaoSelecionado;
@@ -43,6 +50,9 @@ public class MovimentacaoProdutoController implements AlphaController {
 
 	@Resource(name = "movimentacaoProdutoService")
 	private MovimentacaoProdutoService movimentacaoProdutoService;
+	
+	@Resource(name = "usuarioService")
+	private UsuarioService usuarioService;
 
 	@Resource(name = "messageBundleService")
 	private MessageBundleService messageBundleService;
@@ -87,6 +97,14 @@ public class MovimentacaoProdutoController implements AlphaController {
 		 return retorno;
 	}
 	
+	private boolean verificaSeQuantidadeLimiteUltrapassou(){
+		boolean retorno = false;
+		if((getProduto().getQuantidade() - movimentacaoProduto.getQuantidade()) <= getProduto().getQuantidadeLimite()){
+			retorno = true;
+		}		
+		return retorno;
+	}
+	
 	public String salvarMovimentacao() {
 		try {
 			
@@ -100,6 +118,7 @@ public class MovimentacaoProdutoController implements AlphaController {
 			} else {
 				movimentacaoProduto
 						.setTipoMovimentacao((MovimentacaoProduto.TipoMovimentacao.SAIDA));
+				setEnviarEmail(verificaSeQuantidadeLimiteUltrapassou());
 			}
 
 			movimentacaoProduto.setDataMovimentacao(new Date());
@@ -107,9 +126,13 @@ public class MovimentacaoProdutoController implements AlphaController {
 					movimentacaoProduto.getQuantidade(),
 					produto.getQuantidade(),
 					movimentacaoProduto.getTipoMovimentacao()));
+			if(enviarEmail){
+				new EnviaEmail(usuarioService.buscarAdministradoresAtivos(), getProduto());
+			}
 			produtoService.atualizar(getProduto());
 			movimentacaoProduto.setProduto(getProduto());
 			movimentacaoProdutoService.salvar(movimentacaoProduto);
+						
 			FacesUtil.mensagemInformacao(messageBundleService
 							.recoveryMessage("movimentacao_produto_cadastrado_sucesso"));
 			} else {
@@ -190,6 +213,30 @@ public class MovimentacaoProdutoController implements AlphaController {
 
 	public List<String> getListaTipoMovimentacao() {
 		return listaTipoMovimentacao;
+	}
+
+	public void setUsuarioService(UsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
+	}
+
+	public UsuarioService getUsuarioService() {
+		return usuarioService;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setEnviarEmail(boolean enviarEmail) {
+		this.enviarEmail = enviarEmail;
+	}
+
+	public boolean isEnviarEmail() {
+		return enviarEmail;
 	}
 
 }

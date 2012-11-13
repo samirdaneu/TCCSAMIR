@@ -15,4 +15,6 @@ public interface ProdutoService extends GenericDao<Produto, Integer> {
 	List<Produto> buscarParcialPorDescricao(final String descricao);
 	
 	Produto buscarUnicoPorDescricao(final String descricao);
+	
+	List<Produto> buscarProdutosQuantidadeLimiteUltrapassada();
 }
