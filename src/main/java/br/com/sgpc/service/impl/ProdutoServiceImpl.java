@@ -27,25 +27,17 @@ public class ProdutoServiceImpl extends GenericDaoImpl<Produto, Integer> impleme
 	public List<Produto> buscarParcialPorDescricao(final String descricao) {
 		
 		if(descricao == null) {
-			throw new IllegalArgumentException( messageBundleService.recoveryMessage("descricao_nula", 1) );
+			throw new IllegalArgumentException( messageBundleService.recoveryMessage("descricao_nula") );
 		}
 		
 		return produtoDao.buscarParcialPorDescricao( descricao );
-	}
-
-	public void setMessageBundleService(MessageBundleService messageBundleService) {
-		this.messageBundleService = messageBundleService;
-	}
-
-	public void setProdutoDao(ProdutoDao produtoDao) {
-		this.produtoDao = produtoDao;
 	}
 
 	@Override
 	public Produto buscarUnicoPorDescricao(String descricao) {
 		
 		if(descricao == null) {
-			throw new IllegalArgumentException( messageBundleService.recoveryMessage("descricao_nula", 1) );
+			throw new IllegalArgumentException( messageBundleService.recoveryMessage("descricao_nula") );
 		}
 		
 		return produtoDao.buscarUnicoPorDescricao(descricao);
@@ -54,5 +46,13 @@ public class ProdutoServiceImpl extends GenericDaoImpl<Produto, Integer> impleme
 	@Override
 	public List<Produto> buscarProdutosQuantidadeLimiteUltrapassada() {
 		return produtoDao.buscarProdutosQuantidadeLimiteUltrapassada();
+	}
+	
+	public void setMessageBundleService(MessageBundleService messageBundleService) {
+		this.messageBundleService = messageBundleService;
+	}
+	
+	public void setProdutoDao(ProdutoDao produtoDao) {
+		this.produtoDao = produtoDao;
 	}
 }
