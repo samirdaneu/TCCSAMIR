@@ -11,33 +11,41 @@
 		<p:growl id="messages" autoUpdate="true" />
 		<p:panelMenu style="width:220px">
 			<p:submenu label="Produto">
-				<p:menuitem value="Consultar" actionListener="#{buttonBean.save}"
+				<p:menuitem value="Cadastrar" action="#{menuController.cadastrarProduto}"
 					icon="ui-icon-disk"/>
-				<p:menuitem value="Cadastrar" actionListener="#{buttonBean.update}"
-					icon="ui-icon-arrowrefresh-1-w" />
-				<p:menuitem value="Entrada/Saída" actionListener="#{buttonBean.update}"
-					icon="ui-icon-arrowrefresh-1-w" />	
+				<p:menuitem value="Consultar" action="#{menuController.consultarProdutos}"
+					icon="ui-icon-arrowrefresh-1-w" />							
+			</p:submenu>
+			<p:submenu label="Estoque">
+				<p:menuitem value="Movimentar" action="#{menuController.cadastrarMovimentacao}"
+					icon="ui-icon-disk"/>
+				<p:menuitem value="Consultar" action="#{menuController.consultarMovimentacoes}"
+					icon="ui-icon-arrowrefresh-1-w" />							
 			</p:submenu>
 			<p:submenu label="Pedido">
-				<p:menuitem value="Consultar" actionListener="#{buttonBean.save}"
+				<p:menuitem value="Cadastrar" action="#{menuController.cadastrarPedido}"
 					icon="ui-icon-disk" />
-				<p:menuitem value="Vendas" actionListener="#{buttonBean.update}"
+				<p:menuitem value="Consultar" action="#{menuController.consultarPedido}"
 					icon="ui-icon-arrowrefresh-1-w" />
 			</p:submenu>
 			<p:submenu label="Fornecedor">
-				<p:menuitem value="Consultar" actionListener="#{buttonBean.save}"
+				<p:menuitem value="Cadastrar" action="#{menuController.cadastrarFornecedor}"
 					icon="ui-icon-disk" />
-				<p:menuitem value="Cadastrar" actionListener="#{buttonBean.update}"
+				<p:menuitem value="Consultar" action="#{menuController.consultarFornecedor}"
 					icon="ui-icon-arrowrefresh-1-w" />
 			</p:submenu>
 			<p:submenu label="Usuario">
-				<p:menuitem value="Consultar" actionListener="#{buttonBean.save}"
+				<p:menuitem value="Cadastrar" action="#{menuController.cadastrarUsuario}"
 					icon="ui-icon-disk" />
-				<p:menuitem value="Cadastrar" actionListener="#{buttonBean.update}"
+				<p:menuitem value="Consultar" action="#{menuController.consultarFornecedor}"
 					icon="ui-icon-arrowrefresh-1-w" />
-				<p:menuitem value="Trocar senha" actionListener="#{buttonBean.update}"
+				<p:menuitem value="Alterar senha" action="#{menuController.alterarSenha}"
 					icon="ui-icon-arrowrefresh-1-w" />					
 			</p:submenu>
+			<p:submenu label="Relatórios">
+				<p:menuitem value="Vendas" action="#{menuController.consultarVendas}"
+					icon="ui-icon-arrowrefresh-1-w" />									
+			</p:submenu>			
 		</p:panelMenu>
 	</h:form>
 </h:body>

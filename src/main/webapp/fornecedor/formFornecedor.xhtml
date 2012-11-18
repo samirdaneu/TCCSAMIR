@@ -9,74 +9,79 @@
 	<title>Cadastro de Fornecedor</title>
 </h:head>
 <h:body>
-	<h:form id="formCadastroFornecedor">	
-		<p:panelGrid columns="2">
-			<f:facet name="header"> Cadastro de Fornecedor </f:facet>
-			
-				<h:outputLabel for="razaoSocial" value="Razão Social: "/>
-				<p:inputText id="razaoSocial"
-				value="#{fornecedorController.fornecedor.razaoSocial}"
-				required="true" maxlength="40" size="40">
-				</p:inputText>
-					
-				<h:outputLabel for="cnpj" value="CNPJ: " />
-				<p:inputText id="cnpj" 
-				value="#{fornecedorController.fornecedor.cnpj}"
-				required="false">
-				</p:inputText>
-				
-				<h:outputLabel for="telefone" value="Telefone: " />
-				<p:inputText id="telefone"
-				value="#{fornecedorController.fornecedor.telefone}"
-				required="false">
-				</p:inputText>
-				
-				<h:outputLabel for="cep" value="Cep: " />
-				<p:inputText id="cep" required="false"
-				value="#{fornecedorController.fornecedor.cep}">
-				</p:inputText>
-				
-				<h:outputLabel for="endereco" value="Endereço: " />
-				<p:inputText id="endereco" required="false"
-				value="#{fornecedorController.fornecedor.endereco}">
-				</p:inputText>
-				
-				<h:outputLabel for="bairro" value="Bairro: " />
-				<p:inputText id="bairro" required="false"
-				value="#{fornecedorController.fornecedor.bairro}">
-				</p:inputText>
-				
-				<h:outputLabel for="cidade" value="Cidade: " />
-				<p:inputText id="cidade" required="false"
-				value="#{fornecedorController.fornecedor.cidade}">
-				</p:inputText>
-				
-				<h:outputLabel for="uf" value="UF: " />
-				<p:inputText id="uf" required="false"
-				value="#{fornecedorController.fornecedor.uf}">
-				</p:inputText>
-				
-				<h:outputLabel for="email" value="Email: " />
-				<p:inputText id="email" required="false"
-				value="#{fornecedorController.fornecedor.email}">
-				</p:inputText>
-				
-				<h:outputLabel for="site" value="Site: " />
-				<p:inputText id="site" required="false"
-				value="#{fornecedorController.fornecedor.site}">
-				</p:inputText>
-				
-				<h:outputLabel for="contato" value="Nome Contato: " />
-				<p:inputText id="contato" required="false"
-				value="#{fornecedorController.fornecedor.nomeContato}">
-				</p:inputText>
-				
-				<f:facet name="footer">
-				<p:messages /> <br/>
-				<p:commandButton value="Salvar" icon="ui-icon-check" style="margin:0" 
-						action = "#{fornecedorController.salvarFornecedor}" update="formCadastroFornecedor"/>
-			</f:facet>
-		</p:panelGrid>
-	</h:form>
+	<ui:composition template="/template/template.xhtml">
+		<ui:define name="title">Cadastro de fornecedor</ui:define>
+		<ui:define name="content">
+			<h:form id="formCadastroFornecedor">
+				<p:panelGrid columns="2">
+					<f:facet name="header"> Cadastro de Fornecedor </f:facet>
+
+					<h:outputLabel for="razaoSocial" value="Razão Social: " />
+					<p:inputText id="razaoSocial"
+						value="#{fornecedorController.fornecedor.razaoSocial}"
+						required="true" maxlength="40" size="40">
+					</p:inputText>
+
+					<h:outputLabel for="cnpj" value="CNPJ: " />
+					<p:inputText id="cnpj"
+						value="#{fornecedorController.fornecedor.cnpj}" required="false">
+					</p:inputText>
+
+					<h:outputLabel for="telefone" value="Telefone: " />
+					<p:inputText id="telefone"
+						value="#{fornecedorController.fornecedor.telefone}"
+						required="false">
+					</p:inputText>
+
+					<h:outputLabel for="cep" value="Cep: " />
+					<p:inputText id="cep" required="false"
+						value="#{fornecedorController.fornecedor.cep}">
+					</p:inputText>
+
+					<h:outputLabel for="endereco" value="Endereço: " />
+					<p:inputText id="endereco" required="false"
+						value="#{fornecedorController.fornecedor.endereco}">
+					</p:inputText>
+
+					<h:outputLabel for="bairro" value="Bairro: " />
+					<p:inputText id="bairro" required="false"
+						value="#{fornecedorController.fornecedor.bairro}">
+					</p:inputText>
+
+					<h:outputLabel for="cidade" value="Cidade: " />
+					<p:inputText id="cidade" required="false"
+						value="#{fornecedorController.fornecedor.cidade}">
+					</p:inputText>
+
+					<h:outputLabel for="uf" value="UF: " />
+					<p:inputText id="uf" required="false"
+						value="#{fornecedorController.fornecedor.uf}">
+					</p:inputText>
+
+					<h:outputLabel for="email" value="Email: " />
+					<p:inputText id="email" required="false"
+						value="#{fornecedorController.fornecedor.email}">
+					</p:inputText>
+
+					<h:outputLabel for="site" value="Site: " />
+					<p:inputText id="site" required="false"
+						value="#{fornecedorController.fornecedor.site}">
+					</p:inputText>
+
+					<h:outputLabel for="contato" value="Nome Contato: " />
+					<p:inputText id="contato" required="false"
+						value="#{fornecedorController.fornecedor.nomeContato}">
+					</p:inputText>
+
+					<f:facet name="footer">
+						<p:messages />
+						<br />
+						<p:commandButton value="Salvar" icon="ui-icon-check"
+							style="margin:0"
+							action="#{fornecedorController.salvarFornecedor}"
+							update="formCadastroFornecedor" />
+					</f:facet>
+				</p:panelGrid>
+			</h:form>
 </h:body>
 </html>
