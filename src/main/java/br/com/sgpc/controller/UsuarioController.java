@@ -125,6 +125,11 @@ public class UsuarioController implements AlphaController {
 		
 		return destino;
 	}
+	
+	public String limparCampos() {
+	    inicio();
+        return "sucesso";  
+    }
 
 	public Usuario getUsuarioParaEditarDesativar() {
 		Usuario usuario = (Usuario) getModel().getRowData();

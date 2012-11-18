@@ -12,7 +12,7 @@
 		<ui:define name="title">Cadastro de Produto</ui:define>
 		<ui:define name="content">
 			<h:form id="formCadastroProduto">
-				<p:panelGrid columns="2" >
+				<p:panelGrid columns="2">
 					<f:facet name="header"> Cadastro de Produto </f:facet>
 
 					<h:outputText value="Fornecedor: " />
@@ -77,10 +77,6 @@
 						<p:commandButton value="Salvar" icon="ui-icon-check"
 							style="margin:0" action="#{produtoController.salvarProduto}"
 							update="formCadastroProduto" />
-						<p:commandButton value="Limpar" icon="ui-icon-check"
-							style="margin:0" ajax="true"
-							update="formCadastroProduto"	
-							actionListener="#{produtoController.limparCampos}"/>	
 					</f:facet>
 				</p:panelGrid>
 			</h:form>

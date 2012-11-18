@@ -11,7 +11,7 @@
 		<ui:define name="title">Produtos</ui:define>
 		<ui:define name="content">
 			<h:form id="mostrarProdutos">
-				<p:dataTable var="produto" value="#{produtoController.model}"
+				<p:dataTable style="width:900px" var="produto" value="#{produtoController.model}"
 					widgetVar="tabelaProdutos" paginator="true" rows="10"
 					emptyMessage="Nenhum produto encontrado!">
 
@@ -54,7 +54,7 @@
 							<h:outputText value="Editar" />
 						</f:facet>
 						<p:commandLink value="Editar"
-							actionListener="#{produtoController.editar}" />
+							action="#{produtoController.editar}" />
 					</p:column>
 
 					<p:column>

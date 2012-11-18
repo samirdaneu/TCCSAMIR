@@ -14,7 +14,7 @@ import br.com.sgpc.service.MessageBundleService;
 import br.com.sgpc.util.FacesUtil;
 
 /**
- * Controller com iterações com as telas relacionadas ao {@link FornecedorController}
+ * Controller com iteraï¿½ï¿½es com as telas relacionadas ao {@link FornecedorController}
  * @author Samir Daneu
  * @since 01/10/2012
  *
@@ -75,6 +75,11 @@ public class FornecedorController implements AlphaController {
 		
 		return "ok";
 	}
+	
+	public String limparCampos() {
+		inicio();
+        return "sucesso";  
+    }
 	
 	public Fornecedor getFornecedorParaEditarExcluir(){
 		Fornecedor fornecedor = (Fornecedor) getModel().getRowData();

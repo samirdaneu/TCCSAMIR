@@ -1,5 +1,6 @@
 package br.com.sgpc.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -18,7 +19,7 @@ import br.com.sgpc.service.ProdutoService;
 import br.com.sgpc.util.FacesUtil;
 
 /**
- * Controller com iterações com as telas relacionadas ao
+ * Controller com iteraï¿½ï¿½es com as telas relacionadas ao
  * {@link ProdutoController}
  * 
  * @author Samir Daneu
@@ -61,7 +62,7 @@ public class ProdutoController implements AlphaController {
 
 	public String novoProduto() {
 		this.setProduto(new Produto());
-		return "formProduto";
+		return "produto/fomProduto";
 	}
 
 	public DataModel<Produto> listarProdutos() {
@@ -102,8 +103,14 @@ public class ProdutoController implements AlphaController {
 
 	public String editar() {
 		setProduto(getProdutoParaEditarExcluir());
-		return "editarProduto";
+		return "/produto/formEditar";
 	}
+	
+	public String limparCampos() {
+		this.fornecedores = new ArrayList<Fornecedor>();
+        inicio();
+        return "sucesso";  
+    }
 
 	public String desativar() {
 		Produto produto = getProdutoParaEditarExcluir();

@@ -5,11 +5,40 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
 	xmlns:p="http://primefaces.org/ui">
-	
-	<h:body>
-		Usuario <br/>
-		Vendas <br/>
-		Fornecedor <br/>
-		Produtos <br/>
-	</h:body>
+
+<h:body>
+	<h:form>
+		<p:growl id="messages" autoUpdate="true" />
+		<p:panelMenu style="width:220px">
+			<p:submenu label="Produto">
+				<p:menuitem value="Consultar" actionListener="#{buttonBean.save}"
+					icon="ui-icon-disk"/>
+				<p:menuitem value="Cadastrar" actionListener="#{buttonBean.update}"
+					icon="ui-icon-arrowrefresh-1-w" />
+				<p:menuitem value="Entrada/Saída" actionListener="#{buttonBean.update}"
+					icon="ui-icon-arrowrefresh-1-w" />	
+			</p:submenu>
+			<p:submenu label="Pedido">
+				<p:menuitem value="Consultar" actionListener="#{buttonBean.save}"
+					icon="ui-icon-disk" />
+				<p:menuitem value="Vendas" actionListener="#{buttonBean.update}"
+					icon="ui-icon-arrowrefresh-1-w" />
+			</p:submenu>
+			<p:submenu label="Fornecedor">
+				<p:menuitem value="Consultar" actionListener="#{buttonBean.save}"
+					icon="ui-icon-disk" />
+				<p:menuitem value="Cadastrar" actionListener="#{buttonBean.update}"
+					icon="ui-icon-arrowrefresh-1-w" />
+			</p:submenu>
+			<p:submenu label="Usuario">
+				<p:menuitem value="Consultar" actionListener="#{buttonBean.save}"
+					icon="ui-icon-disk" />
+				<p:menuitem value="Cadastrar" actionListener="#{buttonBean.update}"
+					icon="ui-icon-arrowrefresh-1-w" />
+				<p:menuitem value="Trocar senha" actionListener="#{buttonBean.update}"
+					icon="ui-icon-arrowrefresh-1-w" />					
+			</p:submenu>
+		</p:panelMenu>
+	</h:form>
+</h:body>
 </html>
