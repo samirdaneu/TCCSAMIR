@@ -6,13 +6,12 @@
 	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
 	xmlns:p="http://primefaces.org/ui">
 
-
 <h:body>
 	<ui:composition template="/template/template.xhtml">
 		<ui:define name="title"> #{mensagem.titulo_cadastro_pedido} </ui:define>
 		<ui:define name="content">
 			
-			<h:form id="formPedido" >
+			<h:form id="formPedido">
 				<h:outputLabel value="#{mensagem.nome_vendedor}" for="nome_vendedor" />
 				<h:outputText id="nome_vendedor" value="#{pedidoController.vendedor.nome}"/>
 				<br/>
