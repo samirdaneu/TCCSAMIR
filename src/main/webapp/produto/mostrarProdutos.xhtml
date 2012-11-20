@@ -19,11 +19,11 @@
 					Lista de Produtos
 					</f:facet>
 
-					<p:column filterBy="#{produto.codigo}" filterMatchMode="contains">
+					<p:column filterBy="#{usuario.login}" filterMatchMode="contains">
 						<f:facet name="header">
-							<h:outputText value="Código" />
+							<h:outputText value="Usuário" />
 						</f:facet>
-						<h:outputText value="#{produto.codigo}" />
+						<h:outputText value="#{usuario.login}" />
 					</p:column>
 
 					<p:column filterBy="#{produto.descricao}"

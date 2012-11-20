@@ -1,37 +1,44 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
-	
-	<h:head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>
-			<ui:insert name="title">SGPC</ui:insert>
-		</title>
-	</h:head>
-	
-	<h:body>
-		<div id = "total-content"> 
-			<div id = "header-content">
-			    <ui:include src = "header.xhtml" />
-			</div>
-			
-			<div id="middle-contente">
-				<div id = "menu" style="float: left">
-					<ui:include src = "/menu/menu.xhtml" />
-				</div>
-				
-				<div id = "content">
-				  <ui:insert name = "content" style="float: left">
-				  		Corpo padrão, você esqueceu de inserir o corpo no template
-				  </ui:insert>
-				</div>
-			</div>
-			
-			<div id = "footer-content">
-			  <ui:include src = "footer.xhtml"/>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<h:outputStylesheet name="styles.css" library="css" />
+</h:head>
+
+<p:layout fullPage="true">
+
+	<p:layoutUnit position="north" size="100">
+		<div align="center">
+			<ui:insert name="top">
+				<ui:include src="/template/header.xhtml" />
+			</ui:insert>
+		</div>
+	</p:layoutUnit>
+
+	<p:layoutUnit position="west" size="200" header="Menu" resizable="true"
+		collapsible="true">
+		<div id="middle-contente">
+			<div id="menu" style="float: left">
+				<ui:include src="/menu/menu.xhtml" />
 			</div>
 		</div>
-	</h:body>
+	</p:layoutUnit>
+
+	<p:layoutUnit position="center">
+		<div align="center" style="border: blue">
+			<ui:insert name="content"></ui:insert>
+		</div>
+	</p:layoutUnit>
+	
+	<p:layoutUnit position="south">
+		<div align="center" style="border: blue">
+			<ui:include src="/template/footer.xhtml" />
+		</div>
+	</p:layoutUnit>
+
+</p:layout>
 </html>

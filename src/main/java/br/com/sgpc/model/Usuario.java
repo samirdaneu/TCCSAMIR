@@ -48,6 +48,9 @@ public class Usuario implements Serializable {
 	
 	@OneToMany(mappedBy = "vendedor", fetch = FetchType.LAZY)
 	private Set<Pedido> pedidos;
+	
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+	private Set<MovimentacaoProduto> movimentacoesProdutos;
 
 	public enum TipoUsuario {VENDEDOR, ADMINISTRADOR}
 	
@@ -113,5 +116,13 @@ public class Usuario implements Serializable {
 
 	public String getEmail() {
 		return email;
+	}
+
+	public void setMovimentacoesProdutos(Set<MovimentacaoProduto> movimentacoesProdutos) {
+		this.movimentacoesProdutos = movimentacoesProdutos;
+	}
+
+	public Set<MovimentacaoProduto> getMovimentacoesProdutos() {
+		return movimentacoesProdutos;
 	}
 }
