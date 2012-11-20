@@ -40,7 +40,7 @@ public class EmailValidator implements Validator {
 			FacesMessage message = new FacesMessage();
 			
 			message.setSeverity(FacesMessage.SEVERITY_ERROR);			
-			message.setSummary("Email inv·lido!");			
+			message.setSummary("Email inv√°lido!");			
 			throw new ValidatorException(message);
 		}	
 			

@@ -30,7 +30,10 @@ public class Fornecedor implements Serializable {
 	@Column(name = "razao_social", nullable = false, length = 30)
 	private String razaoSocial;
 	
-	@Column(name = "cnpj", nullable = true, length = 14)
+	@Column(name = "inscricao_estadual", nullable = false, length = 30)
+	private String inscricaoEstadual;
+	
+	@Column(name = "cnpj", nullable = true, length = 18)
 	private String cnpj;
 	
 	@Column(name = "telefone", nullable = true, length = 14)
