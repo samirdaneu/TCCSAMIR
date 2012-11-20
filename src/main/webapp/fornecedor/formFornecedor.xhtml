@@ -27,35 +27,15 @@
 						value="#{fornecedorController.fornecedor.cnpj}" required="false">
 					</p:inputText>
 
+					<h:outputLabel for="contato" value="Nome Contato: " />
+					<p:inputText id="contato" required="false"
+						value="#{fornecedorController.fornecedor.nomeContato}">
+					</p:inputText>
+
 					<h:outputLabel for="telefone" value="Telefone: " />
 					<p:inputText id="telefone"
 						value="#{fornecedorController.fornecedor.telefone}"
 						required="false">
-					</p:inputText>
-
-					<h:outputLabel for="cep" value="Cep: " />
-					<p:inputText id="cep" required="false"
-						value="#{fornecedorController.fornecedor.cep}">
-					</p:inputText>
-
-					<h:outputLabel for="endereco" value="Endereço: " />
-					<p:inputText id="endereco" required="false"
-						value="#{fornecedorController.fornecedor.endereco}">
-					</p:inputText>
-
-					<h:outputLabel for="bairro" value="Bairro: " />
-					<p:inputText id="bairro" required="false"
-						value="#{fornecedorController.fornecedor.bairro}">
-					</p:inputText>
-
-					<h:outputLabel for="cidade" value="Cidade: " />
-					<p:inputText id="cidade" required="false"
-						value="#{fornecedorController.fornecedor.cidade}">
-					</p:inputText>
-
-					<h:outputLabel for="uf" value="UF: " />
-					<p:inputText id="uf" required="false"
-						value="#{fornecedorController.fornecedor.uf}">
 					</p:inputText>
 
 					<h:outputLabel for="email" value="Email: " />
@@ -68,9 +48,46 @@
 						value="#{fornecedorController.fornecedor.site}">
 					</p:inputText>
 
-					<h:outputLabel for="contato" value="Nome Contato: " />
-					<p:inputText id="contato" required="false"
-						value="#{fornecedorController.fornecedor.nomeContato}">
+				</p:panelGrid>
+			</h:form>
+
+			<h:form id="formCep">
+				<p:panelGrid columns="3" >
+					<h:outputText value="CEP: " style="display: block;width: 120px;border: 0;"/>
+					<p:inputMask mask="99999-999"
+						value="#{fornecedorController.fornecedor.cep}"/>
+					<p:commandButton value="Pesquisar" icon="ui-icon-search"
+						action="#{fornecedorController.encontraCEP}"
+						update=":formEndereco" />
+				</p:panelGrid>
+			</h:form>
+
+			<h:form id="formEndereco">
+				<p:panelGrid id="painelEndereco" columns="2">
+
+					<h:outputLabel for="logradouro" value="Endereço: " />
+					<p:inputText id="logradouro" required="false"
+						value="#{fornecedorController.fornecedor.logradouro}">
+					</p:inputText>
+
+					<h:outputLabel for="numero" value="Número: " />
+					<p:inputText id="numero" required="false"
+						value="#{fornecedorController.fornecedor.numeroLogradouro}">
+					</p:inputText>
+
+					<h:outputLabel for="bairro" value="Bairro: " />
+					<p:inputText id="bairro" required="false"
+						value="#{fornecedorController.fornecedor.bairro}">
+					</p:inputText>
+
+					<h:outputLabel for="cidade" value="Cidade: " />
+					<p:inputText id="cidade" required="false"
+						value="#{fornecedorController.fornecedor.cidade}">
+					</p:inputText>
+
+					<h:outputLabel for="estado" value="Estado: " />
+					<p:inputText id="estado" required="false"
+						value="#{fornecedorController.fornecedor.estado}">
 					</p:inputText>
 
 					<f:facet name="footer">
@@ -79,9 +96,11 @@
 						<p:commandButton value="Salvar" icon="ui-icon-check"
 							style="margin:0"
 							action="#{fornecedorController.salvarFornecedor}"
-							update="formCadastroFornecedor" />
+							update=":formCadastroFornecedor, :formEndereco, :formCep" />
 					</f:facet>
 				</p:panelGrid>
 			</h:form>
+		</ui:define>
+	</ui:composition>
 </h:body>
 </html>

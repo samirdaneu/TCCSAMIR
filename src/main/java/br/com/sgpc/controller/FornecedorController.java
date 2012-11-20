@@ -8,33 +8,43 @@ import javax.faces.model.ListDataModel;
 
 import org.springframework.stereotype.Controller;
 
+import br.com.sgpc.exception.TechnicalException;
 import br.com.sgpc.model.Fornecedor;
+import br.com.sgpc.model.to.Cep;
+import br.com.sgpc.service.ConsultaCepService;
 import br.com.sgpc.service.FornecedorService;
 import br.com.sgpc.service.MessageBundleService;
 import br.com.sgpc.util.FacesUtil;
 
 /**
- * Controller com itera��es com as telas relacionadas ao {@link FornecedorController}
+ * Controller com itera��es com as telas relacionadas ao
+ * {@link FornecedorController}
+ * 
  * @author Samir Daneu
  * @since 01/10/2012
- *
+ * 
  */
-@Controller( value = "fornecedorController" )
+@Controller(value = "fornecedorController")
 @RequestScoped
 public class FornecedorController implements AlphaController {
 
 	private static final long serialVersionUID = 643971891099428877L;
-	
+
 	private Fornecedor fornecedor;
-	
-	@Resource( name = "fornecedorService" )
+
+	private Cep cep;
+
+	@Resource(name = "consultaCepService")
+	private ConsultaCepService consultaCepService;
+
+	@Resource(name = "fornecedorService")
 	private FornecedorService fornecedorService;
-	
-	@Resource( name = "messageBundleService" )
+
+	@Resource(name = "messageBundleService")
 	private MessageBundleService messageBundleService;
-	
+
 	private DataModel<Fornecedor> model;
-	
+
 	@Override
 	@PostConstruct
 	public void inicio() {
@@ -45,20 +55,42 @@ public class FornecedorController implements AlphaController {
 	public FornecedorController() {
 		this.setFornecedor(new Fornecedor());
 	}
-	
-	public String novoFornecedor(){
+
+	public String novoFornecedor() {
 		this.setFornecedor(new Fornecedor());
 		return "formFornecedor";
 	}
-	
+
 	public DataModel<Fornecedor> listarFornecedores() {
-		setModel(new ListDataModel<Fornecedor>(this.fornecedorService.buscarTodos()));
+		setModel(new ListDataModel<Fornecedor>(
+				this.fornecedorService.buscarTodos()));
 		return getModel();
 	}
-	
-	public String salvarFornecedor(){
+
+	public void encontraCEP() {
 		try {
-			if (getFornecedor().getId() == null){
+			setCep(consultaCepService.consultarCep(getFornecedor().getCep()));
+		} catch (TechnicalException e) {
+			FacesUtil.mensagemErro(messageBundleService
+					.recoveryMessage("fornecedor_cep_erro"));
+			e.printStackTrace();
+		}
+
+		if (this.cep != null) {
+			this.fornecedor.setLogradouro(this.cep.getLougradouro());
+			this.fornecedor.setBairro(this.cep.getBairro());
+			this.fornecedor.setCidade(this.cep.getCidade());
+			this.fornecedor.setEstado(this.cep.getEstado());
+		} else {
+			FacesUtil.mensagemErro(messageBundleService
+					.recoveryMessage("fornecedor_cep_erro"));
+		}
+
+	}
+
+	public String salvarFornecedor() {
+		try {
+			if (getFornecedor().getId() == null) {
 				fornecedorService.salvar(getFornecedor());
 				FacesUtil.mensagemInformacao(messageBundleService
 						.recoveryMessage("fornecedor_cadastro_sucesso"));
@@ -71,27 +103,27 @@ public class FornecedorController implements AlphaController {
 			FacesUtil.mensagemErro(messageBundleService
 					.recoveryMessage("fornecedor_salvar_atualizar_erro"));
 			e.printStackTrace();
-		}			
-		
+		}
+
 		return "ok";
 	}
-	
+
 	public String limparCampos() {
 		inicio();
-        return "sucesso";  
-    }
-	
-	public Fornecedor getFornecedorParaEditarExcluir(){
+		return "sucesso";
+	}
+
+	public Fornecedor getFornecedorParaEditarExcluir() {
 		Fornecedor fornecedor = (Fornecedor) getModel().getRowData();
 		return fornecedor;
 	}
-	
-	public String editar(){
+
+	public String editar() {
 		setFornecedor(getFornecedorParaEditarExcluir());
 		return "formFornecedor";
 	}
-	
-	public String excluir(){
+
+	public String excluir() {
 		Fornecedor fornecedor = getFornecedorParaEditarExcluir();
 		this.fornecedorService.excluir(fornecedor);
 		return "mostrarFornecedores";
@@ -111,6 +143,22 @@ public class FornecedorController implements AlphaController {
 
 	public DataModel<Fornecedor> getModel() {
 		return model;
+	}
+
+	public void setConsultaCepService(ConsultaCepService consultaCepService) {
+		this.consultaCepService = consultaCepService;
+	}
+
+	public ConsultaCepService getConsultaCepService() {
+		return consultaCepService;
+	}
+
+	public void setCep(Cep cep) {
+		this.cep = cep;
+	}
+
+	public Cep getCep() {
+		return cep;
 	}
 
 }

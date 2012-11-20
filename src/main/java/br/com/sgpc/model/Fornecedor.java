@@ -36,22 +36,25 @@ public class Fornecedor implements Serializable {
 	@Column(name = "telefone", nullable = true, length = 14)
 	private String telefone;
 	
-	@Column(name = "cep", nullable = true, length = 8)
+	@Column(name = "cep", nullable = true, length = 9)
 	private String cep;
 	
-	@Column(name = "endereco", nullable = true, length = 40)
-	private String endereco;
+	@Column(name = "logradouro", nullable = true, length = 100)
+	private String logradouro;
 	
 	@Column(name = "bairro", nullable = true, length = 30)
 	private String bairro;
 	
-	@Column(name = "cidade", nullable = true, length = 30)
+	@Column(name = "numero", nullable = true, length = 10)
+	private String numeroLogradouro;
+	
+	@Column(name = "cidade", nullable = true, length = 50)
 	private String cidade;
 	
-	@Column(name = "uf", nullable = true, length = 2)
-	private String uf;
+	@Column(name = "estado", nullable = true, length = 20)
+	private String estado;
 	
-	@Email(message="E-mail inválido!")
+	@Email(message="E-mail invï¿½lido!")
 	@Column(name = "email", nullable = true, length = 20)
 	private String email;
 	
@@ -94,14 +97,6 @@ public class Fornecedor implements Serializable {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
-	}
-
-	public String getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
 	}
 
 	public String getCep() {
@@ -152,14 +147,6 @@ public class Fornecedor implements Serializable {
 		return cidade;
 	}
 
-	public void setUf(String uf) {
-		this.uf = uf;
-	}
-
-	public String getUf() {
-		return uf;
-	}
-
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
 	}
@@ -192,6 +179,29 @@ public class Fornecedor implements Serializable {
 			return false;
 		return true;
 	}
-	
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setNumeroLogradouro(String numeroLogradouro) {
+		this.numeroLogradouro = numeroLogradouro;
+	}
+
+	public String getNumeroLogradouro() {
+		return numeroLogradouro;
+	}	
 	
 }
