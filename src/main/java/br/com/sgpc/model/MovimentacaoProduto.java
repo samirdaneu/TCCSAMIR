@@ -33,6 +33,10 @@ public class MovimentacaoProduto implements Serializable {
 	@JoinColumn(name = "produto_id", nullable = false)
 	private Produto produto;
 	
+	@ManyToOne
+	@JoinColumn(name = "usuario_id", nullable = false)
+	private Usuario usuario;
+	
 	@Column(name = "tipo_saida")
 	@Enumerated(EnumType.STRING)
 	private TipoMovimentacao tipoMovimentacao;
@@ -41,7 +45,7 @@ public class MovimentacaoProduto implements Serializable {
 	private int quantidade;
 	
 	@Column(name="data_movimentacao", nullable = false)
-	@Temporal(value = TemporalType.TIMESTAMP)
+	@Temporal(value = TemporalType.DATE)
 	private Date dataMovimentacao;
 	
 	@Column(name = "descricao_movimentacao", nullable = false, length = 100)
@@ -95,6 +99,14 @@ public class MovimentacaoProduto implements Serializable {
 
 	public int getQuantidade() {
 		return quantidade;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
 	}	
 
 }
