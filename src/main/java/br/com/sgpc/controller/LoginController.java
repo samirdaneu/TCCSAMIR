@@ -2,7 +2,7 @@ package br.com.sgpc.controller;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 import org.springframework.stereotype.Controller;
 
@@ -19,7 +19,7 @@ import br.com.sgpc.util.FacesUtil;
  *
  */
 @Controller( value = "loginController" )
-@RequestScoped
+@SessionScoped
 public class LoginController implements AlphaController {
 
 	private static final long serialVersionUID = 3204266186679032413L;
@@ -61,6 +61,11 @@ public class LoginController implements AlphaController {
 		FacesUtil.mensagemErro( messageBundleService.recoveryMessage("login_senha_invalido") );
 		return null;
 	}
+	
+	public String limparCampos() {
+		inicio();
+        return "sucesso";  
+    }
 	
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;

@@ -30,7 +30,7 @@ public class Produto implements Serializable {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 	
-	@Column(name = "codigo_produto", nullable = true, length = 10)
+	@Column(name = "codigo_produto", nullable = true, unique=true, length = 10)
 	private String codigo;
 	
 	@Column(name = "descricao_produto", nullable = false, unique=true, length = 30)
@@ -38,9 +38,6 @@ public class Produto implements Serializable {
 	
 	@Column(name = "preco_produto", nullable = false)
 	private BigDecimal preco;
-	
-	@Column(name = "percentual_desconto", nullable = true)
-	private BigDecimal percentualDesconto;
 	
 	@Column(name = "quantidade_produto", nullable = false)
 	private int quantidade;
@@ -54,6 +51,9 @@ public class Produto implements Serializable {
 	
 	@OneToMany(mappedBy = "produto", fetch = FetchType.LAZY)
 	private List<MovimentacaoProduto> movimentacaoProduto;
+	
+	@OneToMany(mappedBy = "produto", fetch = FetchType.LAZY)
+	private List<ItensPedido> itens;
 	
 	
 	public int atualizarQuantidadePorMovimentacao(int quantidadeMovimentacao, int quantidadeProduto, 
@@ -124,20 +124,20 @@ public class Produto implements Serializable {
 		return fornecedor;
 	}
 
-	public void setPercentualDesconto(BigDecimal percentualDesconto) {
-		this.percentualDesconto = percentualDesconto;
-	}
-
-	public BigDecimal getPercentualDesconto() {
-		return percentualDesconto;
-	}
-
 	public void setMovimentacaoProduto(List<MovimentacaoProduto> movimentacaoProduto) {
 		this.movimentacaoProduto = movimentacaoProduto;
 	}
 
 	public List<MovimentacaoProduto> getMovimentacaoProduto() {
 		return movimentacaoProduto;
+	}
+
+	public void setItens(List<ItensPedido> itens) {
+		this.itens = itens;
+	}
+
+	public List<ItensPedido> getItens() {
+		return itens;
 	}	
 	
 }

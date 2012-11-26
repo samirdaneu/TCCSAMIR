@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition template="/template/templateLogin.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -7,27 +8,32 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:spring="http://www.springframework.org/tags">
 
-<h:head>
-	<title>#{mensagem.titulo_login}</title>
-</h:head>
-
-<h:body>
-	<h:form>
-		<p:panel id="painel" header="Login" style="margin-bottom:15px;">
-			<p:messages id="messages" />
-			<h:panelGrid columns="2">
-
+	<ui:define name="title">#{mensagem.titulo_login}</ui:define>
+	<ui:define name="content">
+		<h:form id="formLogin">
+			<p:panelGrid columns="2" style="width:400px;height:200px;">
+				<f:facet name="header">Login</f:facet>
 				<h:outputLabel value="Login" />
-				<p:inputText value="#{loginController.usuario.login}" />
-
+				<p:inputText value="#{loginController.usuario.login}" maxlength="8"
+					size="8" required="true" requiredMessage="Login obrigatório!"
+					validatorMessage="Máximo de 8 caracteres!" />
 				<h:outputLabel value="Senha" />
-				<p:password value="#{loginController.usuario.senha}" />
-
-				<p:commandButton value="Entrar" action="#{loginController.logar}" update="messages">
-					
-				</p:commandButton>
-			</h:panelGrid>
-		</p:panel>
-	</h:form>
-</h:body>
-</html>
+				<p:password value="#{loginController.usuario.senha}" maxlength="8"
+					size="8" required="true" requiredMessage="Senha obrigatória!"
+					validatorMessage="Máximo de 8 caracteres!" />
+				<f:facet name="footer">
+					<p:messages id="messages" />
+					<br />
+					<p:commandButton value="Entrar" icon="ui-icon-check"
+						action="#{loginController.logar}" update="formLogin"
+						style="margin:0">
+					</p:commandButton>
+					<p:commandButton value="Limpar" icon="ui-icon-check"
+						action="#{loginController.limparCampos}" update="formLogin" ajax="true"
+						style="margin:0">
+					</p:commandButton>
+				</f:facet>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

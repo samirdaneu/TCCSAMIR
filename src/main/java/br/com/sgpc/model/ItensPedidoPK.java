@@ -6,14 +6,14 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class ProdutoPedidoPK implements Serializable {
+public class ItensPedidoPK implements Serializable {
 
 	private static final long serialVersionUID = -1643135097218988663L;
 	
-	public ProdutoPedidoPK(){		
+	public ItensPedidoPK(){		
 	}	
 	
-	public ProdutoPedidoPK(Integer pedidoID, Integer produtoID) {
+	public ItensPedidoPK(Integer pedidoID, Integer produtoID) {
 		super();
 		this.pedidoID = pedidoID;
 		this.produtoID = produtoID;

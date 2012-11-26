@@ -11,9 +11,9 @@
 		<ui:define name="title">#{mensagem.titulo_usuario}</ui:define>
 		<ui:define name="content">
 			<h:form id="mostrarUsuarios">
-				<p:dataTable var="usuario" value="#{usuarioController.model}"
+				<p:dataTable id="tabelaUsuarios" var="usuario" value="#{usuarioController.model}"
 					widgetVar="tabelaUsuarios" paginator="true" rows="10"
-					emptyMessage="#{mensagem.usuarios_nao_encontrados}">
+					emptyMessage="#{mensagem.usuarios_nao_encontrados}" style="width:1080px">
 
 					<f:facet name="header">
 					#{mensagem.lista_usuarios}
@@ -25,7 +25,7 @@
 						</f:facet>
 						<h:outputText value="#{usuario.nome}" />
 					</p:column>
-
+					
 					<p:column filterBy="#{usuario.tipoUsuario}"
 						filterMatchMode="contains">
 						<f:facet name="header">
@@ -34,11 +34,11 @@
 						<h:outputText value="#{usuario.tipoUsuario}" />
 					</p:column>
 
-					<p:column filterBy="#{usuario.ativo}" filterMatchMode="contains" >
+					<p:column filterBy="#{usuario.email}" filterMatchMode="contains" >
 						<f:facet name="header">
-							<h:outputText value="Ativo?" />
+							<h:outputText value="Email" />
 						</f:facet>
-						<h:outputText value="#{usuario.ativo}" converter="booleanConverter" />
+						<h:outputText value="#{usuario.email}" />
 					</p:column>
 
 					<p:column>
@@ -48,8 +48,56 @@
 						<p:commandLink value="Editar"
 							actionListener="#{usuarioController.editar}" />
 					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Excluir" />
+						</f:facet>
+						<p:commandLink value="Excluir"
+							actionListener="#{usuarioController.editar}" />
+					</p:column>
 
 				</p:dataTable>
+				
+				<h:panelGrid columns="2">
+					<p:panel header="Exportar Todos">
+						<h:commandLink>
+							<p:graphicImage library="imagens" name="excel.png" />
+							<p:dataExporter type="xls" target="tabelaUsuarios" fileName="fornecedores" />
+						</h:commandLink>
+
+						<h:commandLink>
+							<p:graphicImage library="imagens" name="pdf.png" />
+							<p:dataExporter type="pdf" target="tabelaUsuarios" fileName="fornecedores" />
+						</h:commandLink>
+
+						<h:commandLink>
+							<p:graphicImage library="imagens" name="csv.png" />
+							<p:dataExporter type="csv" target="tabelaUsuarios" fileName="fornecedores" />
+						</h:commandLink>
+					</p:panel>
+
+					<p:panel header="Exportar Página">
+						<h:commandLink>
+							<p:graphicImage library="imagens" name="excel.png" />
+							<p:dataExporter type="xls" target="tabelaUsuarios" fileName="fornecedores"
+								pageOnly="true" />
+						</h:commandLink>
+
+						<h:commandLink>
+							<p:graphicImage library="imagens" name="pdf.png" />
+							<p:dataExporter type="pdf" target="tabelaUsuarios" fileName="fornecedores"
+								pageOnly="true" />
+						</h:commandLink>
+
+						<h:commandLink>
+							<p:graphicImage library="imagens" name="csv.png" />
+							<p:dataExporter type="csv" target="tabelaUsuarios" fileName="fornecedores"
+								pageOnly="true" />
+						</h:commandLink>
+					</p:panel>
+				</h:panelGrid>
+				
 			</h:form>
 		</ui:define>
 	</ui:composition>

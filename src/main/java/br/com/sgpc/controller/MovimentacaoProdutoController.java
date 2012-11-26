@@ -64,6 +64,7 @@ public class MovimentacaoProdutoController implements AlphaController {
 	public void inicio() {
 		movimentacaoProduto = new MovimentacaoProduto();
 		produto = new Produto();
+		usuario = new Usuario();
 		setModel(listarMovimentacoes());
 		setListaTipoMovimentacao(new ArrayList<String>());
 		getListaTipoMovimentacao().add(ENTRADA);
@@ -120,7 +121,7 @@ public class MovimentacaoProdutoController implements AlphaController {
 						.setTipoMovimentacao((MovimentacaoProduto.TipoMovimentacao.SAIDA));
 				setEnviarEmail(verificaSeQuantidadeLimiteUltrapassou());
 			}
-
+			
 			movimentacaoProduto.setDataMovimentacao(new Date());
 			getProduto().setQuantidade(produto.atualizarQuantidadePorMovimentacao(
 					movimentacaoProduto.getQuantidade(),

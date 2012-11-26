@@ -10,7 +10,7 @@
 	<ui:define name="title"> Entradas e Saídas </ui:define>
 	<ui:define name="content">
 
-		<p:dataTable style="width: 550PX"
+		<p:dataTable style="width:1080px"
 				var="movimentacaoProduto"
 				value="#{movimentacaoProdutoController.model}"
 				widgetVar="tabelaMovimentacoes" paginator="true" rows="10"
@@ -51,6 +51,14 @@
 					</f:facet>
 					<h:outputText value="#{movimentacaoProduto.dataMovimentacao}" />
 				</p:column>
+				
+				<p:column filterBy="#movimentacaoProduto.tipoMovimentacao}"
+					filterMatchMode="contains">
+					<f:facet name="header">
+						<h:outputText value="Tipo Movimentação" />
+					</f:facet>
+					<h:outputText value="#{movimentacaoProduto.tipoMovimentacao}" />
+				</p:column>
 
 				<p:column>
 					<f:facet name="header">
@@ -62,9 +70,9 @@
 
 				<p:column>
 					<f:facet name="header">
-						<h:outputText value="Desativar" />
+						<h:outputText value="Excluir" />
 					</f:facet>
-					<p:commandLink value="Desativar"
+					<p:commandLink value="Excluir"
 						action="#{movimentacaoProdutoController.excluir}" />
 				</p:column>
 

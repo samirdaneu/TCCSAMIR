@@ -7,12 +7,11 @@ import br.com.sgpc.model.Produto;
 
 public interface ProdutoService extends GenericDao<Produto, Integer> {
 	
-	/**
-	 * Busca produto pela descricao parcial
-	 * @param descricao
-	 * @return lista de produtos
-	 */
 	List<Produto> buscarParcialPorDescricao(final String descricao);
+	
+	List<Produto> buscarParcialPorCodigo(final String codigo);
+	
+	Produto buscarUnicoPorCodigo(final String codigo);
 	
 	Produto buscarUnicoPorDescricao(final String descricao);
 	

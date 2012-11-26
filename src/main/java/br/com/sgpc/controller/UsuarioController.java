@@ -141,7 +141,7 @@ public class UsuarioController implements AlphaController {
 		return "formUsuario";
 	}
 
-	public String desativar() {
+	public String excluir() {
 		Usuario usuario = getUsuarioParaEditarDesativar();
 		usuario.setAtivo(false);
 		this.usuarioService.atualizar(usuario);

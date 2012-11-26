@@ -9,15 +9,8 @@ import org.springframework.stereotype.Service;
 import br.com.sgpc.dao.UsuarioDao;
 import br.com.sgpc.dao.impl.GenericDaoImpl;
 import br.com.sgpc.model.Usuario;
-import br.com.sgpc.service.LoginService;
 import br.com.sgpc.service.UsuarioService;
 
-/**
- * Implementacao de {@link LoginService}
- * @author Guilherme Gambeti
- * @since 25/10/2012
- *
- */
 @Service( value = "usuarioService" )
 public class UsuarioServiceImpl extends GenericDaoImpl<Usuario, Integer>
 		implements UsuarioService {

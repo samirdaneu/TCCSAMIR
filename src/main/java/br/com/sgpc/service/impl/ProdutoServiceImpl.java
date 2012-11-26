@@ -55,4 +55,14 @@ public class ProdutoServiceImpl extends GenericDaoImpl<Produto, Integer> impleme
 	public void setProdutoDao(ProdutoDao produtoDao) {
 		this.produtoDao = produtoDao;
 	}
+
+	@Override
+	public List<Produto> buscarParcialPorCodigo(String codigo) {
+		return this.produtoDao.buscarParcialPorcodigo(codigo);
+	}
+
+	@Override
+	public Produto buscarUnicoPorCodigo(String codigo) {
+		return this.produtoDao.buscarUnicoPorCodigoo(codigo);
+	}
 }

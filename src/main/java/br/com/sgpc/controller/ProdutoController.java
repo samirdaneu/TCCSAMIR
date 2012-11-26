@@ -18,14 +18,7 @@ import br.com.sgpc.service.MessageBundleService;
 import br.com.sgpc.service.ProdutoService;
 import br.com.sgpc.util.FacesUtil;
 
-/**
- * Controller com itera��es com as telas relacionadas ao
- * {@link ProdutoController}
- * 
- * @author Samir Daneu
- * @since 01/10/2012
- * 
- */
+
 @Controller(value = "produtoController")
 @RequestScoped
 public class ProdutoController implements AlphaController {
@@ -112,7 +105,7 @@ public class ProdutoController implements AlphaController {
         return "sucesso";  
     }
 
-	public String desativar() {
+	public String excluir() {
 		Produto produto = getProdutoParaEditarExcluir();
 		//this.produtoService.excluir(produto);
 		return "mostrarProdutos";
@@ -139,7 +132,7 @@ public class ProdutoController implements AlphaController {
 	}
 
 	public List<Fornecedor> getFornecedores() {
-		return this.fornecedores;
+		return this.fornecedorService.buscarTodos();
 	}
 
 	public void setMessageBundleService(

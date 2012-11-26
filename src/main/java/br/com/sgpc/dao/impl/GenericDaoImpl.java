@@ -55,6 +55,7 @@ public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T,
 	public T salvar(T entity) {
 		getEntityManager().clear();
 		getEntityManager().persist(entity);
+		getEntityManager().flush();
 		return entity;
 	}
 

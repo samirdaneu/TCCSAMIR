@@ -23,13 +23,13 @@ public class EnviaEmail {
         
 		for(Usuario destinatario : administradores){
 			SimpleEmail email = new SimpleEmail();  
-	        email.setHostName("smtp.gmail.com"); // o servidor SMTP para envio do e-mail  
-	        email.addTo(destinatario.getEmail(), destinatario.getNome()); //destinat�rio  
-	        email.setFrom("samir.daneu@gmail.com", "Sistema de Vendas"); // remetente  
-	        email.setSubject("Produto - C�digo: " + produto.getCodigo() + " Descri��o: " + produto.getDescricao() + 
+	        email.setHostName("smtp.gmail.com");  
+	        email.addTo(destinatario.getEmail(), destinatario.getNome());  
+	        email.setFrom("samir.daneu@gmail.com", "Sistema de Vendas");  
+	        email.setSubject("Produto - Código: " + produto.getCodigo() + " Descrição: " + produto.getDescricao() + 
 	        		"Chegou a sua quantidade limite - Quantidade: " + produto.getQuantidade() +
 	        		"Quantidade limite: " + produto.getQuantidadeLimite());  
-	        email.setMsg("Aviso de produtos com quantidade no limite"); //conteudo do e-mail  
+	        email.setMsg("Aviso de produtos com quantidade no limite");  
 	        email.setAuthenticator(new DefaultAuthenticator(usuario, senha));  
 	        email.setSmtpPort(587);  
 	        email.setSSL(true);  

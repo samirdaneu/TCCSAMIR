@@ -3,8 +3,8 @@ package br.com.sgpc.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import br.com.sgpc.dao.ProdutoPedidoDao;
-import br.com.sgpc.model.ProdutoPedido;
-import br.com.sgpc.model.ProdutoPedidoPK;
+import br.com.sgpc.model.ItensPedido;
+import br.com.sgpc.model.ItensPedidoPK;
 
 /**
  * Implentacao do {@link ProdutoPedidoDao}
@@ -13,7 +13,7 @@ import br.com.sgpc.model.ProdutoPedidoPK;
  *
  */
 @Repository( value = "produtoPedidoDao" )
-public class ProdutoPedidoDaoImpl extends GenericDaoImpl<ProdutoPedido, ProdutoPedidoPK> implements ProdutoPedidoDao {
+public class ProdutoPedidoDaoImpl extends GenericDaoImpl<ItensPedido, ItensPedidoPK> implements ProdutoPedidoDao {
 
 	private static final long serialVersionUID = 2535707997114055162L;
 }

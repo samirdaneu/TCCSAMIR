@@ -11,19 +11,20 @@
 		<ui:define name="title">Produtos</ui:define>
 		<ui:define name="content">
 			<h:form id="mostrarProdutos">
-				<p:dataTable style="width:900px" var="produto" value="#{produtoController.model}"
-					widgetVar="tabelaProdutos" paginator="true" rows="10"
+				<p:dataTable style="width:1080px" var="produto"
+					value="#{produtoController.model}" widgetVar="tabelaProdutos"
+					paginator="true" rows="10"
 					emptyMessage="Nenhum produto encontrado!">
 
 					<f:facet name="header">
 					Lista de Produtos
 					</f:facet>
 
-					<p:column filterBy="#{usuario.login}" filterMatchMode="contains">
+					<p:column filterBy="#{produto.codigo}" filterMatchMode="contains">
 						<f:facet name="header">
-							<h:outputText value="Usuário" />
+							<h:outputText value="Código" />
 						</f:facet>
-						<h:outputText value="#{usuario.login}" />
+						<h:outputText value="#{produto.codigo}" />
 					</p:column>
 
 					<p:column filterBy="#{produto.descricao}"
@@ -48,23 +49,81 @@
 						</f:facet>
 						<h:outputText value="#{produto.quantidade}" />
 					</p:column>
+					
+					<p:column filterBy="#{produto.quantidadeLimite}"
+						filterMatchMode="contains">
+						<f:facet name="header">
+							<h:outputText value="Quantidade Limite" />
+						</f:facet>
+						<h:outputText value="#{produto.quantidadeLimite}" />
+					</p:column>
 
 					<p:column>
 						<f:facet name="header">
 							<h:outputText value="Editar" />
 						</f:facet>
-						<p:commandLink value="Editar"
-							action="#{produtoController.editar}" />
+						<p:commandLink value="Editar" action="#{produtoController.editar}" />
 					</p:column>
 
 					<p:column>
 						<f:facet name="header">
-							<h:outputText value="Desativar" />
+							<h:outputText value="Excluir" />
 						</f:facet>
-						<p:commandLink value="Desativar" actionListener="#{produtoController.desativar}" />							
+						<p:commandLink id="linkExcluir" onclick="confirmation.show()"
+							value="Excluir" action="#{produtoController.excluir}" />
 					</p:column>
 
+					<p:confirmDialog id="confirmDialog"
+						message="Tem certeza que deseja excluir esse produto?"
+						header="Iniciando exclusão" severity="alert"
+						widgetVar="confirmation">
+						<p:commandButton id="confirm" value="Sim" update="messages"
+							oncomplete="confirmation.hide()"
+							action="#{produtoController.excluir}" />
+						<p:commandButton id="decline" value="Não"
+							onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+
 				</p:dataTable>
+				<h:panelGrid columns="2">
+					<p:panel header="Exportar Todos">
+						<h:commandLink>
+							<p:graphicImage library="imagens" name="excel.png" />
+							<p:dataExporter type="xls" target="tbl" fileName="produtos" />
+						</h:commandLink>
+
+						<h:commandLink>
+							<p:graphicImage library="imagens" name="pdf.png" />
+							<p:dataExporter type="pdf" target="tbl" fileName="produtos" />
+						</h:commandLink>
+
+						<h:commandLink>
+							<p:graphicImage library="imagens" name="csv.png" />
+							<p:dataExporter type="csv" target="tbl" fileName="produtos" />
+						</h:commandLink>
+					</p:panel>
+
+					<p:panel header="Exportar Página">
+						<h:commandLink>
+							<p:graphicImage library="imagens" name="excel.png" />
+							<p:dataExporter type="xls" target="tbl" fileName="produtos"
+								pageOnly="true" />
+						</h:commandLink>
+
+						<h:commandLink>
+							<p:graphicImage library="imagens" name="pdf.png" />
+							<p:dataExporter type="pdf" target="tbl" fileName="produtos"
+								pageOnly="true" />
+						</h:commandLink>
+
+						<h:commandLink>
+							<p:graphicImage library="imagens" name="csv.png" />
+							<p:dataExporter type="csv" target="tbl" fileName="produtos"
+								pageOnly="true" />
+						</h:commandLink>
+					</p:panel>
+				</h:panelGrid>
+
 			</h:form>
 		</ui:define>
 	</ui:composition>
