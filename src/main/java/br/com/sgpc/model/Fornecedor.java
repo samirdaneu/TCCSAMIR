@@ -13,8 +13,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.Email;
-
 @Entity
 @Table(name = "fornecedor")
 public class Fornecedor implements Serializable {
@@ -27,7 +25,7 @@ public class Fornecedor implements Serializable {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 	
-	@Column(name = "razao_social", nullable = false, length = 30)
+	@Column(name = "razao_social", nullable = false, length = 50)
 	private String razaoSocial;
 	
 	@Column(name = "cnpj", nullable = true, length = 18)
@@ -54,11 +52,10 @@ public class Fornecedor implements Serializable {
 	@Column(name = "estado", nullable = true, length = 20)
 	private String estado;
 	
-	@Email(message="E-mail inv�lido!")
 	@Column(name = "email", nullable = true, length = 20)
 	private String email;
 	
-	@Column(name = "site", nullable = true, length = 30)
+	@Column(name = "site", nullable = true, length = 50)
 	private String site;
 	
 	@Column(name = "nome_contato", nullable = true, length = 30)
@@ -66,6 +63,9 @@ public class Fornecedor implements Serializable {
 	
 	@OneToMany(mappedBy="fornecedor", fetch=FetchType.LAZY)
 	private List<Produto> produtos;
+	
+	@Column(name = "ativo", nullable = false)
+	private boolean ativo;
 	
 	public Integer getId() {
 		return id;
@@ -202,6 +202,14 @@ public class Fornecedor implements Serializable {
 
 	public String getNumeroLogradouro() {
 		return numeroLogradouro;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	public boolean isAtivo() {
+		return ativo;
 	}	
 	
 }

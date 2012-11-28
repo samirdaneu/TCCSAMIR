@@ -10,71 +10,125 @@
 	<ui:composition template="/template/template.xhtml">
 		<ui:define name="title">Relatório</ui:define>
 		<ui:define name="content">
-			<h:form id="relatorioVendas">
-			<p:growl id="messages" showDetail="true"/>
-			<f:facet name="header"> Vendas </f:facet>
-			<p:panel header="Vendas">
-				<p:panelGrid columns="2">
-					<f:facet name="header"> Filtro </f:facet>
-					<h:outputLabel for="Data Início" value="Data Início: " />
-					<p:inputMask mask="999.999.999-99"
-						value="#{pedidoController.pedido.cpf}" required="false" />
-					<h:outputLabel for="Data Término" value="Data Término: " />
-					<p:inputMask mask="999.999.999-99"
-						value="#{pedidoController.pedido.cpf}" required="false" />
-					<p:commandButton value="Buscar" icon="ui-icon-check"
-						style="margin:0"
-						action="#{pedidoController.adicionarProduto}"
-						update=":formPedido:messages" ajax="true"/>	
-				</p:panelGrid>			
-				<p:dataTable style="width:1080px" var="produto"
-					value="#{pedidoController.model}" widgetVar="tabelaVendas"
-					paginator="true" rows="10"
-					emptyMessage="Nenhum produto encontrado!">
+			<h:form id="formRelatorio">
+				<p:growl id="messages" showDetail="true" />
+				<f:facet name="header"> Vendas </f:facet>
+				<p:panel header="Vendas">
+					<p:panelGrid columns="6">
+						<f:facet name="header"> Filtro </f:facet>
+						<h:outputLabel for="Data Início" value="Data Início: " />
+						<p:inputMask mask="999.999.999-99"
+							value="#{pedidoController.pedido.cpf}" required="false" />
+						<h:outputLabel for="Data Término" value="Data Término: " />
+						<p:inputMask mask="999.999.999-99"
+							value="#{pedidoController.pedido.cpf}" required="false" />
+						<p:commandButton value="Buscar" icon="ui-icon-check"
+							style="margin:0" action="#{pedidoController.adicionarProduto}"
+							update=":formRelatorio:messages" ajax="true" />
+					</p:panelGrid>
+					<br />
+					<p:dataTable id="tblVendas" style="width:1060px" var="produto"
+						value="#{produtoController.model}" widgetVar="tabelaProdutos"
+						paginator="true" rows="50"
+						emptyMessage="Nenhum registro encontrado!">
 
-					<f:facet name="header">
-
+						<f:facet name="header">
+					Lista de Vendas
 					</f:facet>
 
-					<p:column filterBy="#{produto.codigo}" filterMatchMode="contains">
-						<f:facet name="header">
-							<h:outputText value="Código" />
-						</f:facet>
-						<h:outputText value="#{produto.codigo}" />
-					</p:column>
+						<p:column filterBy="#{produto.codigo}" filterMatchMode="contains">
+							<f:facet name="header">
+								<h:outputText value="Emissão" />
+							</f:facet>
+							<h:outputText value="" />
+						</p:column>
 
-					<p:column filterBy="#{produto.descricao}"
-						filterMatchMode="contains">
-						<f:facet name="header">
-							<h:outputText value="Descrição" />
-						</f:facet>
-						<h:outputText value="#{produto.descricao}" />
-					</p:column>
+						<p:column filterBy="#{produto.descricao}"
+							filterMatchMode="contains">
+							<f:facet name="header">
+								<h:outputText value="Vendedor" />
+							</f:facet>
+							<h:outputText value="" />
+						</p:column>
 
-					<p:column filterBy="#{produto.preco}" filterMatchMode="contains">
-						<f:facet name="header">
-							<h:outputText value="Preço" />
-						</f:facet>
-						<h:outputText value="#{produto.preco}" />
-					</p:column>
+						<p:column filterBy="#{produto.preco}" filterMatchMode="contains">
+							<f:facet name="header">
+								<h:outputText value="CPF" />
+							</f:facet>
+							<h:outputText value="" />
+						</p:column>
 
-					<p:column filterBy="#{produto.quantidade}"
-						filterMatchMode="contains">
-						<f:facet name="header">
-							<h:outputText value="Quantidade" />
-						</f:facet>
-						<h:outputText value="#{produto.quantidade}" />
-					</p:column>
+						<p:column filterBy="#{produto.quantidade}"
+							filterMatchMode="contains">
+							<f:facet name="header">
+								<h:outputText value="Forma de Pagamento" />
+							</f:facet>
+							<h:outputText value="" />
+						</p:column>
 
-					<p:column filterBy="#{produto.quantidadeLimite}"
-						filterMatchMode="contains">
-						<f:facet name="header">
-							<h:outputText value="Quantidade Limite" />
-						</f:facet>
-						<h:outputText value="#{produto.quantidadeLimite}" />
-					</p:column>					
+						<p:column filterBy="#{produto.quantidadeLimite}"
+							filterMatchMode="contains">
+							<f:facet name="header">
+								<h:outputText value="Total Itens" />
+							</f:facet>
+							<h:outputText value="" />
+						</p:column>
 
-				</p:dataTable>
+						<p:column filterBy="#{produto.quantidadeLimite}"
+							filterMatchMode="contains">
+							<f:facet name="header">
+								<h:outputText value="Valor" />
+							</f:facet>
+							<h:outputText value="" />
+						</p:column>
+					</p:dataTable>
+					<br/>
+					<p:panelGrid columns="2">
+						<h:outputLabel for="" value="Valor Total: " />
+						<p:inputMask mask="999.999.999-99"
+							value="#{pedidoController.pedido.cpf}" required="false" />						
+					</p:panelGrid>
+					
+					<h:panelGrid columns="2">
+					<p:panel header="Exportar Todos">
+						<h:commandLink>
+							<p:graphicImage library="imagens" name="excel.png" />
+							<p:dataExporter type="xls" target="tblVendas" fileName="produtos" />
+						</h:commandLink>
+
+						<h:commandLink>
+							<p:graphicImage library="imagens" name="pdf.png" />
+							<p:dataExporter type="pdf" target="tblVendas" fileName="produtos" />
+						</h:commandLink>
+
+						<h:commandLink>
+							<p:graphicImage library="imagens" name="csv.png" />
+							<p:dataExporter type="csv" target="tblVendas" fileName="produtos" />
+						</h:commandLink>
+					</p:panel>
+
+					<p:panel header="Exportar Página">
+						<h:commandLink>
+							<p:graphicImage library="imagens" name="excel.png" />
+							<p:dataExporter type="xls" target="tblVendas" fileName="produtos"
+								pageOnly="true" />
+						</h:commandLink>
+
+						<h:commandLink>
+							<p:graphicImage library="imagens" name="pdf.png" />
+							<p:dataExporter type="pdf" target="tblVendas" fileName="produtos"
+								pageOnly="true" />
+						</h:commandLink>
+
+						<h:commandLink>
+							<p:graphicImage library="imagens" name="csv.png" />
+							<p:dataExporter type="csv" target="tblVendas" fileName="produtos"
+								pageOnly="true" />
+						</h:commandLink>
+					</p:panel>
+				</h:panelGrid>
+				
+				</p:panel>
 			</h:form>
 		</ui:define>
 	</ui:composition>

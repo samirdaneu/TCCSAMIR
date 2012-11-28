@@ -1,5 +1,14 @@
 package br.com.sgpc.util;
 
+import java.math.BigDecimal;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import br.com.sgpc.model.Fornecedor;
+import br.com.sgpc.model.Produto;
+
 
 public class GeradorTabelas {
 
@@ -11,7 +20,7 @@ public class GeradorTabelas {
 	usuario.setEmail("samir.daneu@gmail.com");
 	usuario.setNome("Samir Daneu");
 	usuario.setAtivo(true);
-	usuario.setTipoUsuario(TipoUsuario.VENDEDOR);
+	usuario.setTipoUsuario(TipoUsuario.VENDEDOR);*/
 		
 	
 	
@@ -36,6 +45,6 @@ public class GeradorTabelas {
 		em.persist(produto);
 		em.getTransaction().commit();
 		em.close();
-		emf.close();*/
+		emf.close();
 	}
 }

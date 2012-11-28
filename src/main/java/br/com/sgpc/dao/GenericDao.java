@@ -28,8 +28,6 @@ public interface GenericDao <T, ID extends Serializable> extends Serializable {
 	
 	List<T> listarPesquisaPorParametros(final String query, final Map<String, Object> params);
 	
-	List<T> listarPesquisaPorParametros(final String query, final Map<String, Object> params, int maximo, int atual);
-	
 	List<T> ListarPesquisa(final String sql);
 	
 	T pesquisarObjetoPorParametro(final String sql, final Map<String,Object> params);

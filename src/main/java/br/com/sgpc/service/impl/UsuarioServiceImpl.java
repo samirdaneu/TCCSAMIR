@@ -35,4 +35,16 @@ public class UsuarioServiceImpl extends GenericDaoImpl<Usuario, Integer>
 		return usuarioDao.buscarAdministradoresAtivos();
 	}
 
+	@Override
+	public String geraSenhaAleatoria() {
+		String seq = "abcdefghijklmnopqqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789";
+		int len =
+			(int) Math.round(Math.random() * 8);
+		char senha[] = new char[len];
+		for (int i = 0; i < len; i++) {
+			senha[i] = seq.charAt((int) (Math.random() * (seq.length() - 1)));
+		}
+		return String.valueOf(senha);
+	}
+
 }

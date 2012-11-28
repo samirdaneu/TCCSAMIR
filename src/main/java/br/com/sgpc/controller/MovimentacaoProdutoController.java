@@ -15,11 +15,11 @@ import org.springframework.stereotype.Controller;
 import br.com.sgpc.model.MovimentacaoProduto;
 import br.com.sgpc.model.Produto;
 import br.com.sgpc.model.Usuario;
+import br.com.sgpc.service.EmailService;
 import br.com.sgpc.service.MessageBundleService;
 import br.com.sgpc.service.MovimentacaoProdutoService;
 import br.com.sgpc.service.ProdutoService;
 import br.com.sgpc.service.UsuarioService;
-import br.com.sgpc.util.EnviaEmail;
 import br.com.sgpc.util.FacesUtil;
 
 @Controller(value = "movimentacaoProdutoController")
@@ -47,6 +47,9 @@ public class MovimentacaoProdutoController implements AlphaController {
 
 	@Resource(name = "produtoService")
 	private ProdutoService produtoService;
+	
+	@Resource(name = "emailService")
+	private EmailService emailService;
 
 	@Resource(name = "movimentacaoProdutoService")
 	private MovimentacaoProdutoService movimentacaoProdutoService;
@@ -128,7 +131,7 @@ public class MovimentacaoProdutoController implements AlphaController {
 					produto.getQuantidade(),
 					movimentacaoProduto.getTipoMovimentacao()));
 			if(enviarEmail){
-				new EnviaEmail(usuarioService.buscarAdministradoresAtivos(), getProduto());
+				this.emailService.enviaEmailQuantiddeLimite(usuarioService.buscarAdministradoresAtivos(), getProduto());				
 			}
 			produtoService.atualizar(getProduto());
 			movimentacaoProduto.setProduto(getProduto());

@@ -5,7 +5,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:stella="http://stella.caelum.com.br/faces2">
 
 	<ui:define name="title">Cadastro de Venda</ui:define>
 	<ui:define name="content">
@@ -16,7 +17,9 @@
 				<p:panelGrid columns="2">
 					<h:outputLabel for="cpf" value="CPF: " />
 					<p:inputMask mask="999.999.999-99"
-						value="#{pedidoController.pedido.cpf}" required="false" />
+						value="#{pedidoController.pedido.cpf}" required="false" >
+						<stella:validateCPF formatted="true" />
+					</p:inputMask>	
 				</p:panelGrid>
 				
 				<p:panelGrid columns="5">
@@ -52,7 +55,7 @@
 							<h:outputText value="#{itens.produto.descricaoProduto}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{itens.produto.descricaoProduto}" style="width:100%" />
+							<p:inputText value="" style="width:100%" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -63,7 +66,7 @@
 							<h:outputText value="#{itens.quantidade}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{itens.quantidade}" style="width:100%" />
+							<p:inputText value="" style="width:100%" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -74,7 +77,7 @@
 							<h:outputText value="#{itens.produto.preco}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{itens.produto.preco}" style="width:100%" />
+							<p:inputText value="" style="width:100%" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -85,7 +88,7 @@
 							<h:outputText value="#{itens.valorTotal}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{itens.valorTotal}" style="width:100%" />
+							<p:inputText value="" style="width:100%" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>

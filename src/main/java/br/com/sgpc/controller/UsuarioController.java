@@ -21,6 +21,8 @@ import br.com.sgpc.util.FacesUtil;
 public class UsuarioController implements AlphaController {
 
 	private static final long serialVersionUID = -2558847076842976054L;
+	
+	private String novaSenha;
 
 	private static final String ADMINISTRADOR = "Administrador";
 	private static final String VENDEDOR = "Vendedor";
@@ -78,6 +80,12 @@ public class UsuarioController implements AlphaController {
 			iguais = true;
 		}
 		return iguais;
+	}
+	
+	public String alterarSenha(){
+		this.usuario.setSenha(getNovaSenha());
+		this.usuarioService.atualizar(this.usuario);
+		return "ok";
 	}
 
 	public String salvarUsuario() {
@@ -186,6 +194,14 @@ public class UsuarioController implements AlphaController {
 
 	public DataModel<Usuario> getModel() {
 		return model;
+	}
+
+	public void setNovaSenha(String novaSenha) {
+		this.novaSenha = novaSenha;
+	}
+
+	public String getNovaSenha() {
+		return novaSenha;
 	}
 
 }

@@ -30,12 +30,7 @@ public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T,
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	//private Class<T> objectClass;
-
-	//@SuppressWarnings("unchecked")
 	public GenericDaoImpl() { }
-	
-	// objectClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
@@ -76,18 +71,6 @@ public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T,
 	public List<T> listarPesquisaPorParametros(final String query, final Map<String, Object> params) {
 
 		Query sql = getEntityManager().createQuery( query );
-
-		for (String chave : params.keySet()) {
-			sql.setParameter(chave, params.get(chave));
-		}
-
-		return sql.getResultList();
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<T> listarPesquisaPorParametros(final String query, final Map<String, Object> params, int maximo, int atual) {
-
-		Query sql = entityManager.createQuery( query ).setMaxResults( maximo ).setFirstResult( atual );
 
 		for (String chave : params.keySet()) {
 			sql.setParameter(chave, params.get(chave));

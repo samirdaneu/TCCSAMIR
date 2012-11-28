@@ -16,8 +16,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-
-
 @Entity
 @Table(name= "produto")
 public class Produto implements Serializable {
@@ -54,6 +52,9 @@ public class Produto implements Serializable {
 	
 	@OneToMany(mappedBy = "produto", fetch = FetchType.LAZY)
 	private List<ItensPedido> itens;
+	
+	@Column(name = "ativo", nullable = false)
+	private boolean ativo;
 	
 	
 	public int atualizarQuantidadePorMovimentacao(int quantidadeMovimentacao, int quantidadeProduto, 
@@ -138,6 +139,14 @@ public class Produto implements Serializable {
 
 	public List<ItensPedido> getItens() {
 		return itens;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	public boolean isAtivo() {
+		return ativo;
 	}	
 	
 }

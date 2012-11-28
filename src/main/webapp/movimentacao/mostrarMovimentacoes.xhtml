@@ -10,72 +10,113 @@
 	<ui:define name="title"> Entradas e Saídas </ui:define>
 	<ui:define name="content">
 
-		<p:dataTable style="width:1080px"
-				var="movimentacaoProduto"
-				value="#{movimentacaoProdutoController.model}"
-				widgetVar="tabelaMovimentacoes" paginator="true" rows="10"
-				emptyMessage="Nenhuma movimentação encontrada!">
+		<p:dataTable id="tblMovimentacoes" style="width:1080px" var="movimentacaoProduto"
+			value="#{movimentacaoProdutoController.model}"
+			widgetVar="tabelaMovimentacoes" paginator="true" rows="10"
+			emptyMessage="Nenhuma movimentação encontrada!">
 
-				<f:facet name="header">
+			<f:facet name="header">
 					Lista de Movimentações
 					</f:facet>
 
-				<p:column filterBy="#{movimentacaoProduto.usuario.login}"
-					filterMatchMode="contains">
-					<f:facet name="header">
-						<h:outputText value="Usuário" />
-					</f:facet>
-					<h:outputText value="#{movimentacaoProduto.usuario.login}" />
-				</p:column>
+			<p:column filterBy="#{movimentacaoProduto.usuario.login}"
+				filterMatchMode="contains">
+				<f:facet name="header">
+					<h:outputText value="Usuário" />
+				</f:facet>
+				<h:outputText value="#{movimentacaoProduto.usuario.login}" />
+			</p:column>
 
-				<p:column filterBy="#{movimentacaoProduto.produto.descricao}"
-					filterMatchMode="contains">
-					<f:facet name="header">
-						<h:outputText value="Produto" />
-					</f:facet>
-					<h:outputText value="#{movimentacaoProduto.produto.descricao}" />
-				</p:column>
+			<p:column filterBy="#{movimentacaoProduto.produto.descricao}"
+				filterMatchMode="contains">
+				<f:facet name="header">
+					<h:outputText value="Produto" />
+				</f:facet>
+				<h:outputText value="#{movimentacaoProduto.produto.descricao}" />
+			</p:column>
 
-				<p:column filterBy="#{movimentacaoProduto.quantidade}"
-					filterMatchMode="contains">
-					<f:facet name="header">
-						<h:outputText value="Quantidade" />
-					</f:facet>
-					<h:outputText value="#{movimentacaoProduto.quantidade}" />
-				</p:column>
+			<p:column filterBy="#{movimentacaoProduto.quantidade}"
+				filterMatchMode="contains">
+				<f:facet name="header">
+					<h:outputText value="Quantidade" />
+				</f:facet>
+				<h:outputText value="#{movimentacaoProduto.quantidade}" />
+			</p:column>
 
-				<p:column filterBy="#movimentacaoProduto.dataMovimentacao}"
-					filterMatchMode="contains">
-					<f:facet name="header">
-						<h:outputText value="Data" />
-					</f:facet>
-					<h:outputText value="#{movimentacaoProduto.dataMovimentacao}" />
-				</p:column>
-				
-				<p:column filterBy="#movimentacaoProduto.tipoMovimentacao}"
-					filterMatchMode="contains">
-					<f:facet name="header">
-						<h:outputText value="Tipo Movimentação" />
-					</f:facet>
-					<h:outputText value="#{movimentacaoProduto.tipoMovimentacao}" />
-				</p:column>
+			<p:column filterBy="#movimentacaoProduto.dataMovimentacao}"
+				filterMatchMode="contains">
+				<f:facet name="header">
+					<h:outputText value="Data" />
+				</f:facet>
+				<h:outputText value="#{movimentacaoProduto.dataMovimentacao}" />
+			</p:column>
 
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Editar" />
-					</f:facet>
-					<p:commandLink value="Editar"
-						action="#{movimentacaoProdutoController.editar}" />
-				</p:column>
+			<p:column filterBy="#movimentacaoProduto.tipoMovimentacao}"
+				filterMatchMode="contains">
+				<f:facet name="header">
+					<h:outputText value="Tipo Movimentação" />
+				</f:facet>
+				<h:outputText value="#{movimentacaoProduto.tipoMovimentacao}" />
+			</p:column>
 
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Excluir" />
-					</f:facet>
-					<p:commandLink value="Excluir"
-						action="#{movimentacaoProdutoController.excluir}" />
-				</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Editar" />
+				</f:facet>
+				<p:commandLink value="Editar"
+					action="#{movimentacaoProdutoController.editar}" />
+			</p:column>
 
-			</p:dataTable>		
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Excluir" />
+				</f:facet>
+				<p:commandLink value="Excluir"
+					action="#{movimentacaoProdutoController.excluir}" />
+			</p:column>
+
+			<h:panelGrid columns="2">
+				<p:panel header="Exportar Todos">
+					<h:commandLink>
+						<p:graphicImage library="imagens" name="excel.png" />
+						<p:dataExporter type="xls" target="tblMovimentacoes"
+							fileName="fornecedores" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage library="imagens" name="pdf.png" />
+						<p:dataExporter type="pdf" target="tblMovimentacoes"
+							fileName="fornecedores" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage library="imagens" name="csv.png" />
+						<p:dataExporter type="csv" target="tblMovimentacoes"
+							fileName="fornecedores" />
+					</h:commandLink>
+				</p:panel>
+
+				<p:panel header="Exportar Página">
+					<h:commandLink>
+						<p:graphicImage library="imagens" name="excel.png" />
+						<p:dataExporter type="xls" target="tblMovimentacoes"
+							fileName="fornecedores" pageOnly="true" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage library="imagens" name="pdf.png" />
+						<p:dataExporter type="pdf" target="tblMovimentacoes"
+							fileName="fornecedores" pageOnly="true" />
+					</h:commandLink>
+
+					<h:commandLink>
+						<p:graphicImage library="imagens" name="csv.png" />
+						<p:dataExporter type="csv" target="tblMovimentacoes"
+							fileName="fornecedores" pageOnly="true" />
+					</h:commandLink>
+				</p:panel>
+			</h:panelGrid>
+
+		</p:dataTable>
 	</ui:define>
 </ui:composition>

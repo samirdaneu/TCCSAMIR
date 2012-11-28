@@ -16,6 +16,6 @@ public interface UsuarioDao extends GenericDao<Usuario, Integer> {
 
 	List<Usuario> buscarAdministradoresAtivos();
 	
-	Usuario procurarUsuarioPeloLogin(final String login);
+	Usuario procurarUsuarioPeloLogin(final String login);	
 	
 }

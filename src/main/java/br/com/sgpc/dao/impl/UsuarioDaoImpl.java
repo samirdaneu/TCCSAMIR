@@ -11,13 +11,6 @@ import org.springframework.stereotype.Repository;
 import br.com.sgpc.dao.UsuarioDao;
 import br.com.sgpc.model.Usuario;
 
-/**
- * Implentacao do {@link UsuarioDao}
- * 
- * @author Samir Daneu
- * @since 01/10/2012
- * 
- */
 @Repository(value = "usuarioDao")
 public class UsuarioDaoImpl extends GenericDaoImpl<Usuario, Integer> implements
 		UsuarioDao {

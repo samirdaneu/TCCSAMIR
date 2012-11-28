@@ -16,14 +16,6 @@ import br.com.sgpc.service.FornecedorService;
 import br.com.sgpc.service.MessageBundleService;
 import br.com.sgpc.util.FacesUtil;
 
-/**
- * Controller com itera��es com as telas relacionadas ao
- * {@link FornecedorController}
- * 
- * @author Samir Daneu
- * @since 01/10/2012
- * 
- */
 @Controller(value = "fornecedorController")
 @RequestScoped
 public class FornecedorController implements AlphaController {
@@ -75,7 +67,7 @@ public class FornecedorController implements AlphaController {
 					.recoveryMessage("fornecedor_cep_erro"));
 			e.printStackTrace();
 		}
-
+		
 		if (this.cep != null) {
 			this.fornecedor.setLogradouro(this.cep.getLougradouro());
 			this.fornecedor.setBairro(this.cep.getBairro());
@@ -90,10 +82,12 @@ public class FornecedorController implements AlphaController {
 
 	public String salvarFornecedor() {
 		try {
+
 			if (getFornecedor().getId() == null) {
 				fornecedorService.salvar(getFornecedor());
 				FacesUtil.mensagemInformacao(messageBundleService
 						.recoveryMessage("fornecedor_cadastro_sucesso"));
+
 			} else {
 				fornecedorService.atualizar(getFornecedor());
 				FacesUtil.mensagemInformacao(messageBundleService
@@ -110,7 +104,7 @@ public class FornecedorController implements AlphaController {
 
 	public String limparCampos() {
 		inicio();
-		return "sucesso";
+		return "ok";
 	}
 
 	public Fornecedor getFornecedorParaEditarExcluir() {

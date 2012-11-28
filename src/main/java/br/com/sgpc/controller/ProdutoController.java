@@ -71,6 +71,7 @@ public class ProdutoController implements AlphaController {
 			if (produto.getId() == null) {
 
 				produto.setFornecedor(fornecedor);
+				produto.setDescricao(this.produto.getDescricao().toUpperCase());
 				produtoService.salvar(produto);
 				FacesUtil.mensagemInformacao(messageBundleService
 						.recoveryMessage("produto_cadastrado_sucesso"));

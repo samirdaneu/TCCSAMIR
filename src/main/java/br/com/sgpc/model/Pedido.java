@@ -52,7 +52,7 @@ public class Pedido implements Serializable {
 	@OneToMany(mappedBy = "pedido", fetch = FetchType.LAZY)
 	private List<ItensPedido> itens = new ArrayList<ItensPedido>();
 	
-	@Column(name = "tipo_usuario")
+	@Column(name = "tipo_pagamento")
 	@Enumerated(EnumType.STRING)
 	private TipoPagamento tipoPagamento;
 	

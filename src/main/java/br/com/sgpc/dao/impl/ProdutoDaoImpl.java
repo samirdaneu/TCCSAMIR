@@ -2,9 +2,14 @@ package br.com.sgpc.dao.impl;
 
 import java.util.List;
 
+import javax.mail.Session;
 import javax.persistence.Query;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+
+import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
 
 import br.com.sgpc.dao.ProdutoDao;
 import br.com.sgpc.model.Produto;
@@ -14,12 +19,13 @@ public class ProdutoDaoImpl extends GenericDaoImpl<Produto, Integer> implements 
 
 	private static final long serialVersionUID = -4276880275402474222L;
 
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Produto> buscarParcialPorDescricao(final String descricao) {
 		final String sql = "SELECT p FROM " + Produto.class.getName() + " p WHERE p.descricao LIKE :descricao";		
 		final Query query = getEntityManager().createQuery(sql);
-		query.setParameter("descricao", "%" + descricao + "%");		
+		query.setParameter("descricao", "%" + descricao.toUpperCase() + "%");		
 		return (List<Produto>) query.getResultList();
 	}
 

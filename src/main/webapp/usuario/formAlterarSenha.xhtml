@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/template/templateLogin.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:spring="http://www.springframework.org/tags">
+
+	<ui:define name="title">#{mensagem.titulo_login}</ui:define>
+	<ui:define name="content">
+		<h:form id="formAlterarSenha">
+			<p:panelGrid columns="2" style="width:400px;height:200px;">
+				<f:facet name="header">Login</f:facet>
+				<h:outputText value=" Digite a nova Senha: " />
+					<p:password value="#{usuarioController.novaSenha}"
+						required="true" maxlength="8" size="8"
+						requiredMessage="#{mensagem.senha_obrigatorio}"
+					 />
+					<h:outputText value="Confirme a nova senha: " />
+					<p:password value="#{usuarioController.senhaConfirmacao}"
+						required="true" maxlength="8" size="8"
+						requiredMessage="#{mensagem.confirmacao_senha_obrigatorio}"
+					 />
+				<f:facet name="footer">
+					<p:messages id="messages" />
+					<br />
+					<p:commandButton value="Salvar" icon="ui-icon-check"
+						action="#{usuarioController.alterarSenha}" update="formAlterarSenha"
+						style="margin:0">
+					</p:commandButton>					
+				</f:facet>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
