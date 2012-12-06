@@ -5,10 +5,11 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.faces.bean.RequestScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.validation.ConstraintViolationException;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.com.sgpc.model.Fornecedor;
@@ -19,18 +20,18 @@ import br.com.sgpc.service.ProdutoService;
 import br.com.sgpc.util.FacesUtil;
 
 
-@Controller(value = "produtoController")
-@RequestScoped
+@Controller("produtoController")
+@Scope("request")
 public class ProdutoController implements AlphaController {
 
 	private static final long serialVersionUID = -6759622970651283020L;
-
+	
 	private Produto produto;
 
 	private List<Fornecedor> fornecedores;
 
 	private Fornecedor fornecedor;
-
+	
 	@Resource(name = "produtoService")
 	private ProdutoService produtoService;
 
@@ -42,28 +43,20 @@ public class ProdutoController implements AlphaController {
 
 	private DataModel<Produto> model;
 
-	public ProdutoController() {
-	}
-
 	@Override
 	@PostConstruct
 	public void inicio() {
 		produto = new Produto();
-		fornecedores = fornecedorService.buscarTodos();		
+		fornecedores = fornecedorService.buscarTodos();
 		setModel(listarProdutos());
 	}
-
-	public String novoProduto() {
-		this.setProduto(new Produto());
-		return "produto/fomProduto";
-	}
-
+	
 	public DataModel<Produto> listarProdutos() {
 		setModel(new ListDataModel<Produto>(this.produtoService.buscarTodos()));
 		return getModel();
 	}
-
-	public String salvarProduto() {
+	
+	public void salvarProduto() {
 		try {
 
 			fornecedor = fornecedorService.buscarPorID(fornecedor.getId());
@@ -72,22 +65,25 @@ public class ProdutoController implements AlphaController {
 
 				produto.setFornecedor(fornecedor);
 				produto.setDescricao(this.produto.getDescricao().toUpperCase());
+				produto.setAtivo(true);
 				produtoService.salvar(produto);
 				FacesUtil.mensagemInformacao(messageBundleService
 						.recoveryMessage("produto_cadastrado_sucesso"));
 			} else {
-
 				produtoService.atualizar(produto);
 				FacesUtil.mensagemInformacao(messageBundleService
 						.recoveryMessage("produto_atualizado_sucesso"));
 			}
-		} catch (Exception e) {
-			FacesUtil.mensagemErro(messageBundleService
-					.recoveryMessage("produto_salvar_atualizar_erro"));
-			e.printStackTrace();
+		} catch (Exception e){
+			String string = this.produtoService.verificaCodigoDescricaoDuplicado(produto);
+			if(string.equals("codigo")){
+				FacesUtil.mensagemErro(messageBundleService
+						.recoveryMessage("produto_codigo_duplicado"));
+			} else {
+				FacesUtil.mensagemErro(messageBundleService
+						.recoveryMessage("produto_descricao_duplicada"));
+			}
 		}
-
-		return "ok";
 	}
 
 	public Produto getProdutoParaEditarExcluir() {
@@ -103,13 +99,26 @@ public class ProdutoController implements AlphaController {
 	public String limparCampos() {
 		this.fornecedores = new ArrayList<Fornecedor>();
         inicio();
-        return "sucesso";  
+        return "/produto/formProduto";  
     }
 
 	public String excluir() {
 		Produto produto = getProdutoParaEditarExcluir();
-		//this.produtoService.excluir(produto);
-		return "mostrarProdutos";
+		try{
+			this.produtoService.excluir(produto);
+		} catch (ConstraintViolationException e){
+			FacesUtil.mensagemErro(messageBundleService
+					.recoveryMessage("produto_relacionamento_erro"));
+			if(produto.getQuantidade() > 0){
+			FacesUtil.mensagemErro(messageBundleService
+						.recoveryMessage("produto_relacionamento_erro"));
+			}else{
+				produto.setAtivo(false);
+			}			
+			this.produtoService.atualizar(produto);
+		}		
+		
+		return "/produto/mostrarProdutos";
 	}
 
 	public void setProduto(Produto produto) {
@@ -147,6 +156,5 @@ public class ProdutoController implements AlphaController {
 
 	public DataModel<Produto> getModel() {
 		return model;
-	}
-
+	}	
 }

@@ -3,6 +3,7 @@ package br.com.sgpc.service.impl;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import br.com.sgpc.exception.TechnicalException;
@@ -13,6 +14,7 @@ import br.com.sgpc.service.JsonService;
 import br.com.sgpc.service.MessageBundleService;
 
 @Service( value = "consultaCepService" )
+@Scope("prototype")
 public class ConsultaCepServiceImpl implements ConsultaCepService {
 
 	private static final long serialVersionUID = 7133279405790296529L;

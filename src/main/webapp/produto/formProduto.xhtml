@@ -6,15 +6,13 @@
 	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
 	xmlns:p="http://primefaces.org/ui">
 
-
 <h:body>
 	<ui:composition template="/template/template.xhtml">
 		<ui:define name="title">Cadastro de Produto</ui:define>
 		<ui:define name="content">
 			<h:form id="formCadastroProduto">
-				<p:panelGrid columns="2" >
+				<p:panelGrid columns="2" style="width:600px" >
 					<f:facet name="header"> Cadastro de Produto </f:facet>
-
 					<h:outputText value="Fornecedor: " />
 					<p:selectOneMenu id="selectFornecedor"
 						value="#{produtoController.fornecedor}" effect="blind"
@@ -34,14 +32,14 @@
 					<h:outputLabel for="descricao" value="Descrição: " />
 					<p:inputText id="descricao" rows="2" cols="40"
 						value="#{produtoController.produto.descricao}" required="true"
-						requiredMessage="Campo de descrição obrigatório" maxlength="40"
+						requiredMessage="Campo de descrição obrigatório!" maxlength="40"
 						size="40" validatorMessage="Máximo de 40 caracteres">
 						<f:validateLength maximum="40" />
 					</p:inputText>
 
 					<h:outputLabel for="preco" value="Preço: " />
 					<p:inputText id="preco" value="#{produtoController.produto.preco}"
-						size="7" required="true" requiredMessage="Campo obrigatório"
+						size="7" required="true" requiredMessage="Campo preço obrigatório!"
 						maxlenght="7" converterMessage="Digite o preço corretamente">
 						<f:convertNumber groupingUsed="true" maxFractionDigits="2" />
 					</p:inputText>
@@ -49,16 +47,15 @@
 					<h:outputLabel for="quantidade" value="Quantidade: " />
 					<p:inputText id="quantidade"
 						value="#{produtoController.produto.quantidade}" size="7"
-						required="true" requiredMessage="Campo obrigatório"
-						converterMessage="Digite a quantidade corretamente">
+						required="true" requiredMessage="Campo obrigatório quantidade obrigatório!"
+						converterMessage="Digite a quantidade corretamente!">
 						<f:convertNumber maxIntegerDigits="7" />
 					</p:inputText>
 
 					<h:outputLabel for="quantidadeMinima" value="Quantidade Limite: " />
 					<p:inputText id="quantidadeMinima"
 						value="#{produtoController.produto.quantidadeLimite}" size="7"
-						required="false"
-						converterMessage="Digite a quantidade corretamente!">
+						required="false" converterMessage="Digite a quantidade Limite corretamente!">
 						<f:convertNumber maxIntegerDigits="7" />
 					</p:inputText>
 

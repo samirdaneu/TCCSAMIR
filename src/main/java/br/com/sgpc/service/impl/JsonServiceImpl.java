@@ -2,14 +2,17 @@ package br.com.sgpc.service.impl;
 
 import javax.annotation.Resource;
 
-import org.springframework.stereotype.Service;
-
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+
 import br.com.sgpc.service.JsonService;
 import br.com.sgpc.service.MessageBundleService;
 
 @Service( value = "jsonService" )
+@Scope("prototype")
 public class JsonServiceImpl implements JsonService {
 
 	private static final long serialVersionUID = 8317856856610897879L;

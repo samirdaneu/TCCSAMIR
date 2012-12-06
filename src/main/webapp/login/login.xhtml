@@ -25,11 +25,11 @@
 					<p:messages id="messages" />
 					<br />
 					<p:commandButton value="Entrar" icon="ui-icon-check"
-						action="#{loginController.logar}" update="formLogin"
+						action="#{loginController.logar}" update="formLogin" ajax="false"
 						style="margin:0">
 					</p:commandButton>
 					<p:commandButton value="Limpar" icon="ui-icon-check"
-						action="#{loginController.limparCampos}" update="formLogin" ajax="true"
+						action="#{loginController.limparCampos}" update="formLogin" ajax="false"
 						style="margin:0">
 					</p:commandButton>
 				</f:facet>

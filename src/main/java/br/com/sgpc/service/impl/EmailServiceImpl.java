@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import br.com.sgpc.model.Produto;
@@ -15,6 +16,7 @@ import br.com.sgpc.service.EmailService;
 import br.com.sgpc.service.UsuarioService;
 
 @Service( value = "emailService" )
+@Scope("prototype")
 public class EmailServiceImpl implements EmailService {
 
 	private static final long serialVersionUID = 4356547273883961020L;
@@ -26,20 +28,20 @@ public class EmailServiceImpl implements EmailService {
 	String senhaSGV = "vendassgv";
 	
 	@Override
-	public void enviaEmailQuantiddeLimite(List<Usuario> administradores,
+	public void enviaEmailQuantidadeLimite(List<Usuario> administradores,
 			Produto produto) throws EmailException {
 		
 		for(Usuario destinatario : administradores){
 			SimpleEmail email = new SimpleEmail();  
 	        email.setHostName("smtp.gmail.com");  
 	        email.addTo(destinatario.getEmail(), destinatario.getNome());  
-	        email.setFrom("emailSGV", "Sistema de Vendas");  
-	        email.setSubject("Produto - Código: " + produto.getCodigo() + "\n" +
-	        		"Descrição: " + produto.getDescricao() + "/n" +
+	        email.setFrom(emailSGV, "Sistema de Vendas");  
+	        email.setMsg("Produto - Código: " + produto.getCodigo() + "\n" +
+	        		"Descrição: " + produto.getDescricao() + "\n" +
 	        		"Fornecedor: " + produto.getFornecedor().getRazaoSocial() + "\n" + 
 	        		"Quantidade: " + produto.getQuantidade() + "\n" +
 	        		"Quantidade limite: " + produto.getQuantidadeLimite());  
-	        email.setMsg("Quantidade Limite - " + produto.getDescricao());  
+	        email.setSubject("Quantidade Limite - " + produto.getDescricao());  
 	        email.setAuthenticator(new DefaultAuthenticator(emailSGV, senhaSGV));  
 	        email.setSmtpPort(587);  
 	        email.setSSL(true);  

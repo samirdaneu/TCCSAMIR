@@ -10,7 +10,7 @@ import br.com.sgpc.model.Usuario;
 
 public interface EmailService extends Serializable {
 	
-	public void enviaEmailQuantiddeLimite(List<Usuario> administradores, Produto produto) throws EmailException;
+	public void enviaEmailQuantidadeLimite(List<Usuario> administradores, Produto produto) throws EmailException;
 	
 	public void enviaEmailNovaSenha(Usuario usuario) throws EmailException;
 

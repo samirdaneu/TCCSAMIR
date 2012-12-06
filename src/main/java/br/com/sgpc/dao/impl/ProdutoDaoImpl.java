@@ -2,14 +2,9 @@ package br.com.sgpc.dao.impl;
 
 import java.util.List;
 
-import javax.mail.Session;
 import javax.persistence.Query;
 
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-
-import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
 
 import br.com.sgpc.dao.ProdutoDao;
 import br.com.sgpc.model.Produto;
@@ -60,5 +55,20 @@ public class ProdutoDaoImpl extends GenericDaoImpl<Produto, Integer> implements 
 		final Query query = getEntityManager().createQuery(sql);
 		query.setParameter("codigo", codigo);		
 		return (Produto) query.getSingleResult();
+	}
+
+	@Override
+	public String verificaCodigoDescricaoDuplicado(Produto produto) {
+		String string = null;
+		final String sql = "SELECT p FROM " + Produto.class.getName() + " p WHERE p.codigo = :codigo";
+		final Query query = getEntityManager().createQuery(sql);
+		query.setParameter("codigo", produto.getCodigo());		
+		Produto p1 = (Produto) query.getSingleResult();
+		if(p1 != null){
+			string = "codigo";
+		} else {
+			string = "descricao";
+		}
+		return string;
 	}
 }

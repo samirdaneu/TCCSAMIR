@@ -15,4 +15,6 @@ public interface UsuarioService extends GenericDao<Usuario, Integer> {
 	
 	String geraSenhaAleatoria();
 	
+	boolean isAdmin(Usuario usuario);
+	
 }

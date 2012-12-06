@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import br.com.sgpc.dao.UsuarioDao;
@@ -12,6 +13,7 @@ import br.com.sgpc.model.Usuario;
 import br.com.sgpc.service.UsuarioService;
 
 @Service( value = "usuarioService" )
+@Scope("prototype")
 public class UsuarioServiceImpl extends GenericDaoImpl<Usuario, Integer>
 		implements UsuarioService {
 
@@ -45,6 +47,11 @@ public class UsuarioServiceImpl extends GenericDaoImpl<Usuario, Integer>
 			senha[i] = seq.charAt((int) (Math.random() * (seq.length() - 1)));
 		}
 		return String.valueOf(senha);
+	}
+
+	@Override
+	public boolean isAdmin(Usuario usuario) {
+		return this.usuarioDao.isAdmin(usuario);
 	}
 
 }

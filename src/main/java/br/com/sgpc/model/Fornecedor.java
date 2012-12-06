@@ -40,7 +40,7 @@ public class Fornecedor implements Serializable {
 	@Column(name = "logradouro", nullable = true, length = 100)
 	private String logradouro;
 	
-	@Column(name = "bairro", nullable = true, length = 30)
+	@Column(name = "bairro", nullable = true, length = 40)
 	private String bairro;
 	
 	@Column(name = "numero", nullable = true, length = 10)
@@ -52,7 +52,7 @@ public class Fornecedor implements Serializable {
 	@Column(name = "estado", nullable = true, length = 20)
 	private String estado;
 	
-	@Column(name = "email", nullable = true, length = 20)
+	@Column(name = "email", nullable = true, length = 35)
 	private String email;
 	
 	@Column(name = "site", nullable = true, length = 50)

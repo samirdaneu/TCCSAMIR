@@ -41,18 +41,13 @@
 						maxlength="100" counterTemplate="{0} dígitos restantes."
 						autoResize="false" />
 					<h:outputText id="counter" />
-					<h:outputText/>						
-
+					<h:outputText/>
 					<f:facet name="footer">
 						<p:messages />
 						<br />
 						<p:commandButton value="Salvar" icon="ui-icon-check"
 							style="margin:0" action="#{movimentacaoProdutoController.salvarMovimentacao}"
-							update="formCadastroMovimentacao" />
-						<p:commandButton value="Limpar" icon="ui-icon-check"
-							style="margin:0" ajax="true"
-							update="formCadastroMovimentacao"	
-							actionListener="#{movimentacaoProdutoController.limparCampos}"/>							
+							update="formCadastroMovimentacao" />													
 					</f:facet>
 				</p:panelGrid>
 			</h:form>

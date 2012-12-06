@@ -16,12 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.sgpc.dao.GenericDao;
 
-/**
- * Implentacao do {@link GenericDao}
- * @author Samir Daneu
- * @since 01/10/2012
- *
- */
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T, ID> {
 	
@@ -112,10 +106,6 @@ public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T,
 		this.entityManager = entityManager;
 	}
 	
-	/**
-	 * Metodo que retorna uma erro caso estejamos sem entityManager
-	 * @return
-	 */
 	protected EntityManager getEntityManager() {
 		 if(entityManager == null)
 			 throw new IllegalStateException("Erro! não encontramos o entityManager");

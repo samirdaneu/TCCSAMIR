@@ -1,7 +1,7 @@
 package br.com.sgpc.model;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,10 +33,10 @@ public class Usuario implements Serializable {
 	@Column(name = "senha", nullable = false, length = 8)
 	private String senha;
 	
-	@Column(name = "nome", nullable = false, length = 30)
+	@Column(name = "nome", nullable = false, length = 50)
 	private String nome;
 	
-	@Column(name = "email_usuario", nullable = false, length = 30)
+	@Column(name = "email_usuario", nullable = false, length = 40)
 	private String email;
 
 	@Column(name = "ativo", nullable = false)
@@ -47,11 +47,11 @@ public class Usuario implements Serializable {
 	private TipoUsuario tipoUsuario;
 	
 	@OneToMany(mappedBy = "vendedor", fetch = FetchType.LAZY)
-	private Set<Pedido> pedidos;
+	private List<Pedido> pedidos;
 	
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
-	private Set<MovimentacaoProduto> movimentacoesProdutos;
-
+	private List<MovimentacaoProduto> movimentacoesProdutos;
+	
 	public enum TipoUsuario {VENDEDOR, ADMINISTRADOR}
 	
 	public void setId(Integer id) {
@@ -102,14 +102,6 @@ public class Usuario implements Serializable {
 		return nome;
 	}
 
-	public void setPedidos(Set<Pedido> pedidos) {
-		this.pedidos = pedidos;
-	}
-
-	public Set<Pedido> getPedidos() {
-		return pedidos;
-	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -118,11 +110,20 @@ public class Usuario implements Serializable {
 		return email;
 	}
 
-	public void setMovimentacoesProdutos(Set<MovimentacaoProduto> movimentacoesProdutos) {
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setMovimentacoesProdutos(List<MovimentacaoProduto> movimentacoesProdutos) {
 		this.movimentacoesProdutos = movimentacoesProdutos;
 	}
 
-	public Set<MovimentacaoProduto> getMovimentacoesProdutos() {
+	public List<MovimentacaoProduto> getMovimentacoesProdutos() {
 		return movimentacoesProdutos;
 	}
+	
 }

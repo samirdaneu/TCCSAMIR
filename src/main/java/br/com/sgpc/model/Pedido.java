@@ -36,13 +36,13 @@ public class Pedido implements Serializable {
 	private Integer id;
 	
 	@Column(name="data_emissao", nullable = false)
-	@Temporal(value = TemporalType.TIMESTAMP)
+	@Temporal(value = TemporalType.DATE)
 	private Date emissao;
 	
 	@Column(name = "valor_total", nullable = false)
 	private BigDecimal valorTotal;
 	
-	@Column(name = "cpf", nullable = true, length = 11)
+	@Column(name = "cpf", nullable = true, length = 14)
 	private String cpf;
 	
 	@ManyToOne
@@ -63,7 +63,21 @@ public class Pedido implements Serializable {
 	private BigDecimal valorTroco;
 	
 	public enum TipoPagamento {
-		DINHEIRO, CHEQUE, DEBITO, CREDITO
+		DINHEIRO("Dinheiro"),
+		CHEQUE("Cheque"),
+		DEBITO("Débito"),
+		CREDITO("Crédito");
+		
+		private TipoPagamento(String nome) {
+			this.nome = nome;
+		}
+		
+		private String nome;
+
+		public String getNome(){
+			return nome;
+		}
+		
 	}
 	
 	public Integer getId() {

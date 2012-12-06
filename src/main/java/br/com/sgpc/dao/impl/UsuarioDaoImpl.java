@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import br.com.sgpc.dao.UsuarioDao;
 import br.com.sgpc.model.Usuario;
+import br.com.sgpc.model.Usuario.TipoUsuario;
 
 @Repository(value = "usuarioDao")
 public class UsuarioDaoImpl extends GenericDaoImpl<Usuario, Integer> implements
@@ -47,5 +48,18 @@ public class UsuarioDaoImpl extends GenericDaoImpl<Usuario, Integer> implements
 		params.put("login", login);		
 		
 		return pesquisarObjetoPorParametro(query, params);
+	}
+
+	@Override
+	public boolean isAdmin(Usuario usuario) {
+		boolean resultado = false;
+		final String query = "select u from Usuario u where u.login = :login ";
+		final Map<String, Object> params = new HashMap<String, Object>();
+		params.put("login", usuario.getLogin());
+		Usuario u = (Usuario) pesquisarObjetoPorParametro(query, params);
+		if(u.getTipoUsuario().equals(TipoUsuario.ADMINISTRADOR)){
+			resultado = true;
+		}		
+		return resultado;
 	}
 }

@@ -11,131 +11,130 @@
 	<ui:define name="title">Cadastro de Venda</ui:define>
 	<ui:define name="content">
 		<h:form id="formPedido">
-			<p:growl id="messages" showDetail="true"/>
+			<p:growl id="messages" showDetail="true" />
 			<f:facet name="header"> Venda </f:facet>
 			<p:panel header="Venda">
 				<p:panelGrid columns="2">
 					<h:outputLabel for="cpf" value="CPF: " />
 					<p:inputMask mask="999.999.999-99"
-						value="#{pedidoController.pedido.cpf}" required="false" >
+						value="#{pedidoController.pedido.cpf}" required="false">
 						<stella:validateCPF formatted="true" />
-					</p:inputMask>	
+					</p:inputMask>
 				</p:panelGrid>
-				
 				<p:panelGrid columns="5">
 					<h:outputLabel value="Descrição Produto" for="descricaoProduto" />
 					<p:autoComplete id="buscaProduto"
 						value="#{pedidoController.descricaoProduto}"
 						completeMethod="#{pedidoController.buscarProdutos}" />
-					<h:outputLabel value="Quantidade" for="quantidade" />	
-					<p:inputText id="quantidade" value="#{pedidoController.quantidade}"
-						size="7" required="true" requiredMessage="Campo obrigatório"
+					<h:outputLabel value="Quantidade" for="quantidade" />
+					<p:inputText id="quantidade"
+						value="#{pedidoController.item.quantidade}" size="7"
+						required="true" requiredMessage="Campo obrigatório"
 						converterMessage="Digite a quantidade corretamente">
 						<f:convertNumber maxIntegerDigits="7" />
-					</p:inputText>					
+					</p:inputText>
 					<p:commandButton value="Adicionar" icon="ui-icon-check"
-						style="margin:0"
-						action="#{pedidoController.adicionarProduto}"
-						update=":formPedido:messages" ajax="true"/>
+						style="margin:0" action="#{pedidoController.adicionarProduto}"
+						update=":formPedido"/>
 				</p:panelGrid>
-			
-			<p:dataTable var="itens" value="#{pedidoController.itens}" id="itensPedido"
-				editable="true">
 
-				<f:facet name="header"> Itens  </f:facet>
+				<p:dataTable var="itens" value="#{pedidoController.itens}"
+					id="itensPedido" editable="true" style="width:1072px">
 
-				<p:ajax event="rowEdit" listener="#{pedidoController.editarItens}"
-					update=":formPedido:messages" />
-				<p:ajax event="rowEditCancel" listener="#{pedidoController.deletarItens}"
-					update=":formPedido:messages" />
+					<f:facet name="header"> Itens  </f:facet>
 
-				<p:column headerText="Descrição Produto" style="width:125px">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{itens.produto.descricaoProduto}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="" style="width:100%" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+					<p:ajax event="rowEdit" listener="#{pedidoController.editarItem}"
+						update=":formPedido:messages" />
+					<p:ajax event="rowEdit" listener="#{pedidoController.removerItem}"
+						update=":formPedido:messages" />
 
-				<p:column headerText="Quantidade" style="width:125px">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{itens.quantidade}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="" style="width:100%" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-				
-				<p:column headerText="Valor Unitário" style="width:125px">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{itens.produto.preco}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="" style="width:100%" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-				
-				<p:column headerText="Valor Total" style="width:125px">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{itens.valorTotal}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="" style="width:100%" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-				
-				<p:column headerText="Opções" style="width:50px">
-					<p:rowEditor />
-				</p:column>
-			</p:dataTable>
-			<p:panelGrid columns="10">
-					<h:outputLabel value="Total Itens: " for="totalItens" />	
-					<p:inputText id="totalItens" value="#{pedidoController.quantidade}"
+					<p:column headerText="Descrição Produto" style="width:125px">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{itens.produto.descricao}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{itens.produto.descricao}"
+									style="width:100%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Quantidade" style="width:125px">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{itens.quantidade}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="" style="width:100%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Valor Unitário" style="width:125px">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{itens.produto.preco}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="" style="width:100%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Valor Total" style="width:125px">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{itens.valorTotal}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="" style="width:100%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Opções" style="width:50px">
+						<p:rowEditor />
+					</p:column>
+				</p:dataTable>
+				<br />
+				<br />
+				<p:panelGrid columns="10">
+					<h:outputLabel value="Total Itens: " for="totalItens" />
+					<p:inputText id="totalItens" value="#{pedidoController.totalItens}"
 						size="7" required="true" requiredMessage="Campo obrigatório"
 						converterMessage="Digite a quantidade corretamente">
 						<f:convertNumber maxIntegerDigits="7" />
 					</p:inputText>
-					<h:outputLabel value="Valor Total: " for="total" />	
-					<p:inputText id="totalens" value="#{pedidoController.quantidade}"
-						size="7" required="true" requiredMessage="Campo obrigatório"
-						converterMessage="Digite a quantidade corretamente">
-						<f:convertNumber maxIntegerDigits="7" />
-					</p:inputText>
+					<h:outputLabel value="Valor Total: " for="total" />
+					<p:inputText id="valorTotal" size="7" value="#{pedidoController.valorTotal}" />
 					<h:outputText value="Tipo de pagamento: " />
-					<p:selectOneMenu id="tipoPagamento"
+					<p:selectOneMenu id="tipo" size="1"
 						value="#{pedidoController.pedido.tipoPagamento}">
-						<f:selectItems value="#{pedidoController.listaTipoPagamento}" />
+						<f:selectItems value="#{pedidoController.tiposPagamento}" var="t"
+							itemLabel="#{t.nome}" itemValue="#{t}" />
 					</p:selectOneMenu>
 					<h:outputLabel for="valorRecebido" value="Valor Recebido: " />
-					<p:inputText id="valorRecebido" value="#{pedidoController.pedido.valorRecebido}"
-						size="7" maxlenght="7" converterMessage="Digite o valor corretamente">
+					<p:inputText id="valorRecebido"
+						value="#{pedidoController.pedido.valorRecebido}" size="7"
+						maxlenght="7" converterMessage="Digite o valor corretamente">
 						<f:convertNumber groupingUsed="true" maxFractionDigits="2" />
 					</p:inputText>
 					<h:outputLabel for="valorTroco" value="Valor Troco: " />
-					<p:inputText id="valorTroco" value="#{pedidoController.pedido.valorTroco}"
-						size="7" maxlenght="7">
+					<p:inputText id="valorTroco"
+						value="#{pedidoController.pedido.valorTroco}" size="7"
+						maxlenght="7">
 						<f:convertNumber groupingUsed="true" maxFractionDigits="2" />
 					</p:inputText>
 					<f:facet name="footer">
 						<p:messages />
 						<p:commandButton value="Finalizar" icon="ui-icon-check"
-							style="margin:0" action="#{pedidoController.salvarPedido}"
+							style="margin:0" action="#{pedidoController.salvar}"
 							update="formPedido" />
 						<p:commandButton value="Limpar" icon="ui-icon-check"
-							style="margin:0" ajax="true"
-							update="formPedido"	
-							actionListener="#{pedidoController.limparCampos}"/>	
+							style="margin:0" ajax="true" update="formPedido"
+							actionListener="#{pedidoController.limparCampos}" />
 					</f:facet>
-			</p:panelGrid>
+				</p:panelGrid>
 			</p:panel>
 		</h:form>
 	</ui:define>

@@ -11,39 +11,39 @@
 		<p:growl id="messages" autoUpdate="true" />
 		<p:panelMenu style="width:220px; height:600px">
 			<p:submenu label="Produto">
-				<p:menuitem value="Cadastrar" action="#{menuController.cadastrarProduto}"
+				<p:menuitem value="Cadastrar" outcome="/produto/formProduto"
 					icon="ui-icon-disk"/>
-				<p:menuitem value="Consultar" action="#{menuController.consultarProdutos}"
+				<p:menuitem value="Consultar" action="/produto/mostrarProdutos"
 					icon="ui-icon-arrowrefresh-1-w" />							
 			</p:submenu>
 			<p:submenu label="Estoque">
-				<p:menuitem value="Movimentar" action="#{menuController.cadastrarMovimentacao}"
+				<p:menuitem value="Movimentar" outcome="/movimentacao/formMovimentacao"
 					icon="ui-icon-disk"/>
-				<p:menuitem value="Consultar" action="#{menuController.consultarMovimentacoes}"
+				<p:menuitem value="Consultar" outcome="/movimentacao/mostrarMovimentacoes"
 					icon="ui-icon-arrowrefresh-1-w" />							
 			</p:submenu>
 			<p:submenu label="Pedido">
-				<p:menuitem value="Cadastrar" action="#{menuController.cadastrarPedido}"
+				<p:menuitem value="Cadastrar" outcome="/pedido/formPedido"
 					icon="ui-icon-disk" />
-				<p:menuitem value="Consultar" action="#{menuController.consultarPedidos}"
+				<p:menuitem value="Consultar" outcome="/pedido/mostrarPedidos"
 					icon="ui-icon-arrowrefresh-1-w" />
 			</p:submenu>
 			<p:submenu label="Fornecedor">
-				<p:menuitem value="Cadastrar" action="#{menuController.cadastrarFornecedor}"
+				<p:menuitem value="Cadastrar" outcome="/fornecedor/formFornecedor"
 					icon="ui-icon-disk" />
-				<p:menuitem value="Consultar" action="#{menuController.consultarFornecedores}"
+				<p:menuitem value="Consultar" outcome="/fornecedor/mostrarFornecedores"
 					icon="ui-icon-arrowrefresh-1-w" />
 			</p:submenu>
 			<p:submenu label="Usuario">
-				<p:menuitem value="Cadastrar" action="#{menuController.cadastrarUsuario}"
+				<p:menuitem value="Cadastrar" outcome="/usuario/formUsuario"
 					icon="ui-icon-disk" />
-				<p:menuitem value="Consultar" action="#{menuController.consultarUsuarios}"
+				<p:menuitem value="Consultar" outcome="/usuario/mostrarUsuarios"
 					icon="ui-icon-arrowrefresh-1-w" />
-				<p:menuitem value="Alterar senha" action="#{menuController.alterarSenha}"
+				<p:menuitem value="Alterar senha" outcome="/usuario/formAlterarSenha"
 					icon="ui-icon-arrowrefresh-1-w" />					
 			</p:submenu>
 			<p:submenu label="Relatórios">
-				<p:menuitem value="Vendas" action="#{menuController.consultarVendas}"
+				<p:menuitem value="Vendas" outcome="/relatorio/formRelatorioVendas"
 					icon="ui-icon-arrowrefresh-1-w" />									
 			</p:submenu>			
 		</p:panelMenu>		

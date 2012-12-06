@@ -83,8 +83,8 @@
 					<br />
 					<p:commandButton value="Salvar" icon="ui-icon-check"
 						style="margin:0" action="#{fornecedorController.salvarFornecedor}" />
-					<p:commandButton value="Limpar" icon="ui-icon-check"
-						style="margin:0" ajax="true" actionListener="#{fornecedorController.limparCampos}" />
+					<p:commandButton value="Limpar" icon="ui-icon-check" update="formCadastroFornecedor"
+						style="margin:0" ajax="true" action="#{fornecedorController.limparCampos}" />
 					<p:commandButton value="Pesquisar CEP" icon="ui-icon-search"
 						action="#{fornecedorController.encontraCEP}"
 						update=":formCadastroFornecedor" />

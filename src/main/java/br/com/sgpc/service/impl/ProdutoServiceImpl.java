@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import br.com.sgpc.dao.ProdutoDao;
@@ -13,6 +14,7 @@ import br.com.sgpc.service.MessageBundleService;
 import br.com.sgpc.service.ProdutoService;
 
 @Service( value = "produtoService" )
+@Scope("prototype")
 public class ProdutoServiceImpl extends GenericDaoImpl<Produto, Integer> implements ProdutoService {
 
 	private static final long serialVersionUID = 5135114915374432327L;
@@ -64,5 +66,10 @@ public class ProdutoServiceImpl extends GenericDaoImpl<Produto, Integer> impleme
 	@Override
 	public Produto buscarUnicoPorCodigo(String codigo) {
 		return this.produtoDao.buscarUnicoPorCodigoo(codigo);
+	}
+
+	@Override
+	public String verificaCodigoDescricaoDuplicado(Produto produto) {
+		return this.produtoDao.verificaCodigoDescricaoDuplicado(produto);
 	}
 }

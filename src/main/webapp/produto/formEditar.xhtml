@@ -42,16 +42,8 @@
 					<h:outputLabel for="preco" value="Preço: " />
 					<p:inputText id="preco" value="#{produtoController.produto.preco}"
 						size="4" required="true" requiredMessage="Campo obrigatório"
-						maxlenght="7" converterMessage="Digite o preço corretamente">
+						maxlenght="7" converterMessage="Digite o preço corretamente" readOnly="true">
 						<f:convertNumber groupingUsed="true" maxFractionDigits="2" />
-					</p:inputText>
-
-					<h:outputLabel for="quantidade" value="Quantidade: " />
-					<p:inputText id="quantidade"
-						value="#{produtoController.produto.quantidade}" size="7"
-						required="true" requiredMessage="Campo obrigatório"
-						converterMessage="Digite a quantidade corretamente">
-						<f:convertNumber maxIntegerDigits="7" />
 					</p:inputText>
 
 					<h:outputLabel for="quantidadeMinima" value="Quantidade Limite: " />

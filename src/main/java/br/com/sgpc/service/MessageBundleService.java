@@ -1,6 +1,8 @@
 package br.com.sgpc.service;
 
-public interface MessageBundleService {
+import java.io.Serializable;
+
+public interface MessageBundleService extends Serializable {
 	
 	/**
 	 * Metodo para buscar as mensagens no bundle

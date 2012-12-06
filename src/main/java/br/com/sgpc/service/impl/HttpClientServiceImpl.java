@@ -8,12 +8,14 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import br.com.sgpc.exception.TechnicalException;
 import br.com.sgpc.service.HttpClientService;
 
 @Service( value = "httpClientService" )
+@Scope("prototype")
 public class HttpClientServiceImpl implements HttpClientService {
 
 	private static final long serialVersionUID = 4975730915478065254L;

@@ -1,15 +1,16 @@
 package br.com.sgpc.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.faces.bean.RequestScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.com.sgpc.model.MovimentacaoProduto;
@@ -20,10 +21,11 @@ import br.com.sgpc.service.MessageBundleService;
 import br.com.sgpc.service.MovimentacaoProdutoService;
 import br.com.sgpc.service.ProdutoService;
 import br.com.sgpc.service.UsuarioService;
+import br.com.sgpc.session.bean.LoginSession;
 import br.com.sgpc.util.FacesUtil;
 
 @Controller(value = "movimentacaoProdutoController")
-@RequestScoped
+@Scope("request")
 public class MovimentacaoProdutoController implements AlphaController {
 
 	private static final long serialVersionUID = -4751958106939130845L;
@@ -32,6 +34,9 @@ public class MovimentacaoProdutoController implements AlphaController {
 	private static final String SAIDA = "Saída";
 	
 	private Usuario usuario;
+	
+	@Resource(name = "loginSession")
+	private LoginSession loginSession;
 	
 	private boolean enviarEmail = false;
 	
@@ -67,14 +72,18 @@ public class MovimentacaoProdutoController implements AlphaController {
 	public void inicio() {
 		movimentacaoProduto = new MovimentacaoProduto();
 		produto = new Produto();
-		usuario = new Usuario();
+		usuario = this.loginSession.getUsuarioLogado();
 		setModel(listarMovimentacoes());
 		setListaTipoMovimentacao(new ArrayList<String>());
 		getListaTipoMovimentacao().add(ENTRADA);
 		getListaTipoMovimentacao().add(SAIDA);
-
 	}
-
+	
+	public String limparCampos() {
+		inicio();
+        return "sucesso";  
+    }
+	
 	public List<String> buscarProdutos(final String query) {
 		final List<Produto> produtos = produtoService
 				.buscarParcialPorDescricao(query);
@@ -86,10 +95,10 @@ public class MovimentacaoProdutoController implements AlphaController {
 
 		return descricoes;
 	}
-
+	
 	public DataModel<MovimentacaoProduto> listarMovimentacoes() {
 		setModel(new ListDataModel<MovimentacaoProduto>(
-				this.movimentacaoProdutoService.buscarTodos()));
+				this.movimentacaoProdutoService.buscarTodos()));		
 		return getModel();
 	}
 	
@@ -109,7 +118,7 @@ public class MovimentacaoProdutoController implements AlphaController {
 		return retorno;
 	}
 	
-	public String salvarMovimentacao() {
+	public void salvarMovimentacao() {
 		try {
 			
 			setProduto(produtoService.buscarUnicoPorDescricao(descricaoProduto));
@@ -131,10 +140,11 @@ public class MovimentacaoProdutoController implements AlphaController {
 					produto.getQuantidade(),
 					movimentacaoProduto.getTipoMovimentacao()));
 			if(enviarEmail){
-				this.emailService.enviaEmailQuantiddeLimite(usuarioService.buscarAdministradoresAtivos(), getProduto());				
+				this.emailService.enviaEmailQuantidadeLimite(usuarioService.buscarAdministradoresAtivos(), getProduto());				
 			}
 			produtoService.atualizar(getProduto());
 			movimentacaoProduto.setProduto(getProduto());
+			movimentacaoProduto.setUsuario(getUsuario());
 			movimentacaoProdutoService.salvar(movimentacaoProduto);
 						
 			FacesUtil.mensagemInformacao(messageBundleService
@@ -150,14 +160,12 @@ public class MovimentacaoProdutoController implements AlphaController {
 			e.printStackTrace();
 		}
 
-		return "ok";
 	}
 	
-	public String limparCampos() {
-		inicio();
-        return "sucesso";  
-    }
-
+	public String excluir(){
+		return null;
+	}
+	
 	public Produto getProduto() {
 		return produto;
 	}
@@ -246,6 +254,14 @@ public class MovimentacaoProdutoController implements AlphaController {
 
 	public boolean isEnviarEmail() {
 		return enviarEmail;
+	}
+
+	public void setLoginSession(LoginSession loginSession) {
+		this.loginSession = loginSession;
+	}
+
+	public LoginSession getLoginSession() {
+		return loginSession;
 	}
 
 }

@@ -10,12 +10,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import br.com.sgpc.model.Fornecedor;
 
-/**
- * Converter para entidade Fornecedor
- * @author Samir Daneu
- * @since 30/10/2012
- *
- */
 @FacesConverter(value = "fornecedorConverter", forClass = Fornecedor.class)
 public class FornecedorConverter implements Converter {
 
@@ -28,7 +22,7 @@ public class FornecedorConverter implements Converter {
             fornecedor = new Fornecedor();
             fornecedor.setId( Integer.valueOf( value ) );
         }
-        return fornecedor; // DENTRO DO CONTROLLER VOCE FAZ A BUSCA QUE FAZIA AQUI DENTRO
+        return fornecedor;
 
     }
 

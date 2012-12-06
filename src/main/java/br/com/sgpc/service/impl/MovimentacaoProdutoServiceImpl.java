@@ -1,5 +1,6 @@
 package br.com.sgpc.service.impl;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import br.com.sgpc.dao.impl.GenericDaoImpl;
@@ -7,6 +8,7 @@ import br.com.sgpc.model.MovimentacaoProduto;
 import br.com.sgpc.service.MovimentacaoProdutoService;
 
 @Service( value = "movimentacaoProdutoService" )
+@Scope("prototype")
 public class MovimentacaoProdutoServiceImpl extends GenericDaoImpl<MovimentacaoProduto, Integer>
 implements MovimentacaoProdutoService {
 

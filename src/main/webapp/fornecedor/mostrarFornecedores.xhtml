@@ -11,7 +11,8 @@
 		<ui:define name="title">Fornecedores</ui:define>
 		<ui:define name="content">
 			<h:form id="mostrarFornecedores">
-				<p:dataTable id="tabelaFornecedores" var="fornecedor" style="width:1080px" value="#{fornecedorController.model}"
+				<p:dataTable id="tabelaFornecedores" var="fornecedor"
+					style="width:1080px" value="#{fornecedorController.model}"
 					widgetVar="tabelaFornecedores" paginator="true" rows="6"
 					emptyMessage="Nenhum fornecedor encontrado!">
 
@@ -19,22 +20,23 @@
 					Lista de Fornecedores
 					</f:facet>
 
-					<p:column filterBy="#{fornecedor.razaoSocial}" filterMatchMode="contains">
+					<p:column filterBy="#{fornecedor.razaoSocial}"
+						filterMatchMode="contains">
 						<f:facet name="header">
 							<h:outputText value="Razão Social" />
 						</f:facet>
 						<h:outputText value="#{fornecedor.razaoSocial}" />
 					</p:column>
 
-					<p:column filterBy="#{fornecedor.cnpj}"
-						filterMatchMode="contains">
+					<p:column filterBy="#{fornecedor.cnpj}" filterMatchMode="contains">
 						<f:facet name="header">
 							<h:outputText value="CNPJ" />
 						</f:facet>
 						<h:outputText value="#{fornecedor.cnpj}" />
 					</p:column>
 
-					<p:column filterBy="#{fornecedor.nomeContato}" filterMatchMode="contains">
+					<p:column filterBy="#{fornecedor.nomeContato}"
+						filterMatchMode="contains">
 						<f:facet name="header">
 							<h:outputText value="Nome Contato" />
 						</f:facet>
@@ -46,57 +48,73 @@
 							<h:outputText value="Editar" />
 						</f:facet>
 						<p:commandLink value="Editar"
-							actionListener="#{fornecedorController.editar}" />
+							action="#{fornecedorController.editar}" />
 					</p:column>
 
 					<p:column exportable="false">
 						<f:facet name="header">
 							<h:outputText value="Excluir" />
 						</f:facet>
-						<p:commandLink value="Excluir" actionListener="#{fornecedorController.desativar}"/>							
+						<p:commandLink value="Excluir" onclick="confirmation.show()"
+							 />
 					</p:column>
 
+					<p:confirmDialog id="confirmDialog"
+						message="Tem certeza que deseja excluir este fornecedor?"
+						header="Excluindo fornecedor" severity="alert"
+						widgetVar="confirmation">
+
+						<p:commandButton id="sim" value="Sim" update="messages"
+							oncomplete="confirmation.hide()"
+							action="#{fornecedorController.excluir}" />
+						<p:commandButton id="nao" value="Não"
+							onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+
 				</p:dataTable>
-				
+
 				<h:panelGrid columns="2">
 					<p:panel header="Exportar Todos">
 						<h:commandLink>
 							<p:graphicImage library="imagens" name="excel.png" />
-							<p:dataExporter type="xls" target="tabelaFornecedores" fileName="fornecedores" />
+							<p:dataExporter type="xls" target="tabelaFornecedores"
+								fileName="fornecedores" />
 						</h:commandLink>
 
 						<h:commandLink>
 							<p:graphicImage library="imagens" name="pdf.png" />
-							<p:dataExporter type="pdf" target="tabelaFornecedores" fileName="fornecedores" />
+							<p:dataExporter type="pdf" target="tabelaFornecedores"
+								fileName="fornecedores" />
 						</h:commandLink>
 
 						<h:commandLink>
 							<p:graphicImage library="imagens" name="csv.png" />
-							<p:dataExporter type="csv" target="tabelaFornecedores" fileName="fornecedores" />
+							<p:dataExporter type="csv" target="tabelaFornecedores"
+								fileName="fornecedores" />
 						</h:commandLink>
 					</p:panel>
 
 					<p:panel header="Exportar Página">
 						<h:commandLink>
 							<p:graphicImage library="imagens" name="excel.png" />
-							<p:dataExporter type="xls" target="tabelaFornecedores" fileName="fornecedores"
-								pageOnly="true" />
+							<p:dataExporter type="xls" target="tabelaFornecedores"
+								fileName="fornecedores" pageOnly="true" />
 						</h:commandLink>
 
 						<h:commandLink>
 							<p:graphicImage library="imagens" name="pdf.png" />
-							<p:dataExporter type="pdf" target="tabelaFornecedores" fileName="fornecedores"
-								pageOnly="true" />
+							<p:dataExporter type="pdf" target="tabelaFornecedores"
+								fileName="fornecedores" pageOnly="true" />
 						</h:commandLink>
 
 						<h:commandLink>
 							<p:graphicImage library="imagens" name="csv.png" />
-							<p:dataExporter type="csv" target="tabelaFornecedores" fileName="fornecedores"
-								pageOnly="true" />
+							<p:dataExporter type="csv" target="tabelaFornecedores"
+								fileName="fornecedores" pageOnly="true" />
 						</h:commandLink>
 					</p:panel>
 				</h:panelGrid>
-				
+
 			</h:form>
 		</ui:define>
 	</ui:composition>

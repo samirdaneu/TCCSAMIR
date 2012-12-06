@@ -2,18 +2,19 @@ package br.com.sgpc.controller;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.faces.bean.SessionScoped;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.com.sgpc.model.Usuario;
 import br.com.sgpc.service.LoginService;
 import br.com.sgpc.service.MessageBundleService;
 import br.com.sgpc.service.UsuarioService;
+import br.com.sgpc.session.bean.LoginSession;
 import br.com.sgpc.util.FacesUtil;
 
 @Controller( value = "loginController" )
-@SessionScoped
+@Scope("request")
 public class LoginController implements AlphaController {
 
 	private static final long serialVersionUID = 3204266186679032413L;
@@ -27,6 +28,9 @@ public class LoginController implements AlphaController {
 	@Resource( name = "messageBundleService" )
 	private MessageBundleService messageBundleService;
 	
+	@Resource(name = "loginSession")
+	private LoginSession loginSession;
+	
 	private Usuario usuario;
 	
 	@Override
@@ -35,10 +39,6 @@ public class LoginController implements AlphaController {
 		usuario = new Usuario();
 	}
 	
-	/**
-	 * Metodo que valida se o usuario tem acesso ao sistema
-	 * @return
-	 */
 	public String logar() {
 		
 		boolean existe = usuarioService.verificarSeLoginExiste( usuario.getLogin() );			
@@ -48,6 +48,7 @@ public class LoginController implements AlphaController {
 				FacesUtil.mensagemErro( messageBundleService.recoveryMessage("login_usuario_inativo") );
 			
 			if( loginService.senhasIguais(usuario.getSenha(), usuarioBase.getSenha()) ) {
+				loginSession.setUsuarioLogado( usuarioBase );
 				return "pedido/formPedido";
 			}
 		}
