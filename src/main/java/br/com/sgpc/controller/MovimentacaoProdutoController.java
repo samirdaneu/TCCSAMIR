@@ -1,6 +1,5 @@
 package br.com.sgpc.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +24,7 @@ import br.com.sgpc.session.bean.LoginSession;
 import br.com.sgpc.util.FacesUtil;
 
 @Controller(value = "movimentacaoProdutoController")
-@Scope("request")
+@Scope("session")
 public class MovimentacaoProdutoController implements AlphaController {
 
 	private static final long serialVersionUID = -4751958106939130845L;

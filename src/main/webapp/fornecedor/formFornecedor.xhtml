@@ -10,86 +10,98 @@
 
 	<ui:define name="title">Cadastro de fornecedor</ui:define>
 	<ui:define name="content">
+		<p:ajaxStatus onstart="statusDialog.show();"
+			onsuccess="statusDialog.hide();" />
+
+		<p:dialog modal="true" widgetVar="statusDialog" 
+			draggable="false" closable="false">
+			<p:graphicImage library="imagens" name="globe32.gif" />
+		</p:dialog>
+
 		<h:form id="formCadastroFornecedor">
 			<p:panelGrid columns="4">
-				<f:facet name="header"> Cadastro de Fornecedor </f:facet>
+					<f:facet name="header"> Cadastro de Fornecedor </f:facet>
+					<h:outputLabel for="razaoSocial" value="Razão Social: " />
+					<p:inputText id="razaoSocial"
+						value="#{fornecedorController.fornecedor.razaoSocial}"
+						required="true" maxlength="40" size="40"
+						requiredMessage="Campo de razão social obrigatório!">
+					</p:inputText>
 
-				<h:outputLabel for="razaoSocial" value="Razão Social: " />
-				<p:inputText id="razaoSocial"
-					value="#{fornecedorController.fornecedor.razaoSocial}"
-					required="true" maxlength="40" size="40"
-					requiredMessage="Campo de razão social obrigatório!">
-				</p:inputText>
+					<h:outputLabel for="cnpj" value="CNPJ: " />
+					<p:inputMask id="cnpj" mask="99.999.999/9999-99"
+						value="#{fornecedorController.fornecedor.cnpj}" required="false">
+						<stella:validateCNPJ formatted="true" />
+					</p:inputMask>
 
-				<h:outputLabel for="cnpj" value="CNPJ: " />
-				<p:inputMask id="cnpj" mask="99.999.999/9999-99"
-					value="#{fornecedorController.fornecedor.cnpj}" required="false">
-					<stella:validateCNPJ formatted="true" />
-				</p:inputMask>
+					<h:outputLabel for="contato" value="Nome Contato: " />
+					<p:inputText id="contato" required="false"
+						value="#{fornecedorController.fornecedor.nomeContato}">
+					</p:inputText>
 
-				<h:outputLabel for="contato" value="Nome Contato: " />
-				<p:inputText id="contato" required="false"
-					value="#{fornecedorController.fornecedor.nomeContato}">
-				</p:inputText>
+					<h:outputLabel for="telefone" value="Telefone : " />
+					<p:inputMask id="telefone" mask="(99) 9999-9999"
+						value="#{fornecedorController.fornecedor.telefone}"
+						required="true"
+						requiredMessage="Obrigatório telefone do fornecedor!" />
 
-				<h:outputLabel for="telefone" value="Telefone : " />
-				<p:inputMask id="telefone" mask="(99) 9999-9999"
-					value="#{fornecedorController.fornecedor.telefone}" required="true"
-					requiredMessage="Obrigatório telefone do fornecedor!" />
+					<h:outputLabel value="Email : " />
+					<p:inputText id="email"
+						value="#{fornecedorController.fornecedor.email}" required="false"
+						maxlength="30" size="30">
+						<f:validator validatorId="emailValidator" />
+					</p:inputText>
 
-				<h:outputLabel value="Email : " />
-				<p:inputText id="email"
-					value="#{fornecedorController.fornecedor.email}" required="false"
-					maxlength="30" size="30">
-					<f:validator validatorId="emailValidator" />
-				</p:inputText>
+					<h:outputLabel for="site" value="Site: " />
+					<p:inputText id="site" required="false"
+						value="#{fornecedorController.fornecedor.site}">
+					</p:inputText>
 
-				<h:outputLabel for="site" value="Site: " />
-				<p:inputText id="site" required="false"
-					value="#{fornecedorController.fornecedor.site}">
-				</p:inputText>
+					<h:outputLabel value="CEP: " />
+					<p:inputMask mask="99999-999"
+						value="#{fornecedorController.fornecedor.cep}" required="false" />
 
-				<h:outputLabel value="CEP: " />
-				<p:inputMask mask="99999-999"
-					value="#{fornecedorController.fornecedor.cep}" required="false" />
+					<h:outputLabel for="logradouro" value="Endereço: " />
+					<p:inputText id="logradouro" required="false"
+						value="#{fornecedorController.fornecedor.logradouro}">
+					</p:inputText>
 
-				<h:outputLabel for="logradouro" value="Endereço: " />
-				<p:inputText id="logradouro" required="false"
-					value="#{fornecedorController.fornecedor.logradouro}">
-				</p:inputText>
+					<h:outputLabel for="numero" value="Número: " />
+					<p:inputText id="numero" required="false"
+						value="#{fornecedorController.fornecedor.numeroLogradouro}">
+					</p:inputText>
 
-				<h:outputLabel for="numero" value="Número: " />
-				<p:inputText id="numero" required="false"
-					value="#{fornecedorController.fornecedor.numeroLogradouro}">
-				</p:inputText>
+					<h:outputLabel for="bairro" value="Bairro: " />
+					<p:inputText id="bairro" required="false"
+						value="#{fornecedorController.fornecedor.bairro}">
+					</p:inputText>
 
-				<h:outputLabel for="bairro" value="Bairro: " />
-				<p:inputText id="bairro" required="false"
-					value="#{fornecedorController.fornecedor.bairro}">
-				</p:inputText>
+					<h:outputLabel for="cidade" value="Cidade: " />
+					<p:inputText id="cidade" required="false"
+						value="#{fornecedorController.fornecedor.cidade}">
+					</p:inputText>
 
-				<h:outputLabel for="cidade" value="Cidade: " />
-				<p:inputText id="cidade" required="false"
-					value="#{fornecedorController.fornecedor.cidade}">
-				</p:inputText>
+					<h:outputLabel for="estado" value="Estado: " />
+					<p:inputText id="estado" required="false"
+						value="#{fornecedorController.fornecedor.estado}">
+					</p:inputText>
 
-				<h:outputLabel for="estado" value="Estado: " />
-				<p:inputText id="estado" required="false"
-					value="#{fornecedorController.fornecedor.estado}">
-				</p:inputText>
-
-				<f:facet name="footer">
-					<p:messages />
-					<br />
-					<p:commandButton value="Salvar" icon="ui-icon-check"
-						style="margin:0" action="#{fornecedorController.salvarFornecedor}" />
-					<p:commandButton value="Limpar" icon="ui-icon-check" update="formCadastroFornecedor"
-						style="margin:0" ajax="true" action="#{fornecedorController.limparCampos}" />
-					<p:commandButton value="Pesquisar CEP" icon="ui-icon-search"
-						action="#{fornecedorController.encontraCEP}"
-						update=":formCadastroFornecedor" />
-				</f:facet>
-			</p:panelGrid>
-		</h:form>
+					<f:facet name="footer">
+						<p:messages />
+						<br />
+						<p:commandButton value="Salvar" icon="ui-icon-check"
+							style="margin:0"
+							action="#{fornecedorController.salvarFornecedor}" />
+						<p:commandButton value="Limpar" icon="ui-icon-check"
+							update="formCadastroFornecedor" style="margin:0" ajax="true"
+							action="#{fornecedorController.limparCampos}" />
+						<p:commandButton value="Pesquisar CEP" icon="ui-icon-search"
+							action="#{fornecedorController.encontraCEP}"
+							update=":formCadastroFornecedor">
+							<p:ajax execute="panel" render="panel" />
+						</p:commandButton>
+					</f:facet>
+				</p:panelGrid>			
+		</h:form>		
 	</ui:define>
 </ui:composition>

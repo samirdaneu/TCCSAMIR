@@ -34,6 +34,14 @@
 						</f:facet>
 						<h:outputText value="#{produto.descricao}" />
 					</p:column>
+					
+					<p:column filterBy="#{produto.fornecedor.razaoSocial}"
+						filterMatchMode="contains">
+						<f:facet name="header">
+							<h:outputText value="Fornecedor" />
+						</f:facet>
+						<h:outputText value="#{produto.fornecedor.razaoSocial}" />
+					</p:column>
 
 					<p:column filterBy="#{produto.preco}" filterMatchMode="contains">
 						<f:facet name="header">

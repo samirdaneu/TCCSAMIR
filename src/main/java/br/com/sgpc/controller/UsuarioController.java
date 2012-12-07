@@ -1,24 +1,25 @@
 package br.com.sgpc.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.faces.model.SelectItem;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.com.sgpc.model.Usuario;
+import br.com.sgpc.model.Usuario.TipoUsuario;
 import br.com.sgpc.service.MessageBundleService;
 import br.com.sgpc.service.UsuarioService;
 import br.com.sgpc.util.FacesUtil;
 
 @Controller(value = "usuarioController")
-@Scope("request")
+@Scope("session")
 public class UsuarioController implements AlphaController {
 
 	private static final long serialVersionUID = -2558847076842976054L;
@@ -28,9 +29,6 @@ public class UsuarioController implements AlphaController {
 	private String novaSenhaConfirmacao;
 	
 	private String login;
-
-	private static final String ADMINISTRADOR = "Administrador";
-	private static final String VENDEDOR = "Vendedor";
 
 	private Usuario usuario;
 
@@ -52,16 +50,22 @@ public class UsuarioController implements AlphaController {
 	@PostConstruct
 	public void inicio() {
 		usuario = new Usuario();
-		setModel(listarUsuarios());
-		setListaTiposUsuario(new ArrayList<String>());
-		getListaTiposUsuario().add(ADMINISTRADOR);
-		getListaTiposUsuario().add(VENDEDOR);
+		setModel(listarUsuarios());		
 	}
 	
 	public String limparCampos() {
 	    inicio();
         return "ok";  
     }
+	
+	public SelectItem[] getTiposUsuarios() {
+		SelectItem[] items = new SelectItem[TipoUsuario.values().length];
+		int i = 0;
+		for(TipoUsuario t: TipoUsuario.values()) {
+			items[i++] = new SelectItem(t, t.getNome());
+		}
+		return items;
+	}
 	
 	public DataModel<Usuario> listarUsuarios() {
 		setModel(new ListDataModel<Usuario>(this.usuarioService.buscarTodos()));
@@ -125,13 +129,6 @@ public class UsuarioController implements AlphaController {
 			try {
 				if (getUsuario().getId() == null) {
 					usuario.setAtivo(true);
-
-					if (tipoUsuarioSelecionado.equals(ADMINISTRADOR)) {
-						usuario.setTipoUsuario(Usuario.TipoUsuario.ADMINISTRADOR);
-					} else {
-						usuario.setTipoUsuario(Usuario.TipoUsuario.VENDEDOR);
-					}
-
 					usuarioService.salvar(getUsuario());
 					FacesUtil.mensagemInformacao(messageBundleService
 							.recoveryMessage("usuario_cadastro_sucesso"));

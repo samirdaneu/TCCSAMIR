@@ -1,11 +1,8 @@
 package br.com.sgpc.controller;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -18,7 +15,7 @@ import br.com.sgpc.service.PedidoService;
 
 @Controller(value = "relatorioController")
 @Scope("request")
-public class RelatorioController implements AlphaController{
+public class RelatorioController /*implements AlphaController*/{
 	
 	private static final long serialVersionUID = 298834463696787312L;
 	
@@ -26,32 +23,23 @@ public class RelatorioController implements AlphaController{
 	
 	private Date dataTermino = null;
 	
-	private List<Pedido> pedidos;
-
 	@Resource(name = "pedidoService")
 	private PedidoService pedidoService;
 	
 	private BigDecimal valorTotal = new BigDecimal("0.00");
 	
 	private DataModel<Pedido> model;
-	
-	@Override
-	@PostConstruct
-	public void inicio() {
-		this.pedidos = new ArrayList<Pedido>();				
-	}	
-	
-	private BigDecimal calculaValorTotal(List<Pedido> pedidos){
-		for(Pedido pedido : pedidos){
-			this.valorTotal.add(pedido.getValorTotal());
+		
+	public BigDecimal calculaValorTotal(DataModel<Pedido> model){
+		for(Pedido pedido : model){
+			this.valorTotal = this.valorTotal.add(pedido.getValorTotal());
 		}		
 		return this.valorTotal;
 	}
 	
-	public String buscarVendas(){
+	public void buscarVendas(){
 		this.setModel(new ListDataModel<Pedido>(this.pedidoService.buscarRelatorioVendas(getDataInicio(), getDataTermino())));
-		calculaValorTotal(this.pedidos);
-		return "ok";
+		setValorTotal(calculaValorTotal(this.model));		
 	}
 	
 	public void setValorTotal(BigDecimal valorTotal) {
@@ -66,25 +54,12 @@ public class RelatorioController implements AlphaController{
 		this.pedidoService = pedidoService;
 	}
 
-	public PedidoService getPedidoService() {
-		getPedidos().get(0).getItens().size();
-		return pedidoService;
-	}
-
 	public void setDataInicio(Date dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 
 	public Date getDataInicio() {
 		return dataInicio;
-	}
-
-	public void setPedidos(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
-	}
-
-	public List<Pedido> getPedidos() {
-		return pedidos;
 	}
 
 	public void setDataTermino(Date dataTermino) {

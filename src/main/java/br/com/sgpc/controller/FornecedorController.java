@@ -18,7 +18,7 @@ import br.com.sgpc.service.MessageBundleService;
 import br.com.sgpc.util.FacesUtil;
 
 @Controller(value="fornecedorController")
-@Scope("request")
+@Scope("session")
 public class FornecedorController implements AlphaController {
 
 	private static final long serialVersionUID = 643971891099428877L;
@@ -43,7 +43,7 @@ public class FornecedorController implements AlphaController {
 	public void inicio() {
 		fornecedor = new Fornecedor();
 		setModel(listarFornecedores());
-	}	
+	}
 
 	public String limparCampos() {
 		inicio();
@@ -84,11 +84,13 @@ public class FornecedorController implements AlphaController {
 				fornecedorService.salvar(getFornecedor());
 				FacesUtil.mensagemInformacao(messageBundleService
 						.recoveryMessage("fornecedor_cadastro_sucesso"));
+				inicio();
 
 			} else {
 				fornecedorService.atualizar(getFornecedor());
 				FacesUtil.mensagemInformacao(messageBundleService
 						.recoveryMessage("fornecedor_atualizado_sucesso"));
+				inicio();
 			}
 		} catch (Exception e) {
 			FacesUtil.mensagemErro(messageBundleService
@@ -119,17 +121,9 @@ public class FornecedorController implements AlphaController {
 			this.fornecedorService.atualizar(fornecedor);
 		}
 		
-		return consultarFornecedores();
-	}
-	
-	public String consultarFornecedores(){
 		return "/fornecedor/mostrarFornecedores";
 	}
 	
-	public String cadastrarFornecedor(){
-		return "/fornecedor/formFornecedor";
-	}
-
 	public void setFornecedor(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
 	}

@@ -21,7 +21,7 @@ import br.com.sgpc.util.FacesUtil;
 
 
 @Controller("produtoController")
-@Scope("request")
+@Scope("session")
 public class ProdutoController implements AlphaController {
 
 	private static final long serialVersionUID = -6759622970651283020L;
@@ -67,10 +67,12 @@ public class ProdutoController implements AlphaController {
 				produto.setDescricao(this.produto.getDescricao().toUpperCase());
 				produto.setAtivo(true);
 				produtoService.salvar(produto);
+				limparCampos();
 				FacesUtil.mensagemInformacao(messageBundleService
 						.recoveryMessage("produto_cadastrado_sucesso"));
 			} else {
 				produtoService.atualizar(produto);
+				limparCampos();
 				FacesUtil.mensagemInformacao(messageBundleService
 						.recoveryMessage("produto_atualizado_sucesso"));
 			}
@@ -98,6 +100,7 @@ public class ProdutoController implements AlphaController {
 	
 	public String limparCampos() {
 		this.fornecedores = new ArrayList<Fornecedor>();
+		fornecedor = null;
         inicio();
         return "/produto/formProduto";  
     }

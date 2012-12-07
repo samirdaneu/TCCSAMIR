@@ -52,7 +52,22 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
 	private List<MovimentacaoProduto> movimentacoesProdutos;
 	
-	public enum TipoUsuario {VENDEDOR, ADMINISTRADOR}
+	public enum TipoUsuario {
+		VENDEDOR("Vendedor"),
+		ADMINISTRADOR("Administrador");
+				
+		private TipoUsuario(String nome) {
+			this.nome = nome;
+		}
+		
+		private String nome;
+
+		public String getNome(){
+			return nome;
+		}
+		
+	}
+	
 	
 	public void setId(Integer id) {
 		this.id = id;

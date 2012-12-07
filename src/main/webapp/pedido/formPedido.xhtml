@@ -11,14 +11,12 @@
 	<ui:define name="title">Cadastro de Venda</ui:define>
 	<ui:define name="content">
 		<h:form id="formPedido">
-			<p:growl id="messages" showDetail="true" />
 			<f:facet name="header"> Venda </f:facet>
 			<p:panel header="Venda">
 				<p:panelGrid columns="2">
 					<h:outputLabel for="cpf" value="CPF: " />
-					<p:inputMask mask="999.999.999-99"
-						value="#{pedidoController.pedido.cpf}" required="false">
-						<stella:validateCPF formatted="true" />
+					<p:inputMask mask="999.999.999-99" id="cpf"
+						value="#{pedidoController.pedido.cpf}" required="false">						
 					</p:inputMask>
 				</p:panelGrid>
 				<p:panelGrid columns="5">
@@ -31,7 +29,7 @@
 						value="#{pedidoController.item.quantidade}" size="7"
 						required="true" requiredMessage="Campo obrigatório"
 						converterMessage="Digite a quantidade corretamente">
-						<f:convertNumber maxIntegerDigits="7" />
+						<f:convertNumber maxIntegerDigits="7" />						
 					</p:inputText>
 					<p:commandButton value="Adicionar" icon="ui-icon-check"
 						style="margin:0" action="#{pedidoController.adicionarProduto}"
@@ -43,10 +41,8 @@
 
 					<f:facet name="header"> Itens  </f:facet>
 
-					<p:ajax event="rowEdit" listener="#{pedidoController.editarItem}"
-						update=":formPedido:messages" />
-					<p:ajax event="rowEdit" listener="#{pedidoController.removerItem}"
-						update=":formPedido:messages" />
+				<p:ajax event="rowEditCancel" listener="#{pedidoController.removerItem}"
+						update=":formPedido" />
 
 					<p:column headerText="Descrição Produto" style="width:125px">
 						<p:cellEditor>
@@ -115,14 +111,14 @@
 					</p:selectOneMenu>
 					<h:outputLabel for="valorRecebido" value="Valor Recebido: " />
 					<p:inputText id="valorRecebido"
-						value="#{pedidoController.pedido.valorRecebido}" size="7"
+						value="#{pedidoController.valorRecebido}" size="7"
 						maxlenght="7" converterMessage="Digite o valor corretamente">
 						<f:convertNumber groupingUsed="true" maxFractionDigits="2" />
+						<p:ajax event="blur" update="valorTroco" />
 					</p:inputText>
 					<h:outputLabel for="valorTroco" value="Valor Troco: " />
 					<p:inputText id="valorTroco"
-						value="#{pedidoController.pedido.valorTroco}" size="7"
-						maxlenght="7">
+						value="#{pedidoController.valorTroco}" size="7"	maxlenght="7">
 						<f:convertNumber groupingUsed="true" maxFractionDigits="2" />
 					</p:inputText>
 					<f:facet name="footer">

@@ -20,8 +20,8 @@ public class PedidoDaoImpl extends GenericDaoImpl<Pedido, Integer> implements Pe
 	public List<Pedido> buscarRelatorioVendas(Date dataInicio, Date dataTermino) {
 		final String sql = "SELECT p FROM " + Pedido.class.getName() + " p WHERE p.emissao between ? and ?";		
 		final Query query = getEntityManager().createQuery(sql);
-		query.setParameter(0, dataInicio);
-		query.setParameter(1, dataTermino);
+		query.setParameter(1, dataInicio);
+		query.setParameter(2, dataTermino);
 		return (List<Pedido>) query.getResultList();
 	}
 }

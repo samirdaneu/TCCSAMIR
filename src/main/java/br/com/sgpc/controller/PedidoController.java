@@ -11,15 +11,19 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
+import org.apache.commons.mail.EmailException;
 import org.primefaces.event.RowEditEvent;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import br.com.caelum.stella.validation.CPFValidator;
+import br.com.caelum.stella.validation.InvalidStateException;
 import br.com.sgpc.model.ItensPedido;
 import br.com.sgpc.model.Pedido;
 import br.com.sgpc.model.Pedido.TipoPagamento;
 import br.com.sgpc.model.Produto;
 import br.com.sgpc.model.Usuario;
+import br.com.sgpc.service.EmailService;
 import br.com.sgpc.service.ItensPedidoService;
 import br.com.sgpc.service.MessageBundleService;
 import br.com.sgpc.service.PedidoService;
@@ -29,15 +33,20 @@ import br.com.sgpc.session.bean.LoginSession;
 import br.com.sgpc.util.FacesUtil;
 
 @Controller(value = "pedidoController")
-@Scope("request")
+@Scope("session")
 public class PedidoController implements AlphaController {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private List<Pedido> pedidosVendedor = new ArrayList<Pedido>();
 	
+	private String mensagemAdicionarProduto;
+	
 	@Resource(name = "loginSession")
 	private LoginSession loginSession;
+	
+	@Resource(name = "emailService")
+	private EmailService emailService;
 	
 	private int totalItens;
 	
@@ -61,22 +70,20 @@ public class PedidoController implements AlphaController {
 	
 	private String descricaoProduto;
 	
+	@Resource(name = "usuarioService")
+	private UsuarioService usuarioService;
+	
 	@Resource( name = "produtoService" ) 
 	private ProdutoService produtoService;
 	
 	@Resource( name = "pedidoService" ) 
 	private PedidoService pedidoService;
 	
-	@Resource( name = "usuarioService" ) 
-	private UsuarioService usuarioService;
-	
 	@Resource( name = "itensPedidoService" ) 
 	private ItensPedidoService itensPedidoService;
 	
 	@Resource(name = "messageBundleService")
-	private MessageBundleService messageBundleService;
-	
-	private DataModel<Pedido> modelPedido;
+	private MessageBundleService messageBundleService;	
 	
 	private DataModel<ItensPedido> modelItensPedido;
 	
@@ -84,15 +91,14 @@ public class PedidoController implements AlphaController {
 	@PostConstruct
 	public void inicio() { 
 		setPedido(new Pedido());
-		this.pedido.setTipoPagamento(TipoPagamento.CHEQUE);
 		setItens(new ArrayList<ItensPedido>());
 		setProduto(new Produto());
 		setItem(new ItensPedido());
 		setUsuario(this.loginSession.getUsuarioLogado());
 		setTotalItens(0);
 		setValorTotal(new BigDecimal("0.00"));
-		setValorRecebido(null);
-		setValorTroco(null);
+		setValorRecebido(new BigDecimal("0.00"));
+		setValorTroco(new BigDecimal("0.00"));
 		setModelItensPedido(new ListDataModel<ItensPedido>(getItens()));
 	}
 	
@@ -122,38 +128,111 @@ public class PedidoController implements AlphaController {
 		return descricoes;
 	}
 	
+	private boolean isQuantidadeProdutoValido() {
+		boolean resultado = false;
+		Produto produto = this.produtoService
+				.buscarUnicoPorDescricao(getDescricaoProduto());
+		if (this.item.getQuantidade() > 0)
+			resultado = true;
+		this.mensagemAdicionarProduto = "Quantidade deve ser maior que zero!";
+		if (produto.getQuantidade() >= this.item.getQuantidade())
+			resultado = true;
+		this.mensagemAdicionarProduto = "Quantidade indisponível no estoque! Quantidade disponível: "
+				+ produto.getQuantidade();
+		this.produto = produto;
+
+		return resultado;
+	}
+	
 	public void adicionarProduto(){
-		setProduto(this.produtoService.buscarUnicoPorDescricao(getDescricaoProduto()));
-		this.pedido.setTipoPagamento(TipoPagamento.DINHEIRO);
-		this.item.setProduto(getProduto());
-		this.item.setPedido(getPedido());
-		this.item.setValorTotal(getProduto().getPreco().multiply(new BigDecimal(this.item.getQuantidade())));
-		setTotalItens(this.totalItens + item.getQuantidade());
-		setValorTotal(this.valorTotal.add(this.item.getValorTotal()));
-		this.itens.add(getItem());
-		//this.produtoService.atualizar(getProduto().);
-		setItem(new ItensPedido());
-		setProduto(new Produto());
-		setDescricaoProduto(null);
-		//this.itensPedidoService.salvar(this.item);
+		if(isQuantidadeProdutoValido()){
+			this.item.setProduto(getProduto());
+			this.item.setPedido(getPedido());
+			this.item.setValorTotal(getProduto().getPreco().multiply(new BigDecimal(this.item.getQuantidade())));
+			this.totalItens = this.totalItens + item.getQuantidade();
+			this.valorTotal = this.valorTotal.add(this.item.getValorTotal());
+			this.itens.add(getItem());
+			this.item = new ItensPedido();
+			this.produto = new Produto();
+			this.descricaoProduto = new String();			
+		} else {
+			FacesUtil.mensagemErro(this.mensagemAdicionarProduto);
+		}				
 	}
 	
-	public DataModel<Pedido> listarPedidos() {
-		setModelPedido(new ListDataModel<Pedido>(
-				this.pedidoService.buscarTodos()));
-		return getModelPedido();
+	private void salvarItens(List<ItensPedido> itens){
+		for (ItensPedido item : itens) {
+			ItensPedido ip = new ItensPedido(item.getQuantidade(), item.getProduto().getPreco(),
+					item.getValorTotal(), this.pedido.getId(), item.getProduto().getId());			
+			this.itensPedidoService.salvar(ip);
+		}
 	}
 	
-	public String salvar(){
+	private void atualizarProdutos(List<ItensPedido> itens) throws EmailException{
+		for (ItensPedido item : itens) {
+			Produto p = item.getProduto();
+			p.setQuantidade((p.getQuantidade() - item.getQuantidade()));
+			if (p.getQuantidade() <= p.getQuantidadeLimite()) {
+				this.emailService.enviaEmailQuantidadeLimite(
+						this.usuarioService.buscarAdministradoresAtivos(), p);
+			}
+			this.produtoService.atualizar(p);
+			
+		}		
+	}	
+	
+	private boolean isCPFVazio(){
+		boolean resultado = false;
+		if(pedido.getCpf().isEmpty()){
+			resultado = true;
+		}
+		return resultado;
+	}
+	
+	private boolean cpfValido() {
+		boolean resultado = false;
+		if (isCPFVazio()) {
+			resultado = true;
+		} else if (pedido.getCpf().equals("000.000.000-00")
+				|| pedido.getCpf().equals("111.111.111-11")
+				|| pedido.getCpf().equals("222.222.222-22")
+				|| pedido.getCpf().equals("333.333.333-33")
+				|| pedido.getCpf().equals("444.444.444-44")
+				|| pedido.getCpf().equals("555.555.555-55")
+				|| pedido.getCpf().equals("666.666.666-66")
+				|| pedido.getCpf().equals("777.777.777-77")
+				|| pedido.getCpf().equals("888.888.888-88")
+				|| pedido.getCpf().equals("999.999.999-99")) {
+			resultado = false;
+		} else {
+
+			try {
+				CPFValidator validator = new CPFValidator();
+				validator.assertValid(pedido.getCpf());
+
+			} catch (InvalidStateException e) {
+				FacesUtil.mensagemErro(messageBundleService
+						.recoveryMessage("cpf_invalido"));
+				resultado = false;
+			}
+		}
+		return resultado;
+	}	
+		
+	public void salvar(){
 		try {
 
+			if(cpfValido())
+			
 			if (pedido.getId() == null) {
 
 				pedido.setEmissao(new Date());
-				pedido.setItens(getItens());
 				pedido.setValorTotal(getValorTotal());
 				pedido.setVendedor(getUsuario());
+				pedido.setItens(getItens());
 				this.pedidoService.salvar(this.pedido);
+				salvarItens(getItens());
+				atualizarProdutos(getItens());
 				FacesUtil.mensagemInformacao(messageBundleService
 						.recoveryMessage("pedido_finalizado_sucesso"));
 			} else {
@@ -164,10 +243,9 @@ public class PedidoController implements AlphaController {
 			}
 		} catch (Exception e) {
 			FacesUtil.mensagemErro(messageBundleService
-					.recoveryMessage("pedido_finalizado_erro"));
-			e.printStackTrace();
+					.recoveryMessage("pedido_finalizado_erro"));			
 		}
-		return null;
+		
 	}
 	
 	public DataModel<ItensPedido> getModelItensPedido() {
@@ -175,15 +253,12 @@ public class PedidoController implements AlphaController {
 		return getModelItensPedido();
 	}
 	
-	public void editarItem(RowEditEvent event){
-		FacesUtil.mensagemInformacao(messageBundleService
-				.recoveryMessage("item_alterado_lista"));
-		
-	}
-	
 	public void removerItem(RowEditEvent event){
 		ItensPedido item = ((ItensPedido) event.getObject());
+		this.totalItens -= item.getQuantidade();
+		this.valorTotal = this.valorTotal.subtract(item.getValorTotal());
 		itens.remove(item);
+		setModelItensPedido(new ListDataModel<ItensPedido>(getItens()));
 		FacesUtil.mensagemInformacao(messageBundleService
 				.recoveryMessage("item_removido_lista"));
 	}
@@ -280,10 +355,6 @@ public class PedidoController implements AlphaController {
 		this.item = item;
 	}
 			
-	public String salvarPedido(){
-		return "ok";
-	}
-	
 	public ItensPedido getItem() {
 		return item;
 	}
@@ -292,14 +363,6 @@ public class PedidoController implements AlphaController {
 		this.modelItensPedido = modelItensPedido;
 	}
 
-	public void setModelPedido(DataModel<Pedido> modelPedido) {
-		this.modelPedido = modelPedido;
-	}
-
-	public DataModel<Pedido> getModelPedido() {
-		return modelPedido;
-	}
-	
 	public void setTotalItens(int totalItens) {
 		this.totalItens = totalItens;
 	}
@@ -337,7 +400,20 @@ public class PedidoController implements AlphaController {
 	}
 
 	public BigDecimal getValorTroco() {
-		return valorTroco;
+		if (this.valorRecebido.doubleValue() > 0) {
+			return this.valorTroco = this.valorRecebido
+					.subtract(this.valorTotal);
+		} else {
+			return this.valorTroco;
+		}	
+	}
+
+	public void setMensagemAdicionarProduto(String mensagemAdicionarProduto) {
+		this.mensagemAdicionarProduto = mensagemAdicionarProduto;
+	}
+
+	public String getMensagemAdicionarProduto() {
+		return mensagemAdicionarProduto;
 	}
 
 }

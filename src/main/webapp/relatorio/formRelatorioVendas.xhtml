@@ -17,17 +17,17 @@
 					<p:panelGrid columns="6">
 						<f:facet name="header"> Filtro </f:facet>
 						<h:outputLabel for="DataInicio" value="Data Início: " />
-						<p:calendar value="#{relatorioController.dataInicio}" id="popup1"
+						<p:calendar value="#{relatorioController.dataInicio}" id="calIni"
 							locale="pt_BR" pattern="dd/MM/yyyy" />
 						<h:outputLabel for="DataTermino" value="Data Término: " />
-						<p:calendar value="#{relatorioController.dataInicio}" id="popup2"
-							locale="pt" pattern="dd/MM/yyyy" />
+						<p:calendar value="#{relatorioController.dataTermino}" id="calTer"
+							locale="pt_BR" pattern="dd/MM/yyyy" />
 						<p:commandButton value="Buscar" icon="ui-icon-check"
 							style="margin:0" action="#{relatorioController.buscarVendas}"
-							update=":formRelatorio:messages" ajax="true" />
+							update=":formRelatorio"  />
 					</p:panelGrid>
 					<br />
-					<p:dataTable id="tblVendas" style="width:1060px" var="venda"
+					<p:dataTable id="tabelaVendas" style="width:1060px" var="venda"
 						value="#{relatorioController.model}" widgetVar="tabelaVendas"
 						paginator="true" rows="50"
 						emptyMessage="Nenhum registro encontrado!">
@@ -47,7 +47,7 @@
 							<f:facet name="header">
 								<h:outputText value="Vendedor" />
 							</f:facet>
-							<h:outputText value="#{venda.vendedor}" />
+							<h:outputText value="#{venda.vendedor.nome}" />
 						</p:column>
 
 						<p:column filterBy="#{venda.cpf}" filterMatchMode="contains">
@@ -64,7 +64,7 @@
 							</f:facet>
 							<h:outputText value="#{venda.tipoPagamento}" />
 						</p:column>
-
+						
 						<p:column filterBy="#{venda.itens.size}"
 							filterMatchMode="contains">
 							<f:facet name="header">
@@ -78,52 +78,49 @@
 							<f:facet name="header">
 								<h:outputText value="Valor" />
 							</f:facet>
-							<h:outputText value="venda.valorTotal" />
+							<h:outputText value="#{venda.valorTotal}" />
 						</p:column>
 					</p:dataTable>
 					<br />
 					<p:panelGrid columns="2">
-						<h:outputLabel for="" value="Valor Total: " />
-						<p:inputText id="valorTotal"
-							value="#{relatorioController.valorTotal}" size="7" maxlenght="7">
-							<f:convertNumber groupingUsed="true" maxFractionDigits="2" />
-						</p:inputText>
+						<h:outputLabel for="valorTotal" value="Valor Total: " />
+						<h:outputText value="#{relatorioController.valorTotal}" />						
 					</p:panelGrid>
 
 					<h:panelGrid columns="2">
 						<p:panel header="Exportar Todos">
 							<h:commandLink>
 								<p:graphicImage library="imagens" name="excel.png" />
-								<p:dataExporter type="xls" target="tblVendas" fileName="vendas" />
+								<p:dataExporter type="xls" target="tabelaVendas" fileName="vendas" />
 							</h:commandLink>
 
 							<h:commandLink>
 								<p:graphicImage library="imagens" name="pdf.png" />
-								<p:dataExporter type="pdf" target="tblVendas" fileName="vendas" />
+								<p:dataExporter type="pdf" target="tabelaVendas" fileName="vendas" />
 							</h:commandLink>
 
 							<h:commandLink>
 								<p:graphicImage library="imagens" name="csv.png" />
-								<p:dataExporter type="csv" target="tblVendas" fileName="vendas" />
+								<p:dataExporter type="csv" target="tabelaVendas" fileName="vendas" />
 							</h:commandLink>
 						</p:panel>
 
 						<p:panel header="Exportar Página">
 							<h:commandLink>
 								<p:graphicImage library="imagens" name="excel.png" />
-								<p:dataExporter type="xls" target="tblVendas" fileName="vendas"
+								<p:dataExporter type="xls" target="tabelaVendas" fileName="vendas"
 									pageOnly="true" />
 							</h:commandLink>
 
 							<h:commandLink>
 								<p:graphicImage library="imagens" name="pdf.png" />
-								<p:dataExporter type="pdf" target="tblVendas" fileName="vendas"
+								<p:dataExporter type="pdf" target="tabelaVendas" fileName="vendas"
 									pageOnly="true" />
 							</h:commandLink>
 
 							<h:commandLink>
 								<p:graphicImage library="imagens" name="csv.png" />
-								<p:dataExporter type="csv" target="tblVendas" fileName="vendas"
+								<p:dataExporter type="csv" target="tabelaVendas" fileName="vendas"
 									pageOnly="true" />
 							</h:commandLink>
 						</p:panel>

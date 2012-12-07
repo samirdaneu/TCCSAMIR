@@ -3,6 +3,7 @@ package br.com.sgpc.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -18,10 +19,13 @@ public class ItensPedido implements Serializable {
 	@EmbeddedId
 	private ItensPedidoPK id = new ItensPedidoPK();
 
+	@Column(name = "quantidade", nullable = false)
 	private int quantidade;
 	
+	@Column(name = "valor_unitario", nullable = false)
 	private BigDecimal valorUnitario;
 	
+	@Column(name = "valor_total", nullable = false)
 	private BigDecimal valorTotal;
 	
 	@ManyToOne
@@ -32,16 +36,15 @@ public class ItensPedido implements Serializable {
 	@JoinColumn(name = "produto_id", referencedColumnName = "id", insertable = false, updatable = false)
 	private Produto produto;
 	
-	public ItensPedido(){		
-	}
-
-	public ItensPedidoPK getId() {
-		return id;
-	}
-
-	public void setId(ItensPedidoPK id) {
-		this.id = id;
-	}
+	public ItensPedido(){}
+	
+	public ItensPedido(int quantidade, BigDecimal valorUnitario,
+			BigDecimal valorTotal, Integer pedido, Integer produto) {
+		this.setId(new ItensPedidoPK(pedido, produto));
+		this.quantidade = quantidade;
+		this.valorUnitario = valorUnitario;
+		this.valorTotal = valorTotal;
+	}	
 
 	public int getQuantidade() {
 		return quantidade;
@@ -58,12 +61,6 @@ public class ItensPedido implements Serializable {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}	
-	
-	public ItensPedido(int quantidade, BigDecimal valor, BigDecimal desconto,
-			Integer pedido, Integer produto) {
-		this.id = new ItensPedidoPK(pedido, produto);
-		this.quantidade = quantidade;			
-	}
 
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
@@ -87,6 +84,14 @@ public class ItensPedido implements Serializable {
 
 	public BigDecimal getValorTotal() {
 		return valorTotal;
+	}
+
+	public void setId(ItensPedidoPK id) {
+		this.id = id;
+	}
+
+	public ItensPedidoPK getId() {
+		return id;
 	}
 	
 }

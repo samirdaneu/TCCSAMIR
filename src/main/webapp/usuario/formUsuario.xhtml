@@ -43,14 +43,14 @@
 					<p:inputText value="#{usuarioController.usuario.email}"
 						required="false" maxlength="30" size="30">
 					<f:validator validatorId="emailValidator" />
-					</p:inputText>
-
-					<h:outputText value="Tipo de Usuário: " />
-					<p:selectOneMenu id="tipoVendedor" itemLabel="Selecione o tipo de usuário!"
-						value="#{usuarioController.tipoUsuarioSelecionado}">
-						<f:selectItems value="#{usuarioController.listaTiposUsuario}" />
+					</p:inputText>					
+					<h:outputText value="Tipo de usuário: " />
+					<p:selectOneMenu id="tipo" size="1"
+						value="#{usuarioController.usuario.tipoUsuario}">
+						<f:selectItems value="#{usuarioController.tiposUsuarios}" var="t"
+							itemLabel="#{t.nome}" itemValue="#{t}" />
 					</p:selectOneMenu>
-					
+
 					<f:facet name="footer">
 						<p:messages />
 						<br />
