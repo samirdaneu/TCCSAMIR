@@ -23,8 +23,10 @@ import br.com.sgpc.util.FacesUtil;
 @Controller("produtoController")
 @Scope("session")
 public class ProdutoController implements AlphaController {
-
+	
 	private static final long serialVersionUID = -6759622970651283020L;
+	
+	private static final String formularioProduto = "/produto/formProduto";
 	
 	private Produto produto;
 
@@ -102,7 +104,7 @@ public class ProdutoController implements AlphaController {
 		this.fornecedores = new ArrayList<Fornecedor>();
 		fornecedor = null;
         inicio();
-        return "/produto/formProduto";  
+        return formularioProduto;  
     }
 
 	public String excluir() {
