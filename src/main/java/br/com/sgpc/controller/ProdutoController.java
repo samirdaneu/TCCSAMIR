@@ -28,6 +28,10 @@ public class ProdutoController implements AlphaController {
 	
 	private static final String formularioProduto = "/produto/formProduto";
 	
+	private static final String formularioProdutoEdicao = "/produto/formEditar";
+	
+	private static final String formularioMostrarProdutos = "/produto/mostrarProdutos";
+	
 	private Produto produto;
 
 	private List<Fornecedor> fornecedores;
@@ -97,7 +101,7 @@ public class ProdutoController implements AlphaController {
 
 	public String editar() {
 		setProduto(getProdutoParaEditarExcluir());
-		return "/produto/formEditar";
+		return formProdutoEdicao;
 	}
 	
 	public String limparCampos() {
@@ -123,7 +127,7 @@ public class ProdutoController implements AlphaController {
 			this.produtoService.atualizar(produto);
 		}		
 		
-		return "/produto/mostrarProdutos";
+		return formularioMostrarProdutos;
 	}
 
 	public void setProduto(Produto produto) {
